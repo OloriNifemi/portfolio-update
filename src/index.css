@@ -1,0 +1,18 @@
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&family=Merriweather:ital,opsz,wght@0,18..144,300..900;1,18..144,300..900&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+:root {
+
+  font-family: system-ui, Avenir, Helvetica, Arial,  sans-serif;
+}
+
+@font-face {
+  font-family: "akira";
+  src: url("./assets/Fonts/AkiraExpandedDemo.otf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+} 
+
