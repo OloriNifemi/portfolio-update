@@ -1,19 +1,21 @@
 import React, { useState } from 'react'
 import { TbCodeCircle2 } from "react-icons/tb";
+import { Fa1, Fa2, Fa3 } from "react-icons/fa6";
+
 
 const Services = () => {
   const [activeIndex, setActiveIndex] = useState(0);
 
   const services = [
     {
-      number: "01",
+      number: <Fa1 />,
       title: "web development",
       desc: `Performance and precision work hand in hand in this carefully crafted codebase 
       engineered for speed, optimized for reliability, and structured with reusability in mind.
       Every function is designed to be efficient, scalable, and easy to maintain, ensuring long-term dependability in any environment.`,
     },
     {
-      number: "02",
+      number: <Fa2 />,
       title: "UI/UX implementation",
       desc: `Precision coding transforms designs into seamless experiences, 
       blending structure with interactivity for consistency across devices. 
@@ -22,7 +24,7 @@ const Services = () => {
       journey.`,
     },
     {
-      number: "03",
+      number: <Fa3 />,
       title: "web maintenance",
       desc: `Reliable upkeep and seamless functionality are at the heart of this service, 
       designed to keep your digital presence running smoothly. From fixing bugs to improving
@@ -34,12 +36,12 @@ const Services = () => {
     <div className='flex flex-col gap-10 text-gray-200 font-manRope justify-center min-h-screen items-center px-6'>
       {/* Section Title */}
       <div className='flex flex-col justify-center items-center'>
-        <p className='text-[14px]'>Services</p>
-        <h2 className='text-[28px]'>What I <span className='text-[#01dbc6]'>do.</span></h2>
+        <p className='text-[14px] uppercase '>Services</p>
+        <h2 className='text-[28px]'>What I <span className='text-[#01dbc6]'>Do.</span></h2>
       </div>
 
       {/* Services Grid */}
-      <div className='grid gap-6 w-full max-w-6xl sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3'>
+      <div className='grid gap-[28px] w-full max-w-6xl sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3'>
         {services.map((item, idx) => (
           <div
             key={idx}

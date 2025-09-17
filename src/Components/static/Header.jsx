@@ -25,7 +25,7 @@ export default function Header() {
   return ( 
 <header
   className={`fixed top-0 left-0 w-full z-50 h-[80px] flex items-center justify-between gap-3 
-    md:px-[50px] max-sm:px-[30px] text-gray-200 transition-all duration-500 ease-in-out
+    md:px-[50px] max-sm:px-[30px] lg:px-[92px] text-gray-200 transition-all duration-500 ease-in-out
     ${scrolled 
       ? "bg-black/60 backdrop-blur-md border-b border-gray-700 shadow-md" 
       : "bg-transparent"}`}
@@ -81,6 +81,7 @@ export default function Header() {
             <a
               key={link.href}
               href={link.href}
+              onClick={() => setIsSideBarOpen(false)}   
               className="text-[18px] font-medium font-sans transition-all ease-in-out duration-500 hover:text-[#01DBC6] text-gray-200"
             >
               {link.label}
