@@ -1,20 +1,17 @@
- /** @type {import('tailwindcss').Config} */
 export default {
-   content:[
-        "./index.html",
-    "./src/**/*.{js,ts,jsx,tsx}",
-    "./src/Components/**/*.{js,ts,jsx,tsx}"
-   ], 
-   
-   theme: {
-     extend: {
+  content: ["./index.html", "./src/**/*.{js,jsx}"],
+  theme: {
+    extend: {
       fontFamily: {
-        akira: [ "akira" ],
-        montSerrat: ["Montserrat", "sans-serif" ],
-        manRope: ["Manrope","sans-serif" ],
-        merriWeather: ["Merriweather", "serif"],
+        serif: ['"Cormorant Garamond"', "serif"],
+        sans: ["Inter", "sans-serif"],
       },
-     },
-   },
-   plugins: [],
- }
+      colors: {
+        ink: "#111111",
+        muted: "#666666",
+        hairline: "#EAEAEA",
+      },
+    },
+  },
+  plugins: [],
+};

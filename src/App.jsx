@@ -1,25 +1,30 @@
-import React from 'react'
-import Layout from './Components/Layout/MainLayout'
-import Home from './Components/pages/Home'
-import Project from './Components/pages/Project'
-import About from './Components/pages/About'
+import React from "react";
+import Header from "./components/layout/Header";
+import Footer from "./components/layout/Footer";
+import Hero from "./components/sections/Hero";
+import About from "./components/sections/About";
+import Projects from "./Components/sections/Project";
+import Skills from "./components/sections/Skills";
+import Experience from "./components/sections/Experience";
+import Services from "./components/sections/Services";
+import Contact from "./components/sections/Contact";
 
-const App = () => {
+function App() {
   return (
-    <Layout>
-      <section id="home">
-        <Home />
-      </section>
-
-      <section id="about">
+    <div className="bg-white text-[#111111] antialiased">
+      <Header />
+      <main>
+        <Hero />
         <About />
-      </section>
-
-      <section id="project">
-        <Project />
-      </section>
-    </Layout>
-  )
+        <Projects />
+        <Skills />
+        <Experience />
+        <Services />
+        <Contact />
+      </main>
+      <Footer />
+    </div>
+  );
 }
 
-export default App
+export default App;
