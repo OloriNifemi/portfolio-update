@@ -1,7 +1,7 @@
 import React, { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import Container from "../ui/Container";
-import SectionHeading from "../ui/SectionHeading";
+import SectionHeading from "../ui/Sectionheading";
 import Reveal from "../ui/Reveal";
 
 const STATS = [
