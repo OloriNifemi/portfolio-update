@@ -1,83 +1,166 @@
-import React from "react";
+import React, { useRef } from "react";
+import { motion, useInView } from "framer-motion";
 import Container from "../ui/Container";
-import SectionHeading from "../ui/Sectionheading";
+import SectionHeading from "../ui/SectionHeading";
 import Reveal from "../ui/Reveal";
 
 const STATS = [
-  { num: "3+", label: "Years of Experience" },
-  { num: "20+", label: "Projects Completed" },
-  { num: "100%", label: "Client Satisfaction" },
+  {
+    number: "20+",
+    label: "Projects Delivered",
+  },
+  {
+    number: "3+",
+    label: "Years Learning & Building",
+  },
+  {
+    number: "100%",
+    label: "Commitment to Quality",
+  },
 ];
 
 const TECH = [
-  "React", "TypeScript", "JavaScript (ES6+)", "Tailwind CSS",
-  "Framer Motion", "Vite", "Git & GitHub", "Figma",
+  "React",
+  "TypeScript",
+  "JavaScript",
+  "Tailwind CSS",
+  "Framer Motion",
+  "Next.js",
+  "Git & GitHub",
+  "Figma",
 ];
+
+// Hospital-monitor style pulse trace. Sits directly opposite the "Philosophy"
+// label (same row, not stacked above the box) and keeps beating on a loop for
+// as long as it's in view — like a live monitor reading a patient.
+const HeartbeatLine = () => {
+  const ref = useRef(null);
+  const inView = useInView(ref, { amount: 0.6 });
+
+  return (
+    <svg
+      ref={ref}
+      viewBox="0 0 160 32"
+      preserveAspectRatio="none"
+      className="flex-1 h-6 text-[#111111]"
+      fill="none"
+    >
+      <motion.path
+        d="M0,16 L14,16 L18,16 L22,4 L26,28 L30,16 L38,16 L44,16 L48,7 L52,24 L56,16 L64,16 L160,16"
+        stroke="currentColor"
+        strokeWidth="1.6"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        animate={inView ? { pathLength: [0, 1] } : { pathLength: 0 }}
+        transition={
+          inView
+            ? { duration: 2, ease: "easeInOut", repeat: Infinity, repeatDelay: 0.5 }
+            : { duration: 0.3 }
+        }
+      />
+    </svg>
+  );
+};
 
 const About = () => {
   return (
-    <section id="about" className="py-28 md:py-36 border-t border-[#EAEAEA]">
+    <section
+      id="about"
+      className="py-28 md:py-36 border-t border-[#ECECEC]"
+    >
       <Container>
-        <SectionHeading eyebrow="About" title="A little about my work." />
+        <SectionHeading
+          eyebrow="About"
+          title="Designing interfaces that feel effortless."
+        />
 
-        <div className="grid lg:grid-cols-12 gap-16 mt-16">
-          <div className="lg:col-span-7 flex flex-col gap-6">
+        <div className="grid lg:grid-cols-12 gap-20 mt-20">
+          {/* LEFT */}
+          <div className="lg:col-span-7 space-y-8">
             <Reveal delay={0.05}>
-              <p className="text-[#111111] text-[19px] leading-relaxed font-serif italic">
-                I care about the details most people never consciously notice —
-                the easing on a hover state, the rhythm of a type scale, the
-                half-second that makes an interface feel inevitable rather than
-                assembled.
-              </p>
-            </Reveal>
-            <Reveal delay={0.1}>
-              <p className="text-[#666666] text-[15px] leading-relaxed">
-                I specialize in building responsive, high-performance frontends
-                with React and Tailwind CSS — turning designs into interfaces
-                that feel as good to use as they look. Before focusing fully on
-                development, I spent time in customer support at TuPay and as a
-                personal assistant, both roles built around clear communication,
-                precision, and staying organized under pressure — habits that
-                show up directly in how I scope, structure, and ship frontend
-                work today.
-              </p>
-            </Reveal>
-            <Reveal delay={0.15}>
-              <p className="text-[#666666] text-[15px] leading-relaxed">
-                Whether it's a marketing site, a product dashboard, or a design
-                system, my goal is the same: build something that feels
-                intentional in every detail.
+              <p className="text-2xl md:text-3xl font-serif italic leading-relaxed text-[#111111]">
+                Great interfaces shouldn't compete for attention.
+                They should quietly guide users, communicate clearly,
+                and leave a lasting impression through simplicity.
               </p>
             </Reveal>
 
-            <Reveal delay={0.2} className="flex gap-10 mt-6 flex-wrap">
-              {STATS.map((s) => (
-                <div key={s.label}>
-                  <p className="font-serif text-[28px] text-[#111111]">{s.num}</p>
-                  <p className="text-[11px] uppercase tracking-[0.12em] text-[#666666] mt-1">{s.label}</p>
-                </div>
-              ))}
+            <Reveal delay={0.12}>
+              <p className="text-[#666666] leading-8 text-[16px]">
+                I'm a frontend developer passionate about crafting elegant,
+                responsive digital experiences with React, TypeScript and
+                Tailwind CSS. I enjoy transforming thoughtful designs into
+                products that feel polished, intuitive and refined.
+              </p>
+            </Reveal>
+
+            <Reveal delay={0.18}>
+              <p className="text-[#666666] leading-8 text-[16px]">
+                Before transitioning fully into development, I worked in
+                customer support and executive assistance—experiences that
+                sharpened my communication, attention to detail and problem
+                solving. Today, those same qualities shape how I build software.
+              </p>
+            </Reveal>
+
+            <Reveal delay={0.25}>
+              <div className="grid grid-cols-3 gap-10 pt-10 border-t border-[#ECECEC]">
+                {STATS.map((item) => (
+                  <div key={item.label}>
+                    <h3 className="font-serif text-4xl text-[#111111]">
+                      {item.number}
+                    </h3>
+
+                    <p className="mt-2 text-[11px] uppercase tracking-[0.18em] text-[#777] leading-5">
+                      {item.label}
+                    </p>
+                  </div>
+                ))}
+              </div>
             </Reveal>
           </div>
 
+          {/* RIGHT */}
           <div className="lg:col-span-5">
             <Reveal delay={0.1}>
-              <p className="text-[12px] uppercase tracking-[0.2em] text-[#666666] mb-6">
-                Technologies I work with
-              </p>
-              <ul className="flex flex-col divide-y divide-[#EAEAEA] border-t border-b border-[#EAEAEA]">
-                {TECH.map((tech, i) => (
-                  <li
-                    key={tech}
-                    className="py-4 flex items-center justify-between text-[#111111] text-[15px]"
-                  >
-                    <span>{tech}</span>
-                    <span className="text-[#666666] text-[12px] font-mono">
-                      {String(i + 1).padStart(2, "0")}
-                    </span>
-                  </li>
-                ))}
-              </ul>
+              <div className="sticky top-28">
+                <p className="uppercase tracking-[0.25em] text-[11px] text-[#777] mb-8">
+                  Toolbox
+                </p>
+
+                <div className="border-y border-[#ECECEC] divide-y divide-[#ECECEC]">
+                  {TECH.map((tech, index) => (
+                    <div
+                      key={tech}
+                      className="flex items-center justify-between py-5 group"
+                    >
+                      <span className="text-[#111111] text-[16px] transition-all duration-300 group-hover:translate-x-2">
+                        {tech}
+                      </span>
+
+                      <span className="text-[#999] font-mono text-xs">
+                        {String(index + 1).padStart(2, "0")}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Philosophy — pulse trace sits directly opposite the label, inside the box */}
+                <div className="rounded-lg mt-12 p-8 border border-[#ECECEC]">
+                  <div className="flex items-center gap-4 mb-5">
+                    <HeartbeatLine />
+                    <p className="uppercase tracking-[0.2em] text-[11px] text-[#777] whitespace-nowrap">
+                      Philosophy
+                    </p>
+                  </div>
+
+                  <p className="text-[#666666] leading-7 text-[15px]">
+                    I believe digital products should feel timeless,
+                    clean layouts, thoughtful interactions and meaningful
+                    details that make technology feel human.
+                  </p>
+                </div>
+              </div>
             </Reveal>
           </div>
         </div>
