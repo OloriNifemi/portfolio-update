@@ -1,7 +1,7 @@
 import React from "react";
 import { TbCode, TbDeviceMobile, TbBrandReact, TbLayoutGrid } from "react-icons/tb";
 import Container from "../ui/Container";
-import SectionHeading from "../ui/SectionHeading";
+import SectionHeading from "../ui/Sectionheading";
 import Reveal from "../ui/Reveal";
 
 const SERVICES = [

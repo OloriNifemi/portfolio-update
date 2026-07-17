@@ -1,7 +1,7 @@
 import React from "react";
 import Reveal from "./Reveal";
 
-const SectionHeading = ({ eyebrow, title, align = "left" }) => (
+const Sectionheading = ({ eyebrow, title, align = "left" }) => (
   <Reveal className={align === "center" ? "text-center" : "text-left"}>
     <p className="text-[12px] uppercase tracking-[0.25em] text-[#666666] mb-3">
       {eyebrow}
@@ -12,4 +12,4 @@ const SectionHeading = ({ eyebrow, title, align = "left" }) => (
   </Reveal>
 );
 
-export default SectionHeading;
+export default Sectionheading;
