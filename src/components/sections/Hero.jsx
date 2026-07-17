@@ -78,7 +78,7 @@ const Hero = () => {
                 transition-[transform,background-color,color,border-color] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]
                 hover:bg-[#111111] hover:border-[#111111] hover:text-white hover:-translate-y-0.5"
             >
-              Contact Me
+              Contact Meooooo
             </a>
             <a
               href="/resume.pdf"
