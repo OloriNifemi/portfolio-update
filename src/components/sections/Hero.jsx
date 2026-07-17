@@ -63,18 +63,18 @@ const Hero = () => {
             last transition.
           </motion.p>
 
-          <motion.div {...fadeUp(0.38)} className="mt-12 flex flex-wrap gap-4">
+          <motion.div {...fadeUp(0.38)} className="mt-12 flex flex-col gap-4">
             <a
               href="#projects"
-              className="rounded-lg px-7 py-3.5 bg-[#111111] text-white text-[13px] uppercase tracking-[0.1em]
+              className="rounded-lg px-7 py-3.5 max-w-[200px] bg-[#111111] text-white text-[13px] uppercase tracking-[0.1em]
                 transition-[transform,background-color] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]
                 hover:bg-[#2a2a2a] hover:-translate-y-0.5"
             >
-              View Projects →
+              View Projects → 
             </a>
             <a
               href="#contact"
-              className="rounded-lg px-7 py-3.5 border border-[#D9D9D8] text-[#111111] text-[13px] uppercase tracking-[0.1em]
+              className="rounded-lg px-7 py-3.5 max-w-[200px] border border-[#D9D9D8] text-[#111111] text-[13px] uppercase tracking-[0.1em]
                 transition-[transform,background-color,color,border-color] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]
                 hover:bg-[#111111] hover:border-[#111111] hover:text-white hover:-translate-y-0.5"
             >
@@ -83,7 +83,7 @@ const Hero = () => {
             <a
               href="/resume.pdf"
               download
-              className="rounded-lg px-7 py-3.5 text-[#111111] text-[13px] uppercase tracking-[0.1em] flex items-center gap-2
+              className="rounded-lg px-7 py-3.5 max-w-[200px] text-[#111111] text-[13px] uppercase tracking-[0.1em] flex items-center gap-2
                 border border-transparent transition-[border-color] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]
                 hover:border-[#D9D9D8]"
             >
