@@ -3,7 +3,7 @@ import { PiGithubLogoFill } from "react-icons/pi";
 import { TfiLinkedin } from "react-icons/tfi";
 import { BiLogoGmail } from "react-icons/bi";
 import Container from "../ui/Container";
-import SectionHeading from "../ui/SectionHeading";
+import SectionHeading from "../ui/Sectionheading";
 import Reveal from "../ui/Reveal";
 
 /*

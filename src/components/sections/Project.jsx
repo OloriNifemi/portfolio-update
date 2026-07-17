@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { HiOutlineArrowUpRight } from "react-icons/hi2";
 import { TbBrandGithub } from "react-icons/tb";
 import Container from "../ui/Container";
-import SectionHeading from "../ui/SectionHeading";
+import SectionHeading from "../ui/Sectionheading";
 import Reveal from "../ui/Reveal";
 
 /*

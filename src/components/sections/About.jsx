@@ -1,6 +1,6 @@
 import React from "react";
 import Container from "../ui/Container";
-import SectionHeading from "../ui/SectionHeading";
+import SectionHeading from "../ui/Sectionheading";
 import Reveal from "../ui/Reveal";
 
 const STATS = [
