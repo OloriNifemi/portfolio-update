@@ -5,17 +5,18 @@ import { TbBrandGithub } from "react-icons/tb";
 import Container from "../ui/Container";
 import SectionHeading from "../ui/Sectionheading";
 import Reveal from "../ui/Reveal";
-import Ecommerce from "../../assets/Ecommerce.png"
-import WeddingWeb from "../../assets/WeddingWeb.png"
-import Birthday from "../../assets/Birthday.png"
+import Ecommerce from "../../assets/Ecommerce.png";
+import WeddingWeb from "../../assets/WeddingWeb.png";
+import Birthday from "../../assets/Birthday.png";
 
+const EASE = [0.16, 1, 0.3, 1];
+const DURATION = 0.6;
 
 const PROJECTS = [
   {
     title: "E-Commerce Storefront",
     image: Ecommerce,
-    desc:
-      "A responsive storefront with cart, checkout flow, and product filtering.",
+    desc: "A responsive storefront with cart, checkout flow, and product filtering.",
     tags: ["React", "Tailwind CSS", "Context API"],
     liveHref: "https://loc-jewelry-store.vercel.app/",
     codeHref: "https://github.com/OloriNifemi/Loc-Jewelry-store.git",
@@ -23,8 +24,7 @@ const PROJECTS = [
   {
     title: "Wedding Website",
     image: WeddingWeb,
-    desc:
-      "An elegant wedding website with RSVP, countdown timer, gallery and animations.",
+    desc: "Elegant wedding website with RSVP, countdown, and gallery.",
     tags: ["React", "Tailwind CSS", "Framer Motion"],
     liveHref: "https://muyiwa-weds-debby.vercel.app/",
     codeHref: "https://github.com/OloriNifemi/Wedding-web.git",
@@ -32,34 +32,56 @@ const PROJECTS = [
   {
     title: "Birthday Card",
     image: Birthday,
-    desc:
-      "A reusable design system with accessible components.",
+    desc: "A reusable design system with accessible components.",
     tags: ["React", "Storybook", "Tailwind CSS"],
     liveHref: "#",
     codeHref: "https://github.com/OloriNifemi",
   },
 ];
 
+// One shared set of variants, one trigger (the outer card), one timing.
+// Everything below fades/lifts/zooms in lockstep instead of racing on
+// separate durations and easing curves.
+const cardVariants = {
+  rest: { y: 0, boxShadow: "0 0px 0px 0px rgba(17,17,17,0)" },
+  hover: { y: -6, boxShadow: "0 28px 44px -22px rgba(17,17,17,0.18)" },
+};
+
+const imageVariants = {
+  rest: { scale: 1 },
+  hover: { scale: 1.04 },
+};
+
+const overlayVariants = {
+  rest: { opacity: 0 },
+  hover: { opacity: 1 },
+};
+
 const ProjectCard = ({ project, index }) => (
   <Reveal delay={index * 0.1}>
     <motion.div
-      whileHover={{ y: -6 }}
-      transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-      className="group border border-[#EAEAEA] transition-colors duration-300 hover:border-[#111111]"
+      initial="rest"
+      animate="rest"
+      whileHover="hover"
+      variants={cardVariants}
+      transition={{ duration: DURATION, ease: EASE }}
+      className="rounded-lg group border border-[#EAEAEA] transition-colors duration-[600ms] ease-[cubic-bezier(0.16,1,0.3,1)] hover:border-[#111111]"
     >
-      {/* Screenshot placeholder */}
-      <div className="relative aspect-[16/10] overflow-hidden border-b border-[#EAEAEA]">
-
+      {/* Screenshot */}
+      <div className="rounded-t-lg relative aspect-[16/10] overflow-hidden border-b border-[#EAEAEA]">
         <motion.img
           src={project.image}
           alt={project.title}
-          whileHover={{ scale: 1.06 }}
-          transition={{ duration: 0.6 }}
+          variants={imageVariants}
+          transition={{ duration: DURATION, ease: EASE }}
           className="w-full h-full object-cover"
         />
-
-        <div className="absolute inset-0 bg-gradient-to-t from-black/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition duration-500" />
-
+        <motion.div
+          aria-hidden="true"
+          variants={overlayVariants}
+          transition={{ duration: DURATION, ease: EASE }}
+          className="absolute inset-0 bg-gradient-to-t from-black/10 via-transparent to-transparent"
+        />
       </div>
 
       <div className="p-8 flex flex-col gap-4">
@@ -68,7 +90,10 @@ const ProjectCard = ({ project, index }) => (
 
         <div className="flex flex-wrap gap-2 pt-1">
           {project.tags.map((tag) => (
-            <span key={tag} className="text-[11px] uppercase tracking-wide text-[#666666] border border-[#EAEAEA] px-3 py-1">
+            <span
+              key={tag}
+              className="text-[11px] uppercase tracking-wide text-[#666666] border border-[#EAEAEA] px-3 py-1"
+            >
               {tag}
             </span>
           ))}
