@@ -1,13 +1,13 @@
 import React from "react";
-import Header from "./Components/layout/Header";
-import Footer from "./Components/layout/Footer";
-import Hero from "./Components/sections/Hero";
-import About from "./Components/sections/About";
-import Projects from "./Components/sections/Project";
-import Skills from "./Components/sections/Skills";
-import Experience from "./Components/sections/Experience";
-import Services from "./Components/sections/Services";
-import Contact from "./Components/sections/Contact";
+import Header from "./components/layout/Header";
+import Footer from "./components/layout/Footer";
+import Hero from "./components/sections/Hero";
+import About from "./components/sections/About";
+import Projects from "./components/sections/Project";
+import Skills from "./components/sections/Skills";
+import Experience from "./components/sections/Experience";
+import Services from "./components/sections/Services";
+import Contact from "./components/sections/Contact";
 
 function App() {
   return (
