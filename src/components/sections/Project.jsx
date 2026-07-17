@@ -5,31 +5,36 @@ import { TbBrandGithub } from "react-icons/tb";
 import Container from "../ui/Container";
 import SectionHeading from "../ui/Sectionheading";
 import Reveal from "../ui/Reveal";
+import Ecommerce from "../../assets/Ecommerce.png"
+import WeddingWeb from "../../assets/WeddingWeb.png"
+import Birthday from "../../assets/Birthday.png"
 
-/*
-  NOTE: swap `image` for real project screenshots (import them like the
-  hero portrait) once you have them. The monogram placeholder keeps the
-  layout shippable without screenshots on hand.
-*/
+
 const PROJECTS = [
   {
     title: "E-Commerce Storefront",
-    desc: "A responsive storefront with cart, checkout flow, and product filtering, built with performance as a first-class requirement.",
+    image: Ecommerce,
+    desc:
+      "A responsive storefront with cart, checkout flow, and product filtering.",
     tags: ["React", "Tailwind CSS", "Context API"],
     liveHref: "https://loc-jewelry-store.vercel.app/",
     codeHref: "https://github.com/OloriNifemi/Loc-Jewelry-store.git",
   },
   {
-    title: "Task Management App",
-    desc: "A drag-and-drop kanban board with persistent state, keyboard accessibility, and multi-board support.",
-    tags: ["React", "TypeScript", "Framer Motion"],
+    title: "Wedding Website",
+    image: WeddingWeb,
+    desc:
+      "An elegant wedding website with RSVP, countdown timer, gallery and animations.",
+    tags: ["React", "Tailwind CSS", "Framer Motion"],
     liveHref: "https://muyiwa-weds-debby.vercel.app/",
     codeHref: "https://github.com/OloriNifemi/Wedding-web.git",
   },
   {
-    title: "Design System & Component Library",
-    desc: "A themeable, documented component library used across multiple client projects to keep shipping fast and consistent.",
-    tags: ["React", "Tailwind CSS", "Storybook"],
+    title: "Birthday Card",
+    image: Birthday,
+    desc:
+      "A reusable design system with accessible components.",
+    tags: ["React", "Storybook", "Tailwind CSS"],
     liveHref: "#",
     codeHref: "https://github.com/OloriNifemi",
   },
@@ -43,12 +48,18 @@ const ProjectCard = ({ project, index }) => (
       className="group border border-[#EAEAEA] transition-colors duration-300 hover:border-[#111111]"
     >
       {/* Screenshot placeholder */}
-      <div className="relative aspect-[16/10] w-full overflow-hidden bg-[#FAFAFA] border-b border-[#EAEAEA]">
-        <div className="absolute inset-0 flex items-center justify-center">
-          <span className="font-serif italic text-5xl text-[#111111]/10 transition-colors duration-500 group-hover:text-[#111111]/20">
-            {project.title.split(" ").map((w) => w[0]).join("").slice(0, 2)}
-          </span>
-        </div>
+      <div className="relative aspect-[16/10] overflow-hidden border-b border-[#EAEAEA]">
+
+        <motion.img
+          src={project.image}
+          alt={project.title}
+          whileHover={{ scale: 1.06 }}
+          transition={{ duration: 0.6 }}
+          className="w-full h-full object-cover"
+        />
+
+        <div className="absolute inset-0 bg-gradient-to-t from-black/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition duration-500" />
+
       </div>
 
       <div className="p-8 flex flex-col gap-4">
