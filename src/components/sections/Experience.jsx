@@ -4,25 +4,39 @@ import SectionHeading from "../ui/Sectionheading";
 import Reveal from "../ui/Reveal";
 
 const EXPERIENCE = [
+    {
+    year: "2025 — Contract Based",
+    role: "Executive Assistant / HR",
+    place: "Private Client",
+    desc: "Managed schedules, priorities, and shifting requirements simultaneously — a habit of staying organized under changing constraints that carries directly into scoping and shipping frontend work.",
+  },
   {
-    year: "2023 — Present",
+    year: "2025 — Contract Based",
+    role: "Executive Assistant / HR",
+    place: "Private Client",
+    desc: "Managed schedules, priorities, and shifting requirements simultaneously — a habit of staying organized under changing constraints that carries directly into scoping and shipping frontend work.",
+  },
+  {
+    
+    year: "2024 — Present",
     role: "Frontend Developer",
     place: "Freelance / Contract",
     desc: "Building responsive, production-grade interfaces in React and Tailwind CSS for clients across e-commerce, SaaS, and portfolio projects — from first component to deployment.",
     current: true,
   },
   {
-    year: "2022 — 2023",
+    year: "2026 — Contract Based ",
     role: "Customer Support Representative",
     place: "TuPay",
     desc: "Resolved technical issues for customers in real time, translating confusing problems into clear, calm explanations — the same instinct I now bring to writing interfaces that don't confuse anyone.",
   },
   {
-    year: "2021 — 2022",
-    role: "Personal Assistant",
+    year: "2025 — Contract Based",
+    role: "Executive Assistant / HR",
     place: "Private Client",
     desc: "Managed schedules, priorities, and shifting requirements simultaneously — a habit of staying organized under changing constraints that carries directly into scoping and shipping frontend work.",
   },
+
 ];
 
 const Experience = () => {

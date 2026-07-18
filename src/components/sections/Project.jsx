@@ -39,9 +39,7 @@ const PROJECTS = [
   },
 ];
 
-// One shared set of variants, one trigger (the outer card), one timing.
-// Everything below fades/lifts/zooms in lockstep instead of racing on
-// separate durations and easing curves.
+
 const cardVariants = {
   rest: { y: 0, boxShadow: "0 0px 0px 0px rgba(17,17,17,0)" },
   hover: { y: -6, boxShadow: "0 28px 44px -22px rgba(17,17,17,0.18)" },

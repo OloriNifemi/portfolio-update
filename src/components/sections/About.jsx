@@ -10,7 +10,7 @@ const STATS = [
     label: "Projects Delivered",
   },
   {
-    number: "3+",
+    number: "2+",
     label: "Years Learning & Building",
   },
   {
@@ -25,14 +25,11 @@ const TECH = [
   "JavaScript",
   "Tailwind CSS",
   "Framer Motion",
-  "Next.js",
+  "Vite",
   "Git & GitHub",
   "Figma",
 ];
 
-// Hospital-monitor style pulse trace. Sits directly opposite the "Philosophy"
-// label (same row, not stacked above the box) and keeps beating on a loop for
-// as long as it's in view — like a live monitor reading a patient.
 const HeartbeatLine = () => {
   const ref = useRef(null);
   const inView = useInView(ref, { amount: 0.6 });

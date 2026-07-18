@@ -56,8 +56,8 @@ const Header = () => {
 
         <a
           href="#contact"
-          className="hidden lg:inline-flex items-center px-6 py-2.5 border border-[#111111] text-[#111111] text-[13px]
-            uppercase tracking-[0.1em] transition-all duration-300 hover:bg-[#111111] hover:text-white"
+          className="rounded-lg ease-in-out  hidden lg:inline-flex items-center px-6 py-2.5 border border-[#111111] text-[#111111] text-[13px]
+            uppercase tracking-[0.1em] transition-all duration-500 hover:bg-[#111111] hover:text-white"
         >
           Let's Talk
         </a>
@@ -99,9 +99,9 @@ const Header = () => {
               <a
                 href="#contact"
                 onClick={() => setIsOpen(false)}
-                className="w-fit mt-2 px-6 py-2.5 border border-[#111111] text-[#111111] text-[13px] uppercase tracking-[0.1em]"
+                className=" mt-2 px-6 py-2.5  border border-[#111111] text-[#111111] text-[13px] uppercase tracking-[0.1em]"
               >
-                Let's Talk
+                Let's Talk 
               </a>
             </Container>
           </motion.nav>

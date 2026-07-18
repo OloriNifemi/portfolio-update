@@ -6,11 +6,6 @@ import Container from "../ui/Container";
 import SectionHeading from "../ui/Sectionheading";
 import Reveal from "../ui/Reveal";
 
-/*
-  No backend wired up — submitting opens the visitor's email client with the
-  message pre-filled (mailto fallback). Swap handleSubmit for a real API call
-  (EmailJS, Formspree, etc.) when you're ready to send without leaving the page.
-*/
 
 const LINKS = [
   { icon: <PiGithubLogoFill />, href: "https://github.com/OloriNifemi", label: "GitHub" },

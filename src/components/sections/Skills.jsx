@@ -4,8 +4,8 @@ import SectionHeading from "../ui/Sectionheading";
 import Reveal from "../ui/Reveal";
 
 const CATEGORIES = [
-  { title: "Frontend", items: ["JavaScript (ES6+)", "TypeScript", "React", "Next.js"] },
-  { title: "Styling", items: ["Tailwind CSS", "CSS3 / Sass", "Framer Motion", "Responsive Design"] },
+  { title: "Frontend", items: ["JavaScript (ES6+)", "TypeScript", "React", "Vite"] },
+  { title: "Styling", items: ["Tailwind CSS", "CSS3", "Framer Motion", "Responsive Design"] },
   { title: "Tools", items: ["Vite", "Figma", "VS Code", "Chrome DevTools"] },
   { title: "Version Control", items: ["Git", "GitHub", "Pull Requests", "Code Review"] },
 ];
