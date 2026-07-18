@@ -140,7 +140,7 @@ const Hero = () => {
             last transition.
           </motion.p>
 
-          <motion.div {...fadeUp(0.38)} className="mt-12 flex  gap-4">
+          <motion.div {...fadeUp(0.38)} className="mt-12 flex max-sm:flex-col gap-4">
             
             <a  href="#projects"
               className="rounded-lg px-7 py-3.5 lg:max-w-[200px] text-center bg-[#111111] text-white text-[13px] uppercase tracking-[0.1em]
