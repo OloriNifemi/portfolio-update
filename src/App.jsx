@@ -13,7 +13,6 @@ import Preloader from "./components/ui/Preloader";
 function App() {
   const [loading, setLoading] = useState(true);
 
-  // Lock page scroll while the welcome overlay is showing
   useEffect(() => {
     document.body.style.overflow = loading ? "hidden" : "";
     return () => {
@@ -23,21 +22,27 @@ function App() {
 
   return (
     <>
-      <Preloader onComplete={() => setLoading(false)} />
+      {loading && (
+        <Preloader onComplete={() => setLoading(false)} />
+      )}
 
-      <div className="bg-white text-[#111111] antialiased">
-        <Header />
-        <main>
-          <Hero />
-          <About />
-          <Projects />
-          <Skills />
-          <Experience />
-          <Services />
-          <Contact />
-        </main>
-        <Footer />
-      </div>
+      {!loading && (
+        <div className="bg-white text-[#111111] antialiased">
+          <Header />
+
+          <main>
+            <Hero />
+            <About />
+            <Projects />
+            <Skills />
+            <Experience />
+            <Services />
+            <Contact />
+          </main>
+
+          <Footer />
+        </div>
+      )}
     </>
   );
 }

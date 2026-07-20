@@ -21,8 +21,7 @@ const Preloader = ({ onComplete, duration = 3500 }) => {
       {visible && (
         <motion.div
           initial={{ y: 0 }}
-          exit={{ y: "-100%" }}
-          transition={{ duration: 1, ease: EASE }}
+           exit={{ y: "-100%" }} transition={{ duration: 1.7, ease: [0.16, 1, 0.3, 1], }}
           className="fixed inset-0 z-[999] bg-white flex items-center justify-center"
         >
           <div className="flex flex-col items-center text-center max-w-xl px-8">

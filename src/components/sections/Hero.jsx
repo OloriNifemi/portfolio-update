@@ -1,10 +1,5 @@
-import React, { useCallback } from "react";
-import {
-  motion,
-  useReducedMotion,
-  useMotionValue,
-  useSpring,
-} from "framer-motion";
+import React from "react";
+import { motion, useReducedMotion } from "framer-motion";
 import { PiGithubLogoFill } from "react-icons/pi";
 import { TfiLinkedin } from "react-icons/tfi";
 import { BiLogoGmail } from "react-icons/bi";
@@ -12,54 +7,46 @@ import { HiOutlineArrowDown, HiOutlineArrowDownTray } from "react-icons/hi2";
 import Container from "../ui/Container";
 import portrait from "../../assets/aboutImg.png";
 
+const EASE = [0.16, 1, 0.3, 1];
+const GOLD = "#B89C64";
+
 const SOCIALS = [
   { icon: <PiGithubLogoFill />, href: "https://github.com/OloriNifemi", label: "GitHub" },
   { icon: <TfiLinkedin />, href: "https://www.linkedin.com/in/obafemi-ayomipo", label: "LinkedIn" },
   { icon: <BiLogoGmail />, href: "mailto:ayomipoobafemi@gmail.com", label: "Email" },
 ];
 
-const EASE = [0.16, 1, 0.3, 1];
-const GOLD = "#B89C64";
 
-// Corner bracket geometry, in a 24x24 box, arm length ~10px, 1px inset for a
-// crisp stroke. Each is one continuous path so it "draws" as a single line.
-const CORNER_CONFIG = {
-  tl: { pos: "-top-3 -left-3", path: "M1,11 L1,1 L11,1", hover: { x: -4, y: -4 } },
-  tr: { pos: "-top-3 -right-3", path: "M13,1 L23,1 L23,11", hover: { x: 4, y: -4 } },
-  bl: { pos: "-bottom-3 -left-3", path: "M1,13 L1,23 L11,23", hover: { x: -4, y: 4 } },
-  br: { pos: "-bottom-3 -right-3", path: "M23,13 L23,23 L13,23", hover: { x: 4, y: 4 } },
+const CORNER_PATHS = {
+  tl: "M1,11 L1,1 L11,1",
+  tr: "M13,1 L23,1 L23,11",
+  bl: "M1,13 L1,23 L11,23",
+  br: "M23,13 L23,23 L13,23",
 };
 
-const CornerBracket = ({ corner, delay, stroke, strokeWidth, shouldReduceMotion }) => {
-  const { pos, path, hover } = CORNER_CONFIG[corner];
-
-  return (
-    <motion.div
-      variants={{ hover }}
-      transition={{ duration: 0.5, ease: EASE }}
-      className={`absolute ${pos} w-6 h-6 pointer-events-none`}
-    >
-      <svg viewBox="0 0 24 24" className="w-full h-full overflow-visible">
-        <motion.path
-          d={path}
-          fill="none"
-          stroke={stroke}
-          strokeWidth={strokeWidth}
-          strokeLinecap="square"
-          initial={shouldReduceMotion ? false : { pathLength: 0, opacity: 0 }}
-          animate={{ pathLength: [0, 1, 0.9, 1], opacity: 1, }}
-          transition={{
-            duration: 4,
-            delay,
-            repeat: Infinity,
-            repeatDelay: 2,
-            ease: "easeInOut",
-          }}
-        />
-      </svg>
-    </motion.div>
-  );
+const CORNER_POS = {
+  tl: "-top-3 -left-3",
+  tr: "-top-3 -right-3",
+  bl: "-bottom-3 -left-3",
+  br: "-bottom-3 -right-3",
 };
+
+const CornerBracket = ({ corner, delay, stroke, strokeWidth, shouldReduceMotion }) => (
+  <div className={`absolute ${CORNER_POS[corner]} w-6 h-6 pointer-events-none`}>
+    <svg viewBox="0 0 24 24" className="w-full h-full overflow-visible">
+      <motion.path
+        d={CORNER_PATHS[corner]}
+        fill="none"
+        stroke={stroke}
+        strokeWidth={strokeWidth}
+        strokeLinecap="square"
+        initial={shouldReduceMotion ? false : { pathLength: 0, opacity: 0 }}
+        animate={{ pathLength: 1, opacity: 1 }}
+        transition={{ duration: 1, delay, ease: EASE }}
+      />
+    </svg>
+  </div>
+);
 
 const Hero = () => {
   const shouldReduceMotion = useReducedMotion();
@@ -70,36 +57,10 @@ const Hero = () => {
     transition: { duration: 0.8, delay, ease: EASE },
   });
 
-  const outerX = useMotionValue(0);
-  const outerY = useMotionValue(0);
-  const innerX = useMotionValue(0);
-  const innerY = useMotionValue(0);
-
-  const springOuterX = useSpring(outerX, { stiffness: 90, damping: 22, mass: 0.7 });
-  const springOuterY = useSpring(outerY, { stiffness: 90, damping: 22, mass: 0.7 });
-  const springInnerX = useSpring(innerX, { stiffness: 220, damping: 20, mass: 0.4 });
-  const springInnerY = useSpring(innerY, { stiffness: 220, damping: 20, mass: 0.4 });
-
-  const handlePortraitMouseMove = useCallback(
-    (e) => {
-      if (shouldReduceMotion) return;
-      const rect = e.currentTarget.getBoundingClientRect();
-      const relX = (e.clientX - rect.left) / rect.width - 0.5;
-      const relY = (e.clientY - rect.top) / rect.height - 0.5;
-      outerX.set(relX * 8);
-      outerY.set(relY * 8);
-      innerX.set(relX * -6); // opposite direction from the outer frame
-      innerY.set(relY * -6);
-    },
-    [shouldReduceMotion, outerX, outerY, innerX, innerY]
-  );
-
-  const handlePortraitMouseLeave = useCallback(() => {
-    outerX.set(0);
-    outerY.set(0);
-    innerX.set(0);
-    innerY.set(0);
-  }, [outerX, outerY, innerX, innerY]);
+  const portraitVariants = {
+    rest: { scale: 1, rotate: 0 },
+    hover:{ scale:1.03, rotate:-0.2, },
+  };
 
   return (
     <section
@@ -149,10 +110,11 @@ const Hero = () => {
             >
               View Projects →
             </a>
+
             
             <a  href="/resume.pdf"
               download
-              className="rounded-lg px-7 py-3.5 lg:max-w-[200px] text-center  border border-[#D9D9D8] text-[#111111] text-[13px] uppercase tracking-[0.1em] flex items-center gap-2 justify-center
+              className="rounded-lg px-7 py-3.5 lg:max-w-[200px] text-center border border-[#D9D9D8] text-[#111111] text-[13px] uppercase tracking-[0.1em] flex items-center gap-2 justify-center
                 transition-[transform,border-color] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]
                 hover:bg-[#111111] hover:border-[#111111] hover:text-white hover:-translate-y-0.5"
             >
@@ -182,64 +144,47 @@ const Hero = () => {
         <motion.div
           initial={shouldReduceMotion ? false : { opacity: 0, scale: 0.98 }}
           animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 1.1, delay: 0.15, ease: EASE }}
-          whileHover={shouldReduceMotion ? undefined : "hover"}
-          onMouseMove={handlePortraitMouseMove}
-          onMouseLeave={handlePortraitMouseLeave}
+          transition={{ duration:1.6,
+ease:[0.16,1,0.3,1], delay: 0.15, }}
           className="relative group"
         >
-          {/* Soft floating shadow — sits under everything, barely moves */}
+          {/* Layered shadow — soft ambient + tighter contact shadow, static */}
+          <div
+            aria-hidden="true"
+            className="absolute inset-0 translate-x-4 translate-y-4 bg-black/[0.04] blur-2xl pointer-events-none"
+          />
+          <div
+            aria-hidden="true"
+            className="absolute inset-0 translate-x-1.5 translate-y-1.5 bg-black/[0.08] blur-sm pointer-events-none"
+          />
+
+          {/* Outer offset frame — static, architectural, faint black */}
           <motion.div
             aria-hidden="true"
             initial={shouldReduceMotion ? false : { opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 1.2, delay: 0.2, ease: EASE }}
-            className="absolute inset-0 translate-x-3 translate-y-3 bg-black/5 blur-md pointer-events-none"
+            transition={{ duration: 1, delay: 0.3, ease: EASE }}
+            className="absolute -bottom-6 -left-6 md:-bottom-8 md:-left-8 w-full h-full border border-black/15 pointer-events-none"
           />
 
-          {/* Outer offset frame — ambient float (11s) + mouse parallax, faint black */}
+          {/* Inner offset frame — static, gold hairline */}
           <motion.div
             aria-hidden="true"
-            animate={
-            shouldReduceMotion ? {} : { x: [0, 8, -6, 0], y: [0, -8, 5, 0], }}
-            transition={{ duration: 11, repeat: Infinity, ease: "easeInOut" }}
-            className="absolute -bottom-6 -left-6 md:-bottom-8 md:-left-8 w-full h-full pointer-events-none"
-          >
-            <motion.div
-              style={{ x: springOuterX, y: springOuterY }}
-              initial={shouldReduceMotion ? false : { opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 1, delay: 0.3, ease: EASE }}
-              className="w-full h-full border border-[#111111]/10"
-            />
-          </motion.div>
-
-          {/* Inner offset frame — ambient float (8s), opposite phase, gold hairline */}
-          <motion.div
-            aria-hidden="true"
-            animate={shouldReduceMotion ? {} : { x: [0, -6, 4, 0], y: [0, 6, -4, 0], }}
-            transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-            className="absolute -bottom-3 -left-3 w-full h-full pointer-events-none"
-          >
-            <motion.div
-              style={{
-                x: springInnerX,
-                y: springInnerY,
-                borderColor: GOLD,
-              }}
-              initial={shouldReduceMotion ? false : { opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 1, delay: 0.45, ease: EASE }}
-              className="w-full h-full border"
-            />
-          </motion.div>
+            initial={shouldReduceMotion ? false : { opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 1, delay: 0.45, ease: EASE }}
+            style={{ borderColor: GOLD }}
+            className="absolute -bottom-3 -left-3 w-[75%] h-[75%] border pointer-events-none"
+          />
 
           <div className="relative z-10 aspect-[4/5] w-full max-w-sm mx-auto">
-            {/* Image — clipped separately so corner brackets can overshoot the edge */}
+            {/* Image is clipped separately so corner brackets can overshoot the edge */}
             <div className="absolute inset-0 overflow-hidden border border-[#EAEAEA]">
               <motion.div
-                variants={{ hover: { scale: 1.06, rotate: -0.4, }, }}
-                transition={{ duration: 0.6, ease: EASE }}
+                variants={portraitVariants}
+                initial="rest"
+                whileHover="hover"
+                transition={{ duration: 0.9, ease: EASE }}
                 className="relative w-full h-full"
               >
                 <img
@@ -251,43 +196,53 @@ const Hero = () => {
                   src={portrait}
                   alt=""
                   aria-hidden="true"
-                  initial={{ opacity: 1 }}
-                  variants={{ hover: { opacity: 0 } }}
+                  variants={{ rest: { opacity: 1 }, hover: { opacity: 0 } }}
                   transition={{ duration: 0.6, ease: EASE }}
                   className="absolute inset-0 w-full h-full object-cover grayscale contrast-[1.05]"
                 />
               </motion.div>
 
-              {/* Self-drawing gold accent — top + left edge only. Draws in on
-                  load, overshoots a few px on hover. This is the single
-                  restrained luxury detail; everything else stays quiet. */}
-              <motion.div
-                aria-hidden="true"
-                variants={{ hover: { scaleX: 1.08 } }}
-                initial={shouldReduceMotion ? false : { scaleX: 0 }}
-                animate={{ scaleX: 1 }}
-                transition={{
-                  scaleX: shouldReduceMotion ? { duration: 0 } : { duration: 1.1, delay: 0.6, ease: EASE },
-                }}
-                style={{ transformOrigin: "left" }}
-                className="absolute z-20 top-0 left-0 w-full h-px bg-[#B89C64]"
-              />
+              {/* Gold top/left accent, draws in once on load, stays put */}
               <motion.div
                 aria-hidden="true"
                 initial={shouldReduceMotion ? false : { scaleX: 0 }}
                 animate={{ scaleX: 1 }}
-                whileHover={ shouldReduceMotion ? undefined : { scaleX: 1.08, }}
-                transition={{
-                  duration: 1,
-                  delay: 0.6,
-                  ease: EASE,
-                }}
-                style={{ transformOrigin: "top" }}
-                className="absolute z-20 top-0 left-0 w-px h-full bg-[#B89C64]"
+                transition={{ duration:1.6, ease:[0.16,1,0.3,1], delay: 0.6,  }}
+                style={{ transformOrigin: "left", backgroundColor: GOLD }}
+                className="absolute z-20 top-0 left-0 w-full h-px"
               />
+              <motion.div
+                aria-hidden="true"
+                initial={shouldReduceMotion ? false : { scaleY: 0 }}
+                animate={{ scaleY: 1 }}
+                transition={{ duration:1.6, ease:[0.16,1,0.3,1], delay: 0.6, }}
+                style={{ transformOrigin: "top", backgroundColor: GOLD }}
+                className="absolute z-20 top-0 left-0 w-px h-full"
+              />
+
+              {!shouldReduceMotion && (
+                <motion.div
+                  aria-hidden="true"
+                  initial={{ x: "-120%" }}
+                  animate={{ x: "220%" }}
+                  transition={{
+                      duration: 2.8,
+                      delay: 4,
+                      repeat: Infinity,
+                      repeatDelay: 12,
+                      ease: "easeInOut",
+                  }}
+                  className="absolute inset-y-0 left-0 z-20 w-1/3 pointer-events-none"
+                  style={{
+                    background:
+                      "linear-gradient(75deg, transparent 0%, rgba(184,156,100,0) 35%, rgba(184,156,100,0.28) 50%, rgba(184,156,100,0) 65%, transparent 100%)",
+                    mixBlendMode: "soft-light",
+                  }}
+                />
+              )}
             </div>
 
-            {/* Corner marks — gold on tl/br (accent), faint black on tr/bl (structure) */}
+            {/* Corner marks, gold on tl/br (accent), faint black on tr/bl (structure) */}
             <CornerBracket corner="tl" delay={0.9} stroke={GOLD} strokeWidth="1.5" shouldReduceMotion={shouldReduceMotion} />
             <CornerBracket corner="tr" delay={1.0} stroke="#111111" strokeWidth="1" shouldReduceMotion={shouldReduceMotion} />
             <CornerBracket corner="bl" delay={1.0} stroke="#111111" strokeWidth="1" shouldReduceMotion={shouldReduceMotion} />
