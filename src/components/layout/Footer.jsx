@@ -9,7 +9,7 @@ const Footer = () => {
           © {new Date().getFullYear()} Precious Obafemi. All rights reserved.
         </p>
         <p className="text-[13px] text-[#666666]">
-          Designed &amp; Developed by <span className="text-[#111111]">Precious Obafemi.</span>
+          Designed &amp; Developed by <span className="text-[#111111]"><a href="https://gravatar.com/gloriousdelectably1f143b5226?utm_source=qr">Precious Obafemi.</a></span>
         </p>
       </Container>
     </footer>

@@ -10,7 +10,7 @@ const NAV_LINKS = [
   { id: "skills", label: "Skills" },
   { id: "experience", label: "Experience" },
   { id: "services", label: "Services" },
-  { id: "contact", label: "Contact" },
+  // { id: "contact", label: "Contact" },
 ];
 
 const Header = () => {
@@ -34,33 +34,36 @@ const Header = () => {
           Precious<span className="text-[#666666]">.</span>
         </a>
 
-        {/* Desktop nav */}
-        <nav className="hidden lg:flex items-center gap-10">
-          {NAV_LINKS.map((link) => (
-            <a
-              key={link.id}
-              href={`#${link.id}`}
-              className={`relative text-[13px] uppercase tracking-[0.12em] pb-1 transition-colors duration-300
-                after:content-[''] after:absolute after:left-0 after:bottom-0 after:h-[1px] after:bg-[#111111]
-                after:transition-all after:duration-300
-                ${
-                  activeId === link.id
-                    ? "text-[#111111] after:w-full"
-                    : "text-[#666666] hover:text-[#111111] after:w-0 hover:after:w-full"
-                }`}
-            >
-              {link.label}
-            </a>
-          ))}
-        </nav>
+        <div className="flex items-center justify-center gap-10">
 
-        <a
-          href="#contact"
-          className="  hidden lg:inline-flex items-center px-6 py-2.5 border border-[#111111] text-[#111111] text-[13px]
-            uppercase tracking-[0.1em] rounded-lg ease-in-out transition-all duration-500 hover:bg-[#111111] hover:text-white"
-        >
-          Let's Talk
-        </a>
+          {/* Desktop nav */}
+          <nav className="hidden lg:flex items-center gap-10">
+            {NAV_LINKS.map((link) => (
+              <a
+                key={link.id}
+                href={`#${link.id}`}
+                className={`relative text-[13px] uppercase tracking-[0.12em] pb-1 transition-colors duration-300
+                  after:content-[''] after:absolute after:left-0 after:bottom-0 after:h-[1px] after:bg-[#111111]
+                  after:transition-all after:duration-300
+                  ${
+                    activeId === link.id
+                      ? "text-[#111111] after:w-full"
+                      : "text-[#666666] hover:text-[#111111] after:w-0 hover:after:w-full"
+                  }`}
+              >
+                {link.label}
+              </a>
+            ))}
+          </nav>
+
+          <a
+            href="#contact"
+            className="  hidden lg:inline-flex items-center px-6 py-2.5 border border-[#111111] text-[#111111] text-[13px]
+              uppercase tracking-[0.1em] rounded-lg ease-in-out transition-all duration-500 hover:bg-[#111111] hover:text-white"
+          >
+            Let's Talk
+          </a>
+        </div>
 
         {/* Mobile toggle */}
         <button

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { PiGithubLogoFill } from "react-icons/pi";
 import { TfiLinkedin } from "react-icons/tfi";
 import { BiLogoGmail } from "react-icons/bi";
+import { FaWhatsapp } from "react-icons/fa";
 import emailjs from "@emailjs/browser";
 import Container from "../ui/Container";
 import SectionHeading from "../ui/Sectionheading";
@@ -11,6 +12,13 @@ import Reveal from "../ui/Reveal";
 const EMAILJS_SERVICE_ID = "service_0y42go6";
 const EMAILJS_TEMPLATE_ID = "template_702x5zm";
 const EMAILJS_PUBLIC_KEY = "D9eYyyheRdZOWgXdS";
+
+const WHATSAPP_NUMBER = "2349116971778"; // +234 911 697 1778
+const WHATSAPP_MESSAGE =
+  "Prefer to reach out directly? I'm always happy to hear about new projects, ideas, or opportunities, and I usually reply within a day.";
+const WHATSAPP_LINK = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
+  WHATSAPP_MESSAGE
+)}`;
 
 const LINKS = [
   { icon: <PiGithubLogoFill />, href: "https://github.com/OloriNifemi", label: "GitHub" },
@@ -123,11 +131,25 @@ const Contact = () => {
           </Reveal>
 
           <Reveal delay={0.15} className="lg:col-span-5 flex flex-col justify-between">
-            <p className="text-[#666666] text-[15px] leading-relaxed">
-              Prefer to reach out directly? I'm always happy to hear about new
-              projects, ideas, or opportunities, and I usually reply within a day.
-            </p>
-            <div className="flex flex-col gap-4 mt-10">
+            <div>
+              <p className="text-[#666666] text-[15px] leading-relaxed">
+                Prefer to reach out directly? I'm always happy to hear about new
+                projects, ideas, or opportunities, and I usually reply within a day.
+              </p>
+
+              <a
+                href={WHATSAPP_LINK}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-6 inline-flex items-center gap-2 px-6 py-3 border border-[#111111] text-[#111111] text-[13px]
+                  uppercase tracking-[0.1em] rounded-lg ease-in-out transition-all duration-500 hover:bg-[#111111] hover:text-white w-fit"
+              >
+                <FaWhatsapp size={16} />
+                Message on WhatsApp
+              </a>
+            </div>
+
+            <div className="flex lg:flex-col gap-4 mt-10">
               {LINKS.map((l) => (
                 <a
                   key={l.label}
