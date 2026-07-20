@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Header from "./components/layout/Header";
 import Footer from "./components/layout/Footer";
 import Hero from "./components/sections/Hero";
@@ -8,22 +8,37 @@ import Skills from "./components/sections/Skills";
 import Experience from "./components/sections/Experience";
 import Services from "./components/sections/Services";
 import Contact from "./components/sections/Contact";
+import Preloader from "./components/ui/Preloader";
 
 function App() {
+  const [loading, setLoading] = useState(true);
+
+  // Lock page scroll while the welcome overlay is showing
+  useEffect(() => {
+    document.body.style.overflow = loading ? "hidden" : "";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [loading]);
+
   return (
-    <div className="bg-white text-[#111111] antialiased">
-      <Header />
-      <main>
-        <Hero />
-        <About />
-        <Projects />
-        <Skills />
-        <Experience />
-        <Services />
-        <Contact />
-      </main>
-      <Footer />
-    </div>
+    <>
+      <Preloader onComplete={() => setLoading(false)} />
+
+      <div className="bg-white text-[#111111] antialiased">
+        <Header />
+        <main>
+          <Hero />
+          <About />
+          <Projects />
+          <Skills />
+          <Experience />
+          <Services />
+          <Contact />
+        </main>
+        <Footer />
+      </div>
+    </>
   );
 }
 

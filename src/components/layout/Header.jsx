@@ -61,7 +61,7 @@ const Header = () => {
             className="  hidden lg:inline-flex items-center px-6 py-2.5 border border-[#111111] text-[#111111] text-[13px]
               uppercase tracking-[0.1em] rounded-lg ease-in-out transition-all duration-500 hover:bg-[#111111] hover:text-white"
           >
-            Let's Talk
+            Hire Me! 
           </a>
         </div>
 
@@ -105,7 +105,7 @@ const Header = () => {
                 className=" mt-2 px-6 py-2.5  border border-[#111111] text-[#111111] text-[13px] uppercase tracking-[0.1em]
                 rounded-lg ease-in-out transition-all duration-500 text-center"
               >
-                Let's Talk 
+                Hire Me! 
               </a>
             </Container>
           </motion.nav>
