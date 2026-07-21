@@ -5,10 +5,6 @@ import { TbBrandGithub } from "react-icons/tb";
 const EASE = [0.16, 1, 0.3, 1];
 
 function CardContent({ project, index, total }) {
-  const handleLinkClick = (e) => {
-    e.stopPropagation();
-  };
-
   return (
     <>
       <div className="relative h-36 sm:h-44 md:h-52 lg:h-56 shrink-0 overflow-hidden">
@@ -64,12 +60,11 @@ function CardContent({ project, index, total }) {
           ))}
         </div>
 
-        <div className="flex flex-wrap items-center gap-6 mt-6 pt-5 border-t border-[var(--border)]">
+        <div className="flex flex-wrap items-center gap-6 mt-6 pt-5 border-t border-[var(--border)] relative z-10">
           <a
             href={project.liveHref}
             target="_blank"
-            rel="noreferrer"
-            onClick={handleLinkClick}
+            rel="noopener noreferrer"
             className="flex items-center gap-2 text-[14px] font-medium text-[var(--text)] hover:text-[var(--accent)] transition-colors cursor-pointer"
           >
             Live Demo
@@ -79,8 +74,7 @@ function CardContent({ project, index, total }) {
           <a
             href={project.codeHref}
             target="_blank"
-            rel="noreferrer"
-            onClick={handleLinkClick}
+            rel="noopener noreferrer"
             className="flex items-center gap-2 text-[14px] font-medium text-[var(--text)] hover:text-[var(--accent)] transition-colors cursor-pointer"
           >
             <TbBrandGithub size={16} />
