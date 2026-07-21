@@ -90,11 +90,11 @@ function CardContent({ project, index, total }) {
   );
 }
 
-const TRANSITION_FRACTION = 0.14;
+const TRANSITION_FRACTION = 0.35;
 const CURRENT = { opacity: 1, y: "0vh", scale: 1, blur: 0 };
-const HIDDEN = { opacity: 0, y: "70vh", scale: 0.94, blur: 0 };
-const STACKED_NEAR = { opacity: 1, y: "-9vh", scale: 0.95, blur: 0 };
-const STACKED_FAR = { opacity: 0.9, y: "-16vh", scale: 0.89, blur: 0 };
+const HIDDEN = { opacity: 0, y: "40vh", scale: 0.96, blur: 4 };
+const STACKED_NEAR = { opacity: 0.95, y: "-6vh", scale: 0.97, blur: 0.5 };
+const STACKED_FAR = { opacity: 0.85, y: "-12vh", scale: 0.92, blur: 2 };
 
 export default function ProjectStackCard({
   project,
