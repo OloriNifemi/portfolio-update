@@ -30,14 +30,15 @@ function CardContent({ project, index, total }) {
               text-[11px] font-semibold
               "
             >
-              W
+              P
             </div>
             <span className="text-[11px] uppercase tracking-[0.16em] text-[var(--muted)]">
-              Walby · Portfolio
+              Precious Obafemi · Case Study
             </span>
           </div>
           <span className="text-[11px] tracking-[0.1em] text-[var(--muted)] tabular-nums">
-            {String(index + 1).padStart(2, "0")} / {String(total).padStart(2, "0")}
+            <span className="text-[var(--text)] font-medium">{String(index + 1).padStart(2, "0")}</span>
+            {" / "}{String(total).padStart(2, "0")}
           </span>
         </div>
 
@@ -69,10 +70,10 @@ function CardContent({ project, index, total }) {
             href={project.liveHref}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-2 text-[14px] font-medium text-[var(--text)] hover:text-[var(--accent)] transition-colors cursor-pointer"
+            className="group/live flex items-center gap-2 text-[14px] font-medium text-[var(--text)] hover:text-[var(--accent)] transition-colors cursor-pointer"
           >
             Live Demo
-            <HiOutlineArrowUpRight size={16} />
+            <HiOutlineArrowUpRight size={16} className="transition-transform duration-300 group-hover/live:translate-x-0.5 group-hover/live:-translate-y-0.5" />
           </a>
 
           <a
@@ -134,12 +135,13 @@ export default function ProjectStackCard({
   const scale = useTransform(scrollYProgress, times, keyframes.map((k) => k.scale));
   const y = useTransform(scrollYProgress, times, keyframes.map((k) => k.y));
   const opacity = useTransform(scrollYProgress, times, keyframes.map((k) => k.opacity));
+  const pointerEvents = useTransform(opacity, (v) => (v >= 0.999 ? "auto" : "none"));
 
   if (staticCard) {
     return (
       <article
         className="
-        flex flex-col
+        pointer-events-auto flex flex-col
         w-full max-w-sm sm:max-w-md md:max-w-xl lg:max-w-2xl mx-auto
         rounded-[22px] sm:rounded-[28px] overflow-hidden
         bg-[var(--surface)] border border-[var(--border)]
@@ -153,7 +155,7 @@ export default function ProjectStackCard({
 
   return (
     <motion.div
-      style={{ scale, y, opacity, zIndex: index, willChange: "transform, opacity" }}
+      style={{ scale, y, opacity, zIndex: index, willChange: "transform, opacity", pointerEvents }}
       className="absolute inset-0 flex items-center justify-center px-4 sm:px-6"
     >
       <motion.article

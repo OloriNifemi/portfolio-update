@@ -2,33 +2,75 @@ import React from "react";
 import Container from "../ui/Container";
 import SectionHeading from "../ui/Sectionheading";
 import Reveal from "../ui/Reveal";
+import {
+  SiJavascript,
+  SiTypescript,
+  SiReact,
+  SiVite,
+  SiTailwindcss,
+  SiCss,
+  SiFramer,
+  SiFigma,
+  SiGit,
+  SiGithub,
+  SiGooglechrome,
+} from "react-icons/si";
+import { VscVscode } from "react-icons/vsc";
 
-const CATEGORIES = [
-  { title: "Frontend", items: ["JavaScript (ES6+)", "TypeScript", "React", "Vite", ], rounded: "rounded-l-2xl"},
-  { title: "Styling", items: ["Tailwind CSS", "CSS3", "Framer Motion", "Responsive Design"] },
-  { title: "Tools", items: ["Vite", "Figma", "VS Code", "Chrome DevTools"] },
-  { title: "Version Control", items: ["Git", "GitHub", "Pull Requests", "Code Review"], rounded: "rounded-r-2xl"},
+// Tools/tech with a recognizable mark of their own. Process-only skills
+// (Pull Requests, Code Review, Responsive Design) don't have a logo, so
+// they're left out of this icon grid.
+const APP_ICONS = [
+  { label: "JavaScript", icon: SiJavascript, bg: "#F0DB4F", fg: "#1A1A1A" },
+  { label: "TypeScript", icon: SiTypescript, bg: "#3178C6", fg: "#FFFFFF" },
+  { label: "React", icon: SiReact, bg: "#20232A", fg: "#61DAFB" },
+  { label: "Vite", icon: SiVite, bg: "#7C3AED", fg: "#FFFFFF" },
+  { label: "Tailwind", icon: SiTailwindcss, bg: "#0EA5E9", fg: "#FFFFFF" },
+  { label: "CSS3", icon: SiCss, bg: "#2965F1", fg: "#FFFFFF" },
+  { label: "Framer", icon: SiFramer, bg: "#B89C64", fg: "#FFFFFF" },
+  { label: "Figma", icon: SiFigma, bg: "#2C2C2C", fg: "#F24E1E" },
+  { label: "Git", icon: SiGit, bg: "#F05033", fg: "#FFFFFF" },
+  { label: "GitHub", icon: SiGithub, bg: "#181717", fg: "#FFFFFF" },
+  { label: "VS Code", icon: VscVscode, bg: "#007ACC", fg: "#FFFFFF" },
+  { label: "DevTools", icon: SiGooglechrome, bg: "#4285F4", fg: "#FFFFFF" },
 ];
 
 const Skills = () => {
   return (
-    <section id="skills" className="py-28 md:py-36 border-t border-[var(--border)] ">
+    <section id="skills" className="py-28 md:py-36 border-t border-[var(--border)]">
       <Container>
         <SectionHeading eyebrow="Capabilities" title="Skills & tools." />
 
-        <div className="rounded-2xl  grid sm:grid-cols-2 lg:grid-cols-4 gap-px bg-[var(--border)] mt-16 border border-[var(--border)]">
-          {CATEGORIES.map((cat, i) => (
-            <Reveal key={cat.title} delay={i * 0.08} className={`${cat.rounded} bg-[var(--bg)] p-8 flex flex-col gap-5`}>
-              <h3 className="text-[12px] uppercase tracking-[0.2em] text-[var(--muted)]">{cat.title}</h3>
-              <ul className="flex flex-col gap-3">
-                {cat.items.map((item) => (
-                  <li key={item} className="text-[var(--text)] text-[15px] font-serif italic">
-                    {item}
-                  </li>
-                ))}
-              </ul>
-            </Reveal>
-          ))}
+        {/* App-icon style grid: flat, colorful, no grouping borders, gentle float */}
+        <div className="grid grid-cols-4 sm:grid-cols-6 lg:grid-cols-8 gap-x-4 gap-y-10 mt-16">
+          {APP_ICONS.map((tool, i) => {
+            const Icon = tool.icon;
+            return (
+              <Reveal key={tool.label} delay={i * 0.03} className="flex flex-col items-center gap-2.5">
+                <div
+                  className="relative overflow-hidden w-14 h-14 sm:w-16 sm:h-16 lg:w-20 lg:h-20 rounded-[18px] flex items-center justify-center"
+                  style={{ backgroundColor: tool.bg, color: tool.fg }}
+                >
+                  <Icon size={26} className="sm:hidden" />
+                  <Icon size={30} className="hidden sm:block lg:hidden" />
+                  <Icon size={36} className="hidden lg:block" />
+                  <div
+                    aria-hidden="true"
+                    className="absolute -inset-y-2 -left-1/2 w-[200%] animate-shimmer-sweep pointer-events-none"
+                    style={{
+                      background:
+                        "linear-gradient(75deg, transparent 35%, rgba(255,255,255,0.5) 50%, transparent 65%)",
+                      mixBlendMode: "soft-light",
+                      animationDelay: `${i * 0.15}s`,
+                    }}
+                  />
+                </div>
+                <span className="text-[10px] sm:text-[11px] text-[var(--muted)] text-center leading-tight">
+                  {tool.label}
+                </span>
+              </Reveal>
+            );
+          })}
         </div>
       </Container>
     </section>

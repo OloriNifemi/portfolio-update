@@ -176,7 +176,7 @@ const Hero = () => {
                   src={portrait}
                   alt="Portrait of Precious Obafemi"
                   loading="eager"
-                  fetchpriority="high"
+                  fetchPriority="high"
                   width={400}
                   height={500}
                   className="absolute inset-0 w-full h-full object-cover contrast-[1.05]"

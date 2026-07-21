@@ -19,8 +19,18 @@ export default {
         'wiggle': 'wiggle 2.2s ease-in-out infinite',
         'fade-up': 'fadeUp 0.8s ease-out forwards',
         'slide-in': 'slideIn 0.6s ease-out forwards',
+        'float': 'float 3.6s ease-in-out infinite',
+        'shimmer-sweep': 'shimmerSweep 5s ease-in-out infinite',
       },
       keyframes: {
+        shimmerSweep: {
+          '0%': { transform: 'translateX(-100%)' },
+          '15%, 100%': { transform: 'translateX(100%)' },
+        },
+        float: {
+          '0%, 100%': { transform: 'translateY(0)' },
+          '50%': { transform: 'translateY(-6px)' },
+        },
         wiggle: {
           '0%, 75%, 100%': { transform: 'rotate(0deg) scale(1) translateY(0)' },
           '78%': { transform: 'rotate(-18deg) scale(1.08) translateY(-4px)' },
