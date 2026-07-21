@@ -6,15 +6,11 @@ import { BiLogoGmail } from "react-icons/bi";
 import { HiOutlineArrowDown, HiOutlineArrowDownTray } from "react-icons/hi2";
 import Container from "../ui/Container";
 import portrait from "../../assets/aboutImg.png";
+import { EASE, COLORS, IMAGE_ANIMATION, DURATIONS, DELAYS } from "../../constants/theme";
+import { fadeUp, scaleFadeIn, drawPath } from "../../utils/motion";
+import { SOCIAL_LINKS } from "../../constants/nav";
 
-const EASE = [0.16, 1, 0.3, 1];
-const GOLD = "#B89C64";
-
-const SOCIALS = [
-  { icon: <PiGithubLogoFill />, href: "https://github.com/OloriNifemi", label: "GitHub" },
-  { icon: <TfiLinkedin />, href: "https://www.linkedin.com/in/obafemi-ayomipo", label: "LinkedIn" },
-  { icon: <BiLogoGmail />, href: "mailto:ayomipoobafemi@gmail.com", label: "Email" },
-];
+const GOLD = COLORS.light.accent;
 
 
 const CORNER_PATHS = {
@@ -40,9 +36,7 @@ const CornerBracket = ({ corner, delay, stroke, strokeWidth, shouldReduceMotion 
         stroke={stroke}
         strokeWidth={strokeWidth}
         strokeLinecap="square"
-        initial={shouldReduceMotion ? false : { pathLength: 0, opacity: 0 }}
-        animate={{ pathLength: 1, opacity: 1 }}
-        transition={{ duration: 1, delay, ease: EASE }}
+        {...drawPath(delay, shouldReduceMotion)}
       />
     </svg>
   </div>
@@ -50,12 +44,6 @@ const CornerBracket = ({ corner, delay, stroke, strokeWidth, shouldReduceMotion 
 
 const Hero = () => {
   const shouldReduceMotion = useReducedMotion();
-
-  const fadeUp = (delay = 0) => ({
-    initial: shouldReduceMotion ? false : { opacity: 0, y: 24 },
-    animate: { opacity: 1, y: 0 },
-    transition: { duration: 0.8, delay, ease: EASE },
-  });
 
   const portraitVariants = {
     rest: { scale: 1, rotate: 0 },
@@ -70,7 +58,7 @@ const Hero = () => {
       <Container className="grid lg:grid-cols-[1.1fr_0.9fr] gap-16 lg:gap-24 xl:gap-32 items-center">
         {/* Text */}
         <div>
-          <motion.div {...fadeUp(0)} className="flex flex-col gap-2 mb-10">
+          <motion.div {...fadeUp(0, shouldReduceMotion)} className="flex flex-col gap-2 mb-10">
             <p className="text-[13px] uppercase tracking-[0.25em] text-[var(--text)]">
               Frontend Developer
             </p>
@@ -80,7 +68,7 @@ const Hero = () => {
           </motion.div>
 
           <motion.h1
-            {...fadeUp(0.1)}
+            {...fadeUp(DELAYS.small, shouldReduceMotion)}
             className="font-serif text-[var(--text)] leading-[1.15] text-[clamp(2.25rem,6vw,4.25rem)]"
           >
             Creating thoughtful
@@ -88,12 +76,12 @@ const Hero = () => {
             digital experiences
           </motion.h1>
 
-          <motion.p {...fadeUp(0.18)} className="mt-5 text-2xl font-serif italic text-[var(--muted)]">
+          <motion.p {...fadeUp(DELAYS.normal, shouldReduceMotion)} className="mt-5 text-2xl font-serif italic text-[var(--muted)]">
             — Precious Obafemi
           </motion.p>
 
           <motion.p
-            {...fadeUp(0.28)}
+            {...fadeUp(DELAYS.large, shouldReduceMotion)}
             className="mt-10 max-w-lg text-[var(--muted)] text-[17px] leading-relaxed"
           >
             I build elegant, high-performance digital experiences, interfaces
@@ -101,7 +89,7 @@ const Hero = () => {
             last transition.
           </motion.p>
 
-          <motion.div {...fadeUp(0.38)} className="mt-12 flex max-sm:flex-col gap-4">
+          <motion.div {...fadeUp(0.38, shouldReduceMotion)} className="mt-12 flex max-sm:flex-col gap-4">
             
             <a  href="#projects"
               className="rounded-full px-7 py-3.5 lg:max-w-[200px] text-center bg-[var(--text)] text-[var(--bg)] text-[13px] uppercase tracking-[0.1em]
@@ -122,30 +110,30 @@ const Hero = () => {
             </a>
           </motion.div>
 
-          <motion.div {...fadeUp(0.46)} className="mt-14 flex gap-3">
-            {SOCIALS.map((s) => (
-              
-              <a  key={s.label}
-                href={s.href}
-                target={s.href.startsWith("http") ? "_blank" : undefined}
-                rel={s.href.startsWith("http") ? "noopener noreferrer" : undefined}
-                aria-label={s.label}
-                className="flex items-center justify-center w-11 h-11 rounded-full border border-[var(--border)] text-[var(--text)]
-                  transition-[transform,border-color] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]
-                  hover:border-[var(--text)] hover:-translate-y-0.5"
-              >
-                {React.cloneElement(s.icon, { size: 17 })}
-              </a>
-            ))}
+          <motion.div {...fadeUp(0.46, shouldReduceMotion)} className="mt-14 flex gap-3">
+            {SOCIAL_LINKS.map((s) => {
+              const Icon = s.id === 'github' ? PiGithubLogoFill : s.id === 'linkedin' ? TfiLinkedin : BiLogoGmail;
+              return (
+                <a
+                  key={s.id}
+                  href={s.href}
+                  target={s.href.startsWith("http") ? "_blank" : undefined}
+                  rel={s.href.startsWith("http") ? "noopener noreferrer" : undefined}
+                  aria-label={s.label}
+                  className="flex items-center justify-center w-11 h-11 rounded-full border border-[var(--border)] text-[var(--text)]
+                    transition-[transform,border-color] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]
+                    hover:border-[var(--text)] hover:-translate-y-0.5"
+                >
+                  <Icon size={17} />
+                </a>
+              );
+            })}
           </motion.div>
         </div>
 
         {/* Portrait */}
         <motion.div
-          initial={shouldReduceMotion ? false : { opacity: 0, scale: 0.98 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration:1.6,
-ease:[0.16,1,0.3,1], delay: 0.15, }}
+          {...scaleFadeIn(shouldReduceMotion)}
           className="relative group"
         >
           <div
@@ -187,6 +175,9 @@ ease:[0.16,1,0.3,1], delay: 0.15, }}
                 <img
                   src={portrait}
                   alt="Portrait of Precious Obafemi"
+                  loading="lazy"
+                  width={400}
+                  height={500}
                   className="absolute inset-0 w-full h-full object-cover contrast-[1.05]"
                 />
                 <motion.img
@@ -222,11 +213,11 @@ ease:[0.16,1,0.3,1], delay: 0.15, }}
                   initial={{ x: "-120%" }}
                   animate={{ x: "220%" }}
                   transition={{
-                      duration: 2.8,
-                      delay: 4,
+                      duration: IMAGE_ANIMATION.shine.duration,
+                      delay: IMAGE_ANIMATION.shine.delay,
                       repeat: Infinity,
-                      repeatDelay: 12,
-                      ease: "easeInOut",
+                      repeatDelay: IMAGE_ANIMATION.shine.repeatDelay,
+                      ease: IMAGE_ANIMATION.shine.ease,
                   }}
                   className="absolute inset-y-0 left-0 z-20 w-1/3 pointer-events-none"
                   style={{

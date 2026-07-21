@@ -1,5 +1,5 @@
 import React, { useRef } from "react";
-import { motion, useInView } from "framer-motion";
+import { motion, useInView, useReducedMotion } from "framer-motion";
 import Container from "../ui/Container";
 import SectionHeading from "../ui/Sectionheading";
 import Reveal from "../ui/Reveal";
@@ -34,6 +34,7 @@ const TECH = [
 const HeartbeatLine = () => {
   const ref = useRef(null);
   const inView = useInView(ref, { amount: 0.6 });
+  const shouldReduceMotion = useReducedMotion();
 
   return (
     <svg
@@ -49,9 +50,9 @@ const HeartbeatLine = () => {
         strokeWidth="1.6"
         strokeLinecap="round"
         strokeLinejoin="round"
-        animate={inView ? { pathLength: [0, 1] } : { pathLength: 0 }}
+        animate={inView && !shouldReduceMotion ? { pathLength: [0, 1] } : { pathLength: 0 }}
         transition={
-          inView
+          inView && !shouldReduceMotion
             ? { duration: 2, ease: "easeInOut", repeat: Infinity, repeatDelay: 0.5 }
             : { duration: 0.3 }
         }

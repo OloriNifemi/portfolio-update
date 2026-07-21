@@ -5,8 +5,8 @@ import './index.css'
 import App from './App.jsx'
 import { BrowserRouter } from "react-router-dom"
 
-
-
+// Set lang attribute for accessibility
+document.documentElement.lang = 'en'
 
 createRoot(document.getElementById('root')).render(
   <React.StrictMode>
