@@ -38,6 +38,69 @@
 }
 
 
+/* ===========================
+   Hire Me Button
+=========================== */
+
+@keyframes wiggle {
+  0%, 75%, 100% {
+    transform: rotate(0deg) scale(1) translateY(0);
+  }
+
+  78% {
+    transform: rotate(-18deg) scale(1.08) translateY(-4px);
+  }
+
+  81% {
+    transform: rotate(18deg) scale(1.08) translateY(-4px);
+  }
+
+  84% {
+    transform: rotate(-14deg) scale(1.06) translateY(-3px);
+  }
+
+  87% {
+    transform: rotate(14deg) scale(1.06) translateY(-3px);
+  }
+
+  90% {
+    transform: rotate(-8deg) scale(1.03) translateY(-2px);
+  }
+
+  93% {
+    transform: rotate(8deg) scale(1.03) translateY(-2px);
+  }
+
+  96% {
+    transform: rotate(0deg) scale(1) translateY(0);
+  }
+}
+
+.hire-btn {
+  position: relative;
+  overflow: hidden;
+
+  background: var(--text);
+  color: var(--bg);
+  border: 1px solid var(--text);
+
+  animation: wiggle 2.2s ease-in-out infinite;
+  transform-origin: center center;
+
+  transition:
+    background-color .35s ease,
+    border-color .35s ease,
+    color .35s ease,
+    transform .25s ease;
+}
+
+.hire-btn:hover {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--bg);
+}
+
+
 
 /* ===========================
    Global

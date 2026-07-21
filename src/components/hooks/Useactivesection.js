@@ -1,9 +1,5 @@
 import { useEffect, useState } from "react";
 
-/**
- * Tracks which section id is currently in view so the nav can highlight it.
- * Pass the same ids used on your <section id="..."> elements.
- */
 export default function useActiveSection(ids) {
   const [activeId, setActiveId] = useState(ids[0]);
 

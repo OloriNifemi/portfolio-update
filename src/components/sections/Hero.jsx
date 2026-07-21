@@ -148,7 +148,6 @@ const Hero = () => {
 ease:[0.16,1,0.3,1], delay: 0.15, }}
           className="relative group"
         >
-          {/* Layered shadow — soft ambient + tighter contact shadow, static */}
           <div
             aria-hidden="true"
             className="absolute inset-0 translate-x-4 translate-y-4 bg-black/[0.04] blur-2xl pointer-events-none"
@@ -158,7 +157,6 @@ ease:[0.16,1,0.3,1], delay: 0.15, }}
             className="absolute inset-0 translate-x-1.5 translate-y-1.5 bg-black/[0.08] blur-sm pointer-events-none"
           />
 
-          {/* Outer offset frame — static, architectural, faint black */}
           <motion.div
             aria-hidden="true"
             initial={shouldReduceMotion ? false : { opacity: 0 }}
@@ -167,7 +165,6 @@ ease:[0.16,1,0.3,1], delay: 0.15, }}
             className="absolute -bottom-6 -left-6 md:-bottom-8 md:-left-8 w-full h-full border border-black/15 pointer-events-none"
           />
 
-          {/* Inner offset frame — static, gold hairline */}
           <motion.div
             aria-hidden="true"
             initial={shouldReduceMotion ? false : { opacity: 0 }}
@@ -202,7 +199,6 @@ ease:[0.16,1,0.3,1], delay: 0.15, }}
                 />
               </motion.div>
 
-              {/* Gold top/left accent, draws in once on load, stays put */}
               <motion.div
                 aria-hidden="true"
                 initial={shouldReduceMotion ? false : { scaleX: 0 }}

@@ -3,6 +3,7 @@ import { motion, useInView } from "framer-motion";
 import Container from "../ui/Container";
 import SectionHeading from "../ui/Sectionheading";
 import Reveal from "../ui/Reveal";
+import HireMeButton from "../ui/HireMeButton";
 
 const STATS = [
   {
@@ -115,6 +116,7 @@ const About = () => {
                 ))}
               </div>
             </Reveal>
+            <HireMeButton/>
           </div>
 
           {/* RIGHT */}

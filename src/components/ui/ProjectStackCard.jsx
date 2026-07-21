@@ -1,0 +1,177 @@
+import { motion, useTransform } from "framer-motion";
+import { HiOutlineArrowUpRight } from "react-icons/hi2";
+import { TbBrandGithub } from "react-icons/tb";
+
+const EASE = [0.16, 1, 0.3, 1];
+
+function CardContent({ project, index, total }) {
+  return (
+    <Section>
+      <div className="relative h-36 sm:h-44 md:h-52 lg:h-56 shrink-0 overflow-hidden">
+        <img
+          src={project.image}
+          alt={project.title}
+          className="w-full h-full object-cover"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/25 via-transparent to-transparent" />
+      </div>
+      <div className="p-5 sm:p-6 lg:p-8 flex-1 min-h-0 overflow-y-auto">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-2.5">
+            <div
+              className="
+              w-6 h-6 rounded-[7px]
+              bg-[var(--text)] text-[var(--bg)]
+              flex items-center justify-center
+              text-[11px] font-semibold
+              "
+            >
+              W
+            </div>
+            <span className="text-[11px] uppercase tracking-[0.16em] text-[var(--muted)]">
+              Walby · Portfolio
+            </span>
+          </div>
+          <span className="text-[11px] tracking-[0.1em] text-[var(--muted)] tabular-nums">
+            {String(index + 1).padStart(2, "0")} / {String(total).padStart(2, "0")}
+          </span>
+        </div>
+
+        <h2 className="mt-4 font-serif text-2xl lg:text-3xl text-[var(--text)] leading-tight">
+          {project.title}
+        </h2>
+
+        <p className="mt-3 text-[14px] leading-6 text-[var(--muted)] max-w-2xl">
+          {project.desc}
+        </p>
+
+        <div className="flex flex-wrap gap-2 mt-5">
+          {project.tags.map((tag) => (
+            <span
+              key={tag}
+              className="
+              px-3 py-1 rounded-full border border-[var(--border)]
+              text-[10px] uppercase tracking-[0.1em]
+              text-[var(--muted)] bg-[var(--bg)]
+              "
+            >
+              {tag}
+            </span>
+          ))}
+        </div>
+
+        <div className="flex flex-wrap items-center gap-6 mt-6 pt-5 border-t border-[var(--border)]">
+          <motion.a
+            whileHover={{ x: 4 }}
+            transition={{ duration: 0.25 }}
+            href={project.liveHref}
+            target="_blank"
+            rel="noreferrer"
+            className="flex items-center gap-2 text-[14px] font-medium text-[var(--text)] hover:text-[var(--accent)] transition-colors"
+          >
+            Live Demo
+            <HiOutlineArrowUpRight size={16} />
+          </motion.a>
+
+          <motion.a
+            whileHover={{ x: 4 }}
+            transition={{ duration: 0.25 }}
+            href={project.codeHref}
+            target="_blank"
+            rel="noreferrer"
+            className="flex items-center gap-2 text-[14px] font-medium text-[var(--text)] hover:text-[var(--accent)] transition-colors"
+          >
+            <TbBrandGithub size={16} />
+            GitHub
+          </motion.a>
+        </div>
+      </div>
+    </Section>
+  );
+}
+
+const TRANSITION_FRACTION = 0.14;
+const CURRENT = { opacity: 1, y: "0vh", scale: 1, blur: 0 };
+const HIDDEN = { opacity: 0, y: "70vh", scale: 0.94, blur: 0 };
+const STACKED_NEAR = { opacity: 1, y: "-9vh", scale: 0.95, blur: 0 };
+const STACKED_FAR = { opacity: 0.9, y: "-16vh", scale: 0.89, blur: 0 };
+
+export default function ProjectStackCard({
+  project,
+  index,
+  total,
+  scrollYProgress,
+  staticCard = false,
+}) {
+  const isFirst = index === 0;
+  const isLast = index === total - 1;
+
+  const segStart = index / total;
+  const segEnd = (index + 1) / total;
+  const segLen = segEnd - segStart;
+  const transitionLen = segLen * TRANSITION_FRACTION;
+  const keyframes = [];
+
+  if (isFirst) {
+    // Already fully in place at the very top of the page — no entrance.
+    keyframes.push({ t: 0, ...CURRENT });
+  } else {
+    keyframes.push({ t: segStart - transitionLen, ...HIDDEN });
+    keyframes.push({ t: segStart, ...CURRENT });
+  }
+
+  if (isLast) {
+    // Stays fully in view all the way to the end of the scroll track.
+    keyframes.push({ t: 1, ...CURRENT });
+  } else {
+    keyframes.push({ t: segEnd - transitionLen, ...CURRENT });
+    keyframes.push({ t: segEnd, ...STACKED_NEAR });
+    keyframes.push({ t: 1, ...STACKED_FAR });
+  }
+
+  const times = keyframes.map((k) => k.t);
+
+  const scale = useTransform(scrollYProgress, times, keyframes.map((k) => k.scale));
+  const y = useTransform(scrollYProgress, times, keyframes.map((k) => k.y));
+  const opacity = useTransform(scrollYProgress, times, keyframes.map((k) => k.opacity));
+  const blurAmt = useTransform(scrollYProgress, times, keyframes.map((k) => k.blur));
+  const filter = useTransform(blurAmt, (v) => `blur(${v}px)`);
+
+  if (staticCard) {
+    return (
+      <article
+        className="
+        flex flex-col
+        w-full max-w-sm sm:max-w-md md:max-w-xl lg:max-w-2xl mx-auto
+        rounded-[22px] sm:rounded-[28px] overflow-hidden
+        bg-[var(--surface)] border border-[var(--border)]
+        shadow-[0_30px_60px_rgba(0,0,0,.16)]
+        "
+      >
+        <CardContent project={project} index={index} total={total} />
+      </article>
+    );
+  }
+
+  return (
+    <motion.div
+      style={{ scale, y, opacity, filter, zIndex: index }}
+      className="absolute inset-0 flex items-center justify-center px-4 sm:px-6"
+    >
+      <motion.article
+        whileHover={{ scale: 1.015, y: -6 }}
+        transition={{ duration: 0.15, ease: EASE }}
+        className="
+        relative flex flex-col
+        w-full max-w-sm sm:max-w-md md:max-w-xl lg:max-w-2xl
+        max-h-[92vh] sm:max-h-[88vh]
+        rounded-[22px] sm:rounded-[28px] overflow-hidden
+        bg-[var(--surface)] border border-[var(--border)]
+        shadow-[0_30px_60px_rgba(0,0,0,.16)]
+        "
+      >
+        <CardContent project={project} index={index} total={total} />
+      </motion.article>
+    </motion.div>
+  );
+}

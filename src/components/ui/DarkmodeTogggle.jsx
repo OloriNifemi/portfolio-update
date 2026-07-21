@@ -30,10 +30,10 @@ export default function DarkModeToggle({ className = "" }) {
       {darkMode ? (
         // Sun icon
         <svg 
-        className="size-5 text-[var(--text)]"
+        className="size-5 text-[var(--muted)]"
         stroke="currentColor"
         fill="currentColor" 
-        stroke-width="0" 
+        strokeWidth="0" 
         viewBox="0 0 352 512" 
         height="1em" 
         width="1em" 
@@ -48,7 +48,7 @@ export default function DarkModeToggle({ className = "" }) {
         className="size-5 text-[var(--text)]"
         stroke="currentColor"
         fill="currentColor" 
-        stroke-width="0" 
+        strokeWidth="0" 
         viewBox="0 0 352 512" 
         height="1em" 
         width="1em" 
