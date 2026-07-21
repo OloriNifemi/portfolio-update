@@ -153,7 +153,6 @@ export default function ProjectStackCard({
     <motion.div
       style={{ scale, y, opacity, filter, zIndex: index }}
       className="absolute inset-0 flex items-center justify-center px-4 sm:px-6"
-      pointerEvents="none"
     >
       <motion.article
         whileHover={{ scale: 1.015, y: -6 }}
@@ -167,7 +166,6 @@ export default function ProjectStackCard({
         shadow-[0_30px_60px_rgba(0,0,0,.16)]
         cursor-pointer
         "
-        pointerEvents="auto"
       >
         <CardContent project={project} index={index} total={total} />
       </motion.article>
