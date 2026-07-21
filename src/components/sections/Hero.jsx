@@ -175,7 +175,8 @@ const Hero = () => {
                 <img
                   src={portrait}
                   alt="Portrait of Precious Obafemi"
-                  loading="lazy"
+                  loading="eager"
+                  fetchpriority="high"
                   width={400}
                   height={500}
                   className="absolute inset-0 w-full h-full object-cover contrast-[1.05]"
@@ -184,6 +185,9 @@ const Hero = () => {
                   src={portrait}
                   alt=""
                   aria-hidden="true"
+                  loading="eager"
+                  width={400}
+                  height={500}
                   variants={{ rest: { opacity: 1 }, hover: { opacity: 0 } }}
                   transition={{ duration: 0.6, ease: EASE }}
                   className="absolute inset-0 w-full h-full object-cover grayscale contrast-[1.05]"

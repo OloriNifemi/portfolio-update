@@ -22,27 +22,23 @@ function App() {
 
   return (
     <>
-      {loading && (
-        <Preloader onComplete={() => setLoading(false)} />
-      )}
+      <Preloader onComplete={() => setLoading(false)} />
 
-      {!loading && (
-        <div className="bg-[var(--bg)] text-[var(--text)] antialiased">
-          <Header />
+      <div className="bg-[var(--bg)] text-[var(--text)] antialiased">
+        <Header />
 
-          <main>
-            <Hero />
-            <About />
-            <Projects />
-            <Skills />
-            <Experience />
-            <Services />
-            <Contact />
-          </main>
+        <main>
+          <Hero />
+          <About />
+          <Projects />
+          <Skills />
+          <Experience />
+          <Services />
+          <Contact />
+        </main>
 
-          <Footer />
-        </div>
-      )}
+        <Footer />
+      </div>
     </>
   );
 }

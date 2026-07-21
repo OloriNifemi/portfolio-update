@@ -11,6 +11,10 @@ function CardContent({ project, index, total }) {
         <img
           src={project.image}
           alt={project.title}
+          loading="lazy"
+          decoding="async"
+          width={800}
+          height={500}
           className="w-full h-full object-cover"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/25 via-transparent to-transparent" />
@@ -87,10 +91,10 @@ function CardContent({ project, index, total }) {
 }
 
 const TRANSITION_FRACTION = 0.35;
-const CURRENT = { opacity: 1, y: "0vh", scale: 1, blur: 0 };
-const HIDDEN = { opacity: 0, y: "40vh", scale: 0.96, blur: 4 };
-const STACKED_NEAR = { opacity: 0.95, y: "-6vh", scale: 0.97, blur: 0.5 };
-const STACKED_FAR = { opacity: 0.85, y: "-12vh", scale: 0.92, blur: 2 };
+const CURRENT = { opacity: 1, y: "0vh", scale: 1 };
+const HIDDEN = { opacity: 0, y: "40vh", scale: 0.96 };
+const STACKED_NEAR = { opacity: 0.95, y: "-6vh", scale: 0.97 };
+const STACKED_FAR = { opacity: 0.85, y: "-12vh", scale: 0.92 };
 
 export default function ProjectStackCard({
   project,
@@ -130,8 +134,6 @@ export default function ProjectStackCard({
   const scale = useTransform(scrollYProgress, times, keyframes.map((k) => k.scale));
   const y = useTransform(scrollYProgress, times, keyframes.map((k) => k.y));
   const opacity = useTransform(scrollYProgress, times, keyframes.map((k) => k.opacity));
-  const blurAmt = useTransform(scrollYProgress, times, keyframes.map((k) => k.blur));
-  const filter = useTransform(blurAmt, (v) => `blur(${v}px)`);
 
   if (staticCard) {
     return (
@@ -151,7 +153,7 @@ export default function ProjectStackCard({
 
   return (
     <motion.div
-      style={{ scale, y, opacity, filter, zIndex: index }}
+      style={{ scale, y, opacity, zIndex: index, willChange: "transform, opacity" }}
       className="absolute inset-0 flex items-center justify-center px-4 sm:px-6"
     >
       <motion.article
