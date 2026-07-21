@@ -79,7 +79,7 @@ export default function Projects() {
         >
           <div
             className="sticky top-24"
-            style={{ height: `calc(100vh - ${STICKY_TOP_OFFSET})` }}
+            style={{ height: `calc(100vh - ${STICKY_TOP_OFFSET})`, pointerEvents: 'none' }}
           >
             {PROJECTS.map((project, index) => (
               <ProjectStackCard
