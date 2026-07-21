@@ -6,7 +6,7 @@ const EASE = [0.16, 1, 0.3, 1];
 
 function CardContent({ project, index, total }) {
   return (
-    <Section>
+    <>
       <div className="relative h-36 sm:h-44 md:h-52 lg:h-56 shrink-0 overflow-hidden">
         <img
           src={project.image}
@@ -86,7 +86,7 @@ function CardContent({ project, index, total }) {
           </motion.a>
         </div>
       </div>
-    </Section>
+    </>
   );
 }
 
