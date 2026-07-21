@@ -186,3 +186,85 @@ html {
 .btn-base:focus-visible {
   outline-offset: 2px;
 }
+
+/* ===========================
+   Projects Section Enhancements
+=========================== */
+
+/* Category filter buttons focus state */
+.category-btn:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* Tech stack buttons with hover animations */
+.tech-btn {
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.tech-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: var(--accent);
+  opacity: 0.08;
+  transition: left 0.3s ease-out;
+}
+
+.tech-btn:hover::before {
+  left: 0;
+}
+
+/* Project card link enhancements */
+.project-link {
+  position: relative;
+  transition: color 0.3s ease;
+}
+
+.project-link::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: var(--accent);
+  transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.project-link:hover::after {
+  width: 100%;
+}
+
+/* Featured badge animation */
+@keyframes pulse-accent {
+  0%, 100% {
+    opacity: 0.6;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+.badge-pulse {
+  animation: pulse-accent 2s ease-in-out infinite;
+}
+
+/* Reduced motion support for projects */
+@media (prefers-reduced-motion: reduce) {
+  .tech-btn,
+  .category-btn,
+  .project-link {
+    transition: none;
+  }
+
+  .tech-btn::before,
+  .project-link::after {
+    display: none;
+  }
+}
