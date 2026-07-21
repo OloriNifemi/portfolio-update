@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { TbMenu2, TbX } from "react-icons/tb";
 import Container from "../ui/Container";
 import useActiveSection from "../hooks/useActiveSection";
+
 import DarkModeToggle from "../ui/DarkmodeTogggle";
 import { NAV_LINKS } from "../constants/nav";
 import { DURATIONS } from "../constants/theme";
