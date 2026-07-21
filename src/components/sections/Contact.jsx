@@ -63,7 +63,7 @@ const Contact = () => {
   };
 
   return (
-    <section id="contact" className="py-28 md:py-36 border-t border-[#EAEAEA]">
+    <section id="contact" className="py-28 md:py-36 border-t border-[var(--border)]">
       <Container>
         <SectionHeading eyebrow="Get In Touch" title="Let's work together." align="left" />
 
@@ -72,53 +72,53 @@ const Contact = () => {
             <form onSubmit={handleSubmit} className="flex flex-col gap-8">
               <div className="grid sm:grid-cols-2 gap-8">
                 <div className="flex flex-col gap-2">
-                  <label htmlFor="name" className="text-[11px] uppercase tracking-[0.15em] text-[#666666]">Name</label>
+                  <label htmlFor="name" className="text-[11px] uppercase tracking-[0.15em] text-[var(--muted)]">Name</label>
                   <input
                     id="name" name="name" type="text" required value={form.name} onChange={handleChange}
                     placeholder="Your name"
-                    className="pl-1  border-b border-[#EAEAEA] py-3 text-[#111111] text-[15px] bg-transparent
-                      focus:outline-none focus:border-[#111111] transition-colors duration-300"
+                    className="pl-1  border-b border-[var(--border)] py-3 text-[var(--text)] text-[15px] bg-transparent
+                      focus:outline-none focus:border-[var(--text)] transition-colors duration-300"
                   />
                 </div>
                 <div className="flex flex-col gap-2 ">
-                  <label htmlFor="email" className="text-[11px] uppercase tracking-[0.15em] text-[#666666]">Email</label>
+                  <label htmlFor="email" className="text-[11px] uppercase tracking-[0.15em] text-[var(--muted)]">Email</label>
                   <input
                     id="email" name="email" type="email" required value={form.email} onChange={handleChange}
                     placeholder="you@example.com"
-                    className="pl-1 border-b border-[#EAEAEA] py-3 text-[#111111] text-[15px] bg-transparent
-                      focus:outline-none focus:border-[#111111] transition-colors duration-300"
+                    className="pl-1 border-b border-[var(--border)] py-3 text-[var(--text)] text-[15px] bg-transparent
+                      focus:outline-none focus:border-[var(--text)] transition-colors duration-300"
                   />
                 </div>
               </div>
               <div className="flex flex-col gap-2  ">
-                <label htmlFor="message" className="text-[11px] uppercase tracking-[0.15em] text-[#666666]">Message</label>
+                <label htmlFor="message" className="text-[11px] uppercase tracking-[0.15em] text-[var(--muted)]">Message</label>
                 <textarea
                   id="message" name="message" required value={form.message} onChange={handleChange} rows={4}
                   placeholder="Tell me about your project"
-                  className="border-b border-[#EAEAEA] py-3 text-[#111111] text-[15px] bg-transparent resize-none
-                    focus:outline-none focus:border-[#111111] transition-colors duration-300"
+                  className="border-b border-[var(--border)] py-3 text-[var(--text)] text-[15px] bg-transparent resize-none
+                    focus:outline-none focus:border-[var(--text)] transition-colors duration-300"
                 />
               </div>
 
-              <p className="text-[12px] text-[#666666] -mt-2">
+              <p className="text-[12px] text-[var(--muted)] -mt-2">
                 Clicking "Send Message" will send this directly to my inbox.
               </p>
 
               <button
                 type="submit"
                 disabled={sending}
-                className={`w-fit px-8 py-3.5 text-[13px] uppercase tracking-[0.1em] transition-all duration-500 rounded-lg ease-in-out
+                className={`w-fit px-8 py-3.5 text-[13px] uppercase tracking-[0.1em] transition-all duration-500 rounded-full ease-in-out
                   ${
                     submitted
-                      ? "bg-[#111111] text-white cursor-default"
-                      : "bg-[#111111] text-white hover:bg-black hover:-translate-y-0.5 disabled:opacity-60 disabled:hover:translate-y-0"
+                      ? "bg-[var(--text)] text-[var(--bg)] cursor-default"
+                      : "bg-[var(--text)] text-[var(--bg)] hover:opacity-90 hover:-translate-y-0.5 disabled:opacity-60 disabled:hover:translate-y-0"
                   }`}
               >
                 {sending ? "Sending…" : submitted ? "Message Sent ✓" : "Send Message"}
               </button>
 
               {error && (
-                <p className="text-[13px] text-[#111111] italic font-serif ">
+                <p className="text-[13px] text-[var(--text)] italic font-serif ">
                   Something went wrong sending that, please try again, or email me
                   directly at{" "}
                   <a href="mailto:ayomipoobafemi@gmail.com" className="not-italic underline ">
@@ -132,7 +132,7 @@ const Contact = () => {
 
           <Reveal delay={0.15} className="lg:col-span-5 flex flex-col justify-between">
             <div>
-              <p className="text-[#666666] text-[15px] leading-relaxed">
+              <p className="text-[var(--muted)] text-[15px] leading-relaxed">
                 Prefer to reach out directly? I'm always happy to hear about new
                 projects, ideas, or opportunities, and I usually reply within a day.
               </p>
@@ -141,8 +141,8 @@ const Contact = () => {
                 href={WHATSAPP_LINK}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="mt-6 inline-flex items-center gap-2 px-6 py-3 border border-[#111111] text-[#111111] text-[13px]
-                  uppercase tracking-[0.1em] rounded-lg ease-in-out transition-all duration-500 hover:bg-[#111111] hover:text-white w-fit"
+                className="mt-6 inline-flex items-center gap-2 px-6 py-3 border border-[var(--text)] text-[var(--text)] text-[13px]
+                  uppercase tracking-[0.1em] rounded-full ease-in-out transition-all duration-500 hover:bg-[var(--text)] hover:text-[var(--bg)] w-fit"
               >
                 <FaWhatsapp size={16} />
                 Message on WhatsApp
@@ -156,8 +156,8 @@ const Contact = () => {
                   href={l.href}
                   target={l.href.startsWith("http") ? "_blank" : undefined}
                   rel={l.href.startsWith("http") ? "noopener noreferrer" : undefined}
-                  className="flex items-center gap-3 text-[#111111] text-[15px] w-fit border-b border-transparent
-                    transition-all duration-300 hover:border-[#111111]"
+                  className="flex items-center gap-3 text-[var(--text)] text-[15px] w-fit border-b border-transparent
+                    transition-all duration-300 hover:border-[var(--text)]"
                 >
                   <span className="text-[18px]">{l.icon}</span>
                   {l.label}

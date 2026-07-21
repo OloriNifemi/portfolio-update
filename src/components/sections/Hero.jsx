@@ -71,32 +71,32 @@ const Hero = () => {
         {/* Text */}
         <div>
           <motion.div {...fadeUp(0)} className="flex flex-col gap-2 mb-10">
-            <p className="text-[13px] uppercase tracking-[0.25em] text-[#111111]">
+            <p className="text-[13px] uppercase tracking-[0.25em] text-[var(--text)]">
               Frontend Developer
             </p>
-            <p className="text-xs uppercase tracking-[0.3em] text-[#666666]">
+            <p className="text-xs uppercase tracking-[0.3em] text-[var(--muted)]">
               Lagos, Nigeria · Available Worldwide
             </p>
           </motion.div>
 
           <motion.h1
             {...fadeUp(0.1)}
-            className="font-serif text-[#111111] leading-[1.15] text-[clamp(2.25rem,6vw,4.25rem)]"
+            className="font-serif text-[var(--text)] leading-[1.15] text-[clamp(2.25rem,6vw,4.25rem)]"
           >
             Creating thoughtful
             <br />
             digital experiences
           </motion.h1>
 
-          <motion.p {...fadeUp(0.18)} className="mt-5 text-2xl font-serif italic text-[#666666]">
+          <motion.p {...fadeUp(0.18)} className="mt-5 text-2xl font-serif italic text-[var(--muted)]">
             — Precious Obafemi
           </motion.p>
 
           <motion.p
             {...fadeUp(0.28)}
-            className="mt-10 max-w-lg text-[#666666] text-[17px] leading-relaxed"
+            className="mt-10 max-w-lg text-[var(--muted)] text-[17px] leading-relaxed"
           >
-            I build elegant, high-performance digital experiences — interfaces
+            I build elegant, high-performance digital experiences, interfaces
             that feel considered in every detail, from the first pixel to the
             last transition.
           </motion.p>
@@ -104,9 +104,9 @@ const Hero = () => {
           <motion.div {...fadeUp(0.38)} className="mt-12 flex max-sm:flex-col gap-4">
             
             <a  href="#projects"
-              className="rounded-lg px-7 py-3.5 lg:max-w-[200px] text-center bg-[#111111] text-white text-[13px] uppercase tracking-[0.1em]
+              className="rounded-full px-7 py-3.5 lg:max-w-[200px] text-center bg-[var(--text)] text-[var(--bg)] text-[13px] uppercase tracking-[0.1em]
                 transition-[transform,background-color] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]
-                hover:bg-[#2a2a2a] hover:-translate-y-0.5"
+                hover:opacity-90 hover:-translate-y-0.5"
             >
               View Projects →
             </a>
@@ -114,9 +114,9 @@ const Hero = () => {
             
             <a  href="/resume.pdf"
               download
-              className="rounded-lg px-7 py-3.5 lg:max-w-[200px] text-center border border-[#D9D9D8] text-[#111111] text-[13px] uppercase tracking-[0.1em] flex items-center gap-2 justify-center
+              className="rounded-full px-7 py-3.5 lg:max-w-[200px] text-center border border-[var(--border)] text-[var(--text)] text-[13px] uppercase tracking-[0.1em] flex items-center gap-2 justify-center
                 transition-[transform,border-color] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]
-                hover:bg-[#111111] hover:border-[#111111] hover:text-white hover:-translate-y-0.5"
+                hover:bg-[var(--text)] hover:border-[var(--text)] hover:text-[var(--bg)] hover:-translate-y-0.5"
             >
               <HiOutlineArrowDownTray size={15} /> Resume
             </a>
@@ -130,9 +130,9 @@ const Hero = () => {
                 target={s.href.startsWith("http") ? "_blank" : undefined}
                 rel={s.href.startsWith("http") ? "noopener noreferrer" : undefined}
                 aria-label={s.label}
-                className="flex items-center justify-center w-11 h-11 rounded-lg border border-[#EAEAEA] text-[#111111]
+                className="flex items-center justify-center w-11 h-11 rounded-full border border-[var(--border)] text-[var(--text)]
                   transition-[transform,border-color] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]
-                  hover:border-[#111111] hover:-translate-y-0.5"
+                  hover:border-[var(--text)] hover:-translate-y-0.5"
               >
                 {React.cloneElement(s.icon, { size: 17 })}
               </a>
@@ -179,7 +179,7 @@ ease:[0.16,1,0.3,1], delay: 0.15, }}
 
           <div className="relative z-10 aspect-[4/5] w-full max-w-sm mx-auto">
             {/* Image is clipped separately so corner brackets can overshoot the edge */}
-            <div className="absolute inset-0 overflow-hidden border border-[#EAEAEA]">
+            <div className="absolute inset-0 overflow-hidden border border-[var(--border)]">
               <motion.div
                 variants={portraitVariants}
                 initial="rest"
@@ -258,7 +258,7 @@ ease:[0.16,1,0.3,1], delay: 0.15, }}
         initial={shouldReduceMotion ? false : { opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.8, delay: 0.6, ease: EASE }}
-        className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-[#666666]"
+        className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-[var(--muted)]"
       >
         <span className="text-[10px] uppercase tracking-[0.2em]">Scroll</span>
         <motion.span

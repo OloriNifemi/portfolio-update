@@ -22,7 +22,7 @@ const Preloader = ({ onComplete, duration = 3500 }) => {
         <motion.div
           initial={{ y: 0 }}
            exit={{ y: "-100%" }} transition={{ duration: 1.7, ease: [0.16, 1, 0.3, 1], }}
-          className="fixed inset-0 z-[999] bg-white flex items-center justify-center"
+          className="fixed inset-0 z-[999] bg-[var(--bg)] flex items-center justify-center"
         >
           <div className="flex flex-col items-center text-center max-w-xl px-8">
 
@@ -31,7 +31,7 @@ const Preloader = ({ onComplete, duration = 3500 }) => {
               initial={shouldReduceMotion ? false : { opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.1, duration: 0.8 }}
-              className="uppercase tracking-[0.35em] text-[11px] text-[#777]"
+              className="uppercase tracking-[0.35em] text-[11px] text-[var(--subtle)]"
             >
               Precious Obafemi
             </motion.p>
@@ -41,7 +41,7 @@ const Preloader = ({ onComplete, duration = 3500 }) => {
               initial={shouldReduceMotion ? false : { opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3, duration: 0.9 }}
-              className="mt-6 font-serif italic text-[clamp(2.2rem,5vw,4rem)] leading-tight text-[#111]"
+              className="mt-6 font-serif italic text-[clamp(2.2rem,5vw,4rem)] leading-tight text-[var(--text)]"
             >
               Crafted with
               <br />
@@ -66,7 +66,7 @@ const Preloader = ({ onComplete, duration = 3500 }) => {
               initial={shouldReduceMotion ? false : { opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 1 }}
-              className="mt-8 text-[#666] text-[15px] leading-relaxed max-w-md"
+              className="mt-8 text-[var(--muted)] text-[15px] leading-relaxed max-w-md"
             >
               Every interaction thoughtfully designed.
               <br />
@@ -78,7 +78,7 @@ const Preloader = ({ onComplete, duration = 3500 }) => {
               initial={shouldReduceMotion ? false : { opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 1.25 }}
-              className="mt-12 text-[11px] uppercase tracking-[0.28em] text-[#999]"
+              className="mt-12 text-[11px] uppercase tracking-[0.28em] text-[var(--subtle)]"
             >
               Frontend Developer • Lagos, Nigeria
             </motion.p>

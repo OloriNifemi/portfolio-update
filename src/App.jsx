@@ -27,7 +27,7 @@ function App() {
       )}
 
       {!loading && (
-        <div className="bg-white text-[#111111] antialiased">
+        <div className="bg-[var(--bg)] text-[var(--text)] antialiased">
           <Header />
 
           <main>

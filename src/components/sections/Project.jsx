@@ -63,10 +63,10 @@ const ProjectCard = ({ project, index }) => (
       whileHover="hover"
       variants={cardVariants}
       transition={{ duration: DURATION, ease: EASE }}
-      className="rounded-lg group border border-[#EAEAEA] transition-colors duration-[600ms] ease-[cubic-bezier(0.16,1,0.3,1)] hover:border-[#111111]"
+      className="rounded-2xl group border border-[var(--border)] transition-colors duration-[600ms] ease-[cubic-bezier(0.16,1,0.3,1)] hover:border-[var(--text)]"
     >
       {/* Screenshot */}
-      <div className="rounded-t-lg relative aspect-[16/10] overflow-hidden border-b border-[#EAEAEA]">
+      <div className="rounded-t-2xl relative aspect-[16/10] overflow-hidden border-b border-[var(--border)]">
         <motion.img
           src={project.image}
           alt={project.title}
@@ -83,26 +83,26 @@ const ProjectCard = ({ project, index }) => (
       </div>
 
       <div className="p-8 flex flex-col gap-4">
-        <h3 className="font-serif text-[22px] text-[#111111]">{project.title}</h3>
-        <p className="text-[14px] text-[#666666] leading-relaxed">{project.desc}</p>
+        <h3 className="font-serif text-[22px] text-[var(--text)]">{project.title}</h3>
+        <p className="text-[14px] text-[var(--muted)] leading-relaxed">{project.desc}</p>
 
         <div className="flex flex-wrap gap-2 pt-1">
           {project.tags.map((tag) => (
             <span
               key={tag}
-              className="text-[11px] uppercase tracking-wide text-[#666666] border border-[#EAEAEA] px-3 py-1"
+              className="text-[11px] uppercase tracking-wide text-[var(--muted)] border border-[var(--border)] px-3 py-1"
             >
               {tag}
             </span>
           ))}
         </div>
 
-        <div className="flex gap-6 pt-4 mt-2 border-t border-[#EAEAEA]">
+        <div className="flex gap-6 pt-4 mt-2 border-t border-[var(--border)]">
           <a
             href={project.liveHref}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-1.5 text-[13px] text-[#111111] transition-colors duration-300 hover:text-[#666666]"
+            className="flex items-center gap-1.5 text-[13px] text-[var(--text)] transition-colors duration-300 hover:text-[var(--muted)]"
           >
             Live Demo <HiOutlineArrowUpRight size={14} />
           </a>
@@ -110,7 +110,7 @@ const ProjectCard = ({ project, index }) => (
             href={project.codeHref}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-1.5 text-[13px] text-[#111111] transition-colors duration-300 hover:text-[#666666]"
+            className="flex items-center gap-1.5 text-[13px] text-[var(--text)] transition-colors duration-300 hover:text-[var(--muted)]"
           >
             <TbBrandGithub size={15} /> GitHub
           </a>
@@ -122,7 +122,7 @@ const ProjectCard = ({ project, index }) => (
 
 const Projects = () => {
   return (
-    <section id="projects" className="py-28 md:py-36 border-t border-[#EAEAEA]">
+    <section id="projects" className="py-28 md:py-36 border-t border-[var(--border)]">
       <Container>
         <SectionHeading eyebrow="Selected Work" title="Featured projects." />
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mt-16">

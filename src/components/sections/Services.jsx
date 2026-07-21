@@ -13,16 +13,16 @@ const SERVICES = [
 
 const Services = () => {
   return (
-    <section id="services" className="py-28 md:py-36 border-t border-[#EAEAEA]">
+    <section id="services" className="py-28 md:py-36 border-t border-[var(--border)]">
       <Container>
         <SectionHeading eyebrow="What I Offer" title="Services." />
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-10 mt-16">
           {SERVICES.map((s, i) => (
             <Reveal key={s.title} delay={i * 0.08}>
-              <div className="text-[26px] text-[#111111] mb-6">{s.icon}</div>
-              <h3 className="font-serif text-[19px] text-[#111111] mb-3">{s.title}</h3>
-              <p className="text-[14px] text-[#666666] leading-relaxed">{s.desc}</p>
+              <div className="text-[26px] text-[var(--text)] mb-6">{s.icon}</div>
+              <h3 className="font-serif text-[19px] text-[var(--text)] mb-3">{s.title}</h3>
+              <p className="text-[14px] text-[var(--muted)] leading-relaxed">{s.desc}</p>
             </Reveal>
           ))}
         </div>
