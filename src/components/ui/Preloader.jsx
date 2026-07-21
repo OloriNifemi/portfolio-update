@@ -7,6 +7,16 @@ const Preloader = ({ onComplete, duration = PRELOADER.defaultDuration }) => {
   const shouldReduceMotion = useReducedMotion();
 
   useEffect(() => {
+    // Ensure dark mode class is applied from localStorage on preloader load
+    const savedTheme = localStorage.getItem("theme");
+    const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+    
+    if (savedTheme === "dark" || (savedTheme === null && prefersDark)) {
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+    }
+
     const timer = setTimeout(
       () => setVisible(false),
       shouldReduceMotion ? PRELOADER.reducedMotionDuration : duration
