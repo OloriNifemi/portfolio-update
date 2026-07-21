@@ -21,6 +21,9 @@ export default {
         'slide-in': 'slideIn 0.6s ease-out forwards',
         'float': 'float 3.6s ease-in-out infinite',
         'shimmer-sweep': 'shimmerSweep 5s ease-in-out infinite',
+        'skill-pop': 'skillPop 0.5s cubic-bezier(0.16, 1, 0.3, 1)',
+        'skill-pulse': 'skillPulse 2.8s ease-in-out infinite',
+        'icon-bounce': 'iconBounce 3s ease-in-out infinite',
       },
       keyframes: {
         shimmerSweep: {
@@ -48,6 +51,21 @@ export default {
         slideIn: {
           '0%': { opacity: '0', transform: 'translateX(-24px)' },
           '100%': { opacity: '1', transform: 'translateX(0)' },
+        },
+        skillPop: {
+          '0%': { transform: 'scale(0.85) rotate(-8deg)', opacity: '0' },
+          '70%': { transform: 'scale(1.08)' },
+          '100%': { transform: 'scale(1) rotate(0deg)', opacity: '1' },
+        },
+        skillPulse: {
+          '0%, 100%': { transform: 'scale(1)', boxShadow: '0 0 0 0 rgba(184, 156, 100, 0.4)' },
+          '50%': { transform: 'scale(1.02)', boxShadow: '0 0 0 8px rgba(184, 156, 100, 0)' },
+        },
+        iconBounce: {
+          '0%, 100%': { transform: 'translateY(0) rotate(0deg)' },
+          '25%': { transform: 'translateY(-8px) rotate(-2deg)' },
+          '50%': { transform: 'translateY(0) rotate(0deg)' },
+          '75%': { transform: 'translateY(-4px) rotate(2deg)' },
         },
       },
       transitionTimingFunction: {
