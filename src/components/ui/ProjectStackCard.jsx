@@ -5,6 +5,10 @@ import { TbBrandGithub } from "react-icons/tb";
 const EASE = [0.16, 1, 0.3, 1];
 
 function CardContent({ project, index, total }) {
+  const handleLinkClick = (e) => {
+    e.stopPropagation();
+  };
+
   return (
     <>
       <div className="relative h-36 sm:h-44 md:h-52 lg:h-56 shrink-0 overflow-hidden">
@@ -61,40 +65,38 @@ function CardContent({ project, index, total }) {
         </div>
 
         <div className="flex flex-wrap items-center gap-6 mt-6 pt-5 border-t border-[var(--border)]">
-          <motion.a
-            whileHover={{ x: 4 }}
-            transition={{ duration: 0.25 }}
+          <a
             href={project.liveHref}
             target="_blank"
             rel="noreferrer"
-            className="flex items-center gap-2 text-[14px] font-medium text-[var(--text)] hover:text-[var(--accent)] transition-colors"
+            onClick={handleLinkClick}
+            className="flex items-center gap-2 text-[14px] font-medium text-[var(--text)] hover:text-[var(--accent)] transition-colors cursor-pointer"
           >
             Live Demo
             <HiOutlineArrowUpRight size={16} />
-          </motion.a>
+          </a>
 
-          <motion.a
-            whileHover={{ x: 4 }}
-            transition={{ duration: 0.25 }}
+          <a
             href={project.codeHref}
             target="_blank"
             rel="noreferrer"
-            className="flex items-center gap-2 text-[14px] font-medium text-[var(--text)] hover:text-[var(--accent)] transition-colors"
+            onClick={handleLinkClick}
+            className="flex items-center gap-2 text-[14px] font-medium text-[var(--text)] hover:text-[var(--accent)] transition-colors cursor-pointer"
           >
             <TbBrandGithub size={16} />
             GitHub
-          </motion.a>
+          </a>
         </div>
       </div>
     </>
   );
 }
 
-const TRANSITION_FRACTION = 0.14;
+const TRANSITION_FRACTION = 0.9;
 const CURRENT = { opacity: 1, y: "0vh", scale: 1, blur: 0 };
-const HIDDEN = { opacity: 0, y: "70vh", scale: 0.94, blur: 0 };
-const STACKED_NEAR = { opacity: 1, y: "-9vh", scale: 0.95, blur: 0 };
-const STACKED_FAR = { opacity: 0.9, y: "-16vh", scale: 0.89, blur: 0 };
+const HIDDEN = { opacity: 0, y: "40vh", scale: 0.96, blur: 4 };
+const STACKED_NEAR = { opacity: 0.95, y: "-6vh", scale: 0.97, blur: 0.5 };
+const STACKED_FAR = { opacity: 0.85, y: "-12vh", scale: 0.92, blur: 2 };
 
 export default function ProjectStackCard({
   project,
@@ -157,6 +159,7 @@ export default function ProjectStackCard({
     <motion.div
       style={{ scale, y, opacity, filter, zIndex: index }}
       className="absolute inset-0 flex items-center justify-center px-4 sm:px-6"
+      pointerEvents="none"
     >
       <motion.article
         whileHover={{ scale: 1.015, y: -6 }}
@@ -168,7 +171,9 @@ export default function ProjectStackCard({
         rounded-[22px] sm:rounded-[28px] overflow-hidden
         bg-[var(--surface)] border border-[var(--border)]
         shadow-[0_30px_60px_rgba(0,0,0,.16)]
+        cursor-pointer
         "
+        pointerEvents="auto"
       >
         <CardContent project={project} index={index} total={total} />
       </motion.article>

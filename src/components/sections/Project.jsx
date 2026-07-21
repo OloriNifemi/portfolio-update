@@ -37,7 +37,7 @@ const PROJECTS = [
   },
 ];
 
-const VH_PER_CARD = 240;
+const VH_PER_CARD = 100;
 const STICKY_TOP_OFFSET = "6rem";
 
 export default function Projects() {
@@ -79,7 +79,7 @@ export default function Projects() {
         >
           <div
             className="sticky top-24"
-            style={{ height: `calc(100vh - ${STICKY_TOP_OFFSET})` }}
+            style={{ height: `calc(100vh - ${STICKY_TOP_OFFSET})`, pointerEvents: 'none' }}
           >
             {PROJECTS.map((project, index) => (
               <ProjectStackCard
