@@ -23,6 +23,8 @@ export default {
         'bounce-subtle': 'bounceSubtle 2s ease-in-out infinite',
         'rotate-slow': 'rotateSlow 4s linear infinite',
         'pulse-glow': 'pulseGlow 2s ease-in-out infinite',
+        'shimmer-sweep': 'shimmerSweep 2.5s ease-in-out infinite',
+        'icon-lift': 'iconLift 0.4s cubic-bezier(0.16, 1, 0.3, 1)',
       },
       keyframes: {
         wiggle: {
@@ -60,6 +62,15 @@ export default {
         pulseGlow: {
           '0%, 100%': { opacity: '1', transform: 'scale(1)' },
           '50%': { opacity: '0.7', transform: 'scale(1.1)' },
+        },
+        shimmerSweep: {
+          '0%': { transform: 'translateX(-100%)' },
+          '100%': { transform: 'translateX(100%)' },
+        },
+        iconLift: {
+          '0%': { transform: 'translateY(0) scale(1)' },
+          '50%': { transform: 'translateY(-6px) scale(1.05)' },
+          '100%': { transform: 'translateY(0) scale(1)' },
         },
       },
       transitionTimingFunction: {
