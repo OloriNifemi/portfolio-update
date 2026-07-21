@@ -19,6 +19,10 @@ export default {
         'wiggle': 'wiggle 2.2s ease-in-out infinite',
         'fade-up': 'fadeUp 0.8s ease-out forwards',
         'slide-in': 'slideIn 0.6s ease-out forwards',
+        'float': 'float 3s ease-in-out infinite',
+        'bounce-subtle': 'bounceSubtle 2s ease-in-out infinite',
+        'rotate-slow': 'rotateSlow 4s linear infinite',
+        'pulse-glow': 'pulseGlow 2s ease-in-out infinite',
       },
       keyframes: {
         wiggle: {
@@ -38,6 +42,24 @@ export default {
         slideIn: {
           '0%': { opacity: '0', transform: 'translateX(-24px)' },
           '100%': { opacity: '1', transform: 'translateX(0)' },
+        },
+        float: {
+          '0%, 100%': { transform: 'translateY(0px)' },
+          '50%': { transform: 'translateY(-8px)' },
+        },
+        bounceSubtle: {
+          '0%, 100%': { transform: 'translateY(0)' },
+          '25%': { transform: 'translateY(-4px)' },
+          '50%': { transform: 'translateY(0)' },
+          '75%': { transform: 'translateY(-2px)' },
+        },
+        rotateSlow: {
+          '0%': { transform: 'rotate(0deg)' },
+          '100%': { transform: 'rotate(360deg)' },
+        },
+        pulseGlow: {
+          '0%, 100%': { opacity: '1', transform: 'scale(1)' },
+          '50%': { opacity: '0.7', transform: 'scale(1.1)' },
         },
       },
       transitionTimingFunction: {

@@ -20,9 +20,11 @@ const Services = () => {
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-10 mt-16">
           {SERVICES.map((s, i) => (
             <Reveal key={s.title} delay={i * 0.08}>
-              <div className="text-[26px] text-[var(--text)] mb-6">{s.icon}</div>
-              <h3 className="font-serif text-[19px] text-[var(--text)] mb-3">{s.title}</h3>
-              <p className="text-[14px] text-[var(--muted)] leading-relaxed">{s.desc}</p>
+              <div className="group">
+                <div className="text-[26px] text-[var(--text)] mb-6 transition-transform duration-300 group-hover:animate-float">{s.icon}</div>
+                <h3 className="font-serif text-[19px] text-[var(--text)] mb-3">{s.title}</h3>
+                <p className="text-[14px] text-[var(--muted)] leading-relaxed">{s.desc}</p>
+              </div>
             </Reveal>
           ))}
         </div>
