@@ -2,17 +2,10 @@ import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { TbMenu2, TbX } from "react-icons/tb";
 import Container from "../ui/Container";
-import useActiveSection from "../hooks/Useactivesection";
+import useActiveSection from "../hooks/useActiveSection";
 import DarkModeToggle from "../ui/DarkmodeTogggle";
-
-const NAV_LINKS = [
-  { id: "about", label: "About" },
-  { id: "projects", label: "Projects" },
-  { id: "skills", label: "Skills" },
-  { id: "experience", label: "Experience" },
-  { id: "services", label: "Services" },
-  // { id: "contact", label: "Contact" },
-];
+import { NAV_LINKS } from "../constants/nav";
+import { DURATIONS } from "../constants/theme";
 
 
 
@@ -26,6 +19,16 @@ const Header = () => {
     window.addEventListener("scroll", onScroll);
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
+
+  useEffect(() => {
+    const handleEscape = (e) => {
+      if (e.key === "Escape" && isOpen) {
+        setIsOpen(false);
+      }
+    };
+    window.addEventListener("keydown", handleEscape);
+    return () => window.removeEventListener("keydown", handleEscape);
+  }, [isOpen]);
 
   return (
     <header
@@ -94,7 +97,7 @@ const Header = () => {
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+            transition={{ duration: DURATIONS.fast, ease: [0.16, 1, 0.3, 1] }}
             className="lg:hidden overflow-hidden bg-[var(--bg)] border-b border-[var(--border)]"
           >
             <Container className="flex flex-col gap-5 py-8">

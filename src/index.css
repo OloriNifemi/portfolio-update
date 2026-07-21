@@ -17,6 +17,10 @@
 
   --border: #e8e8e8;
   --accent: #B89C64;
+  
+  /* Selection colors */
+  --selection-bg: #B89C64;
+  --selection-text: #ffffff;
 }
 
 .dark {
@@ -35,6 +39,10 @@
 
   /* Accent */
   --accent: #D0B27A;
+
+  /* Selection colors */
+  --selection-bg: #D0B27A;
+  --selection-text: #0B0B0B;
 }
 
 
@@ -129,6 +137,52 @@ html {
 }
 
 :focus-visible {
-  outline: 2px solid var(--gold);
+  outline: 2px solid var(--accent);
   outline-offset: 3px;
+}
+
+/* Smooth scrolling behavior */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+/* Button base styles for reusability */
+.btn-base {
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  border-radius: 9999px;
+}
+
+.btn-primary {
+  background-color: var(--text);
+  color: var(--bg);
+  border: 1px solid var(--text);
+}
+
+.btn-primary:hover {
+  background-color: var(--accent);
+  border-color: var(--accent);
+  transform: translateY(-2px);
+}
+
+.btn-secondary {
+  background-color: transparent;
+  color: var(--text);
+  border: 1px solid var(--border);
+}
+
+.btn-secondary:hover {
+  background-color: var(--text);
+  border-color: var(--text);
+  color: var(--bg);
+  transform: translateY(-2px);
+}
+
+/* Enhanced button focus states */
+.btn-base:focus-visible {
+  outline-offset: 2px;
 }
