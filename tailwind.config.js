@@ -16,7 +16,7 @@ export default {
         'section-lg': '8rem',
       },
       animation: {
-        'wiggle': 'wiggle 2.2s ease-in-out infinite',
+        'wiggle': 'wiggle 3.8s ease-in-out infinite',
         'fade-up': 'fadeUp 0.8s ease-out forwards',
         'slide-in': 'slideIn 0.6s ease-out forwards',
         'float': 'float 3.6s ease-in-out infinite',

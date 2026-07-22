@@ -48,22 +48,16 @@ const Skills = () => {
             return (
               <Reveal key={tool.label} delay={i * 0.03} className="flex flex-col items-center gap-2.5">
                 <div
-                  className="relative overflow-hidden w-14 h-14 sm:w-16 sm:h-16 lg:w-20 lg:h-20 rounded-[18px] flex items-center justify-center"
-                  style={{ backgroundColor: tool.bg, color: tool.fg }}
+                  className="w-14 h-14 sm:w-16 sm:h-16 lg:w-20 lg:h-20 rounded-[18px] flex items-center justify-center animate-wiggle"
+                  style={{
+                    backgroundColor: tool.bg,
+                    color: tool.fg,
+                    animationDelay: `${(i * (3.8 / APP_ICONS.length)).toFixed(2)}s`,
+                  }}
                 >
                   <Icon size={26} className="sm:hidden" />
                   <Icon size={30} className="hidden sm:block lg:hidden" />
                   <Icon size={36} className="hidden lg:block" />
-                  <div
-                    aria-hidden="true"
-                    className="absolute -inset-y-2 -left-1/2 w-[200%] animate-shimmer-sweep pointer-events-none"
-                    style={{
-                      background:
-                        "linear-gradient(75deg, transparent 35%, rgba(255,255,255,0.5) 50%, transparent 65%)",
-                      mixBlendMode: "soft-light",
-                      animationDelay: `${i * 0.15}s`,
-                    }}
-                  />
                 </div>
                 <span className="text-[10px] sm:text-[11px] text-[var(--muted)] text-center leading-tight">
                   {tool.label}
