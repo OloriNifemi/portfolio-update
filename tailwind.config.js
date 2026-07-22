@@ -22,8 +22,7 @@ export default {
         'float': 'float 3.6s ease-in-out infinite',
         'shimmer-sweep': 'shimmerSweep 5s ease-in-out infinite',
         'skill-pop': 'skillPop 0.5s cubic-bezier(0.16, 1, 0.3, 1)',
-        'skill-pulse': 'skillPulse 2.8s ease-in-out infinite',
-        'icon-bounce': 'iconBounce 3s ease-in-out infinite',
+        'tickle': 'tickle 0.6s ease-in-out infinite',
       },
       keyframes: {
         shimmerSweep: {
@@ -57,15 +56,17 @@ export default {
           '70%': { transform: 'scale(1.08)' },
           '100%': { transform: 'scale(1) rotate(0deg)', opacity: '1' },
         },
-        skillPulse: {
-          '0%, 100%': { transform: 'scale(1)', boxShadow: '0 0 0 0 rgba(184, 156, 100, 0.4)' },
-          '50%': { transform: 'scale(1.02)', boxShadow: '0 0 0 8px rgba(184, 156, 100, 0)' },
-        },
-        iconBounce: {
-          '0%, 100%': { transform: 'translateY(0) rotate(0deg)' },
-          '25%': { transform: 'translateY(-8px) rotate(-2deg)' },
-          '50%': { transform: 'translateY(0) rotate(0deg)' },
-          '75%': { transform: 'translateY(-4px) rotate(2deg)' },
+        tickle: {
+          '0%, 100%': { transform: 'rotate(0deg) scale(1)' },
+          '10%': { transform: 'rotate(-3deg) scale(1.02)' },
+          '20%': { transform: 'rotate(3deg) scale(1.02)' },
+          '30%': { transform: 'rotate(-2deg) scale(1.01)' },
+          '40%': { transform: 'rotate(2deg) scale(1.01)' },
+          '50%': { transform: 'rotate(-1deg) scale(1)' },
+          '60%': { transform: 'rotate(1deg) scale(1)' },
+          '70%': { transform: 'rotate(-0.5deg) scale(0.99)' },
+          '80%': { transform: 'rotate(0.5deg) scale(0.99)' },
+          '90%': { transform: 'rotate(0deg) scale(0.99)' },
         },
       },
       transitionTimingFunction: {

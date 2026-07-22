@@ -48,7 +48,7 @@ const Skills = () => {
             return (
               <Reveal key={tool.label} delay={i * 0.03} className="flex flex-col items-center gap-2.5 group">
                 <div
-                  className="relative overflow-hidden w-14 h-14 sm:w-16 sm:h-16 lg:w-20 lg:h-20 rounded-[18px] flex items-center justify-center transition-all duration-300 group-hover:animate-skill-pulse"
+                  className="relative overflow-hidden w-14 h-14 sm:w-16 sm:h-16 lg:w-20 lg:h-20 rounded-[18px] flex items-center justify-center transition-all duration-300 group-hover:animate-tickle"
                   style={{
                     backgroundColor: tool.bg,
                     color: tool.fg,
@@ -56,9 +56,9 @@ const Skills = () => {
                     animationDelay: `${i * 0.05}s`,
                   }}
                 >
-                  <Icon size={26} className="sm:hidden group-hover:animate-icon-bounce" />
-                  <Icon size={30} className="hidden sm:block lg:hidden group-hover:animate-icon-bounce" />
-                  <Icon size={36} className="hidden lg:block group-hover:animate-icon-bounce" />
+                  <Icon size={26} className="sm:hidden" />
+                  <Icon size={30} className="hidden sm:block lg:hidden" />
+                  <Icon size={36} className="hidden lg:block" />
                   <div
                     aria-hidden="true"
                     className="absolute -inset-y-2 -left-1/2 w-[200%] animate-shimmer-sweep pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-300"
