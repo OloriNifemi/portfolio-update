@@ -4,7 +4,6 @@ export const NAV_LINKS = [
   { id: 'skills', label: 'Skills' },
   { id: 'experience', label: 'Experience' },
   { id: 'services', label: 'Services' },
-  { id: 'contact', label: 'Contact' },
 ];
 
 export const SOCIAL_LINKS = [

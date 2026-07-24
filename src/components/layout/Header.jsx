@@ -14,6 +14,7 @@ const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const activeId = useActiveSection(NAV_LINKS.map((l) => l.id));
+  const [pendingScroll, setPendingScroll] = useState(null);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
@@ -90,15 +91,30 @@ const Header = () => {
         </div>
         
       </Container>
-
       {/* Mobile menu */}
-      <AnimatePresence>
+      <AnimatePresence
+        onExitComplete={() => {
+          if (pendingScroll) {
+            document
+              .getElementById(pendingScroll)
+              ?.scrollIntoView({
+                behavior: "smooth",
+                block: "start",
+              });
+
+            setPendingScroll(null);
+          }
+        }}
+      >
         {isOpen && (
           <motion.nav
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: DURATIONS.fast, ease: [0.16, 1, 0.3, 1] }}
+            transition={{
+              duration: DURATIONS.fast,
+              ease: [0.16, 1, 0.3, 1],
+            }}
             className="lg:hidden overflow-hidden bg-[var(--bg)] border-b border-[var(--border)]"
           >
             <Container className="flex flex-col gap-5 py-8">
@@ -106,21 +122,31 @@ const Header = () => {
                 <a
                   key={link.id}
                   href={`#${link.id}`}
-                  onClick={() => setIsOpen(false)}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setPendingScroll(link.id);
+                    setIsOpen(false);
+                  }}
                   className={`font-serif italic text-[22px] ${
-                    activeId === link.id ? "text-[var(--text)]" : "text-[var(--muted)]"
+                    activeId === link.id
+                      ? "text-[var(--text)]"
+                      : "text-[var(--muted)]"
                   }`}
                 >
                   {link.label}
                 </a>
               ))}
+
               <a
                 href="#contact"
-                onClick={() => setIsOpen(false)}
-                className=" mt-2 px-6 py-2.5  border border-[var(--text)] text-[var(--text)] text-[13px] uppercase tracking-[0.1em]
-                rounded-lg ease-in-out transition-all duration-500 text-center"
+                onClick={(e) => {
+                  e.preventDefault();
+                  setPendingScroll("contact");
+                  setIsOpen(false);
+                }}
+                className="mt-2 px-6 py-2.5 border border-[var(--text)] text-[var(--text)] text-[13px] uppercase tracking-[0.1em] rounded-lg ease-in-out transition-all duration-500 text-center"
               >
-                Hire Me! 
+                Hire Me!
               </a>
             </Container>
           </motion.nav>
