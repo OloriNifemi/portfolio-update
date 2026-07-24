@@ -46,8 +46,10 @@ const Skills = () => {
           {APP_ICONS.map((tool, i) => {
             const Icon = tool.icon;
             return (
+
               <Reveal key={tool.label} delay={i * 0.03} className="flex flex-col items-center gap-2.5">
                 <div
+                
                   className="w-14 h-14 sm:w-16 sm:h-16 lg:w-20 lg:h-20 rounded-[18px] flex items-center justify-center animate-wiggle"
                   style={{
                     backgroundColor: tool.bg,
