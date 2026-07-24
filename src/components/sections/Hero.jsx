@@ -92,7 +92,7 @@ const Hero = () => {
           <motion.div {...fadeUp(0.38, shouldReduceMotion)} className="mt-12 flex max-sm:flex-col gap-4">
             
             <a  href="#projects"
-              className="rounded-full px-7 py-3.5 lg:max-w-[200px] text-center bg-[var(--text)] text-[var(--bg)] text-[13px] uppercase tracking-[0.1em]
+              className="rounded-full px-6 py-3.5 lg:max-w-[200px] text-center bg-[var(--text)] text-[var(--bg)] text-[13px] uppercase tracking-[0.1em]
                 transition-[transform,background-color] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]
                 hover:opacity-90 hover:-translate-y-0.5"
             >
@@ -102,7 +102,7 @@ const Hero = () => {
             
             <a  href="/resume.pdf"
               download
-              className="rounded-full px-7 py-3.5 lg:max-w-[200px] text-center border border-[var(--border)] text-[var(--text)] text-[13px] uppercase tracking-[0.1em] flex items-center gap-2 justify-center
+              className="rounded-full px-6 py-3.5 lg:max-w-[200px] text-center border border-[var(--border)] text-[var(--text)] text-[13px] uppercase tracking-[0.1em] flex items-center gap-2 justify-center
                 transition-[transform,border-color] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]
                 hover:bg-[var(--text)] hover:border-[var(--text)] hover:text-[var(--bg)] hover:-translate-y-0.5"
             >

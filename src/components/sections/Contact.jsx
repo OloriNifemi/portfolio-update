@@ -107,7 +107,7 @@ const Contact = () => {
               <button
                 type="submit"
                 disabled={sending}
-                className={`w-fit px-8 py-3.5 text-[13px] uppercase tracking-[0.1em] transition-all duration-500 rounded-full ease-in-out
+                className={`lg:w-fit px-6 py-3.5 text-[13px] uppercase tracking-[0.1em] transition-all duration-500 rounded-full ease-in-out
                   ${
                     submitted
                       ? "bg-[var(--text)] text-[var(--bg)] cursor-default"
@@ -141,23 +141,23 @@ const Contact = () => {
                 href={WHATSAPP_LINK}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="mt-6 inline-flex items-center gap-2 px-6 py-3 border border-[var(--text)] text-[var(--text)] text-[13px]
-                  uppercase tracking-[0.1em] rounded-full ease-in-out transition-all duration-500 hover:bg-[var(--text)] hover:text-[var(--bg)] w-fit"
+                className="mt-6 lg:inline-flex lg:items-center flex justify-center items-center gap-2 px-6 py-3.5 border border-[var(--border)] text-[var(--text)] text-[13px]
+                  uppercase tracking-[0.1em] rounded-full ease-in-out transition-all duration-500 hover:bg-[var(--text)] hover:text-[var(--bg)] lg:w-fit"
               >
                 <FaWhatsapp size={16} />
                 Message on WhatsApp
               </a>
             </div>
 
-            <div className="flex lg:flex-col gap-4 mt-10">
+            <div className="lg:flex-col lg:items-start flex justify-center items-center lg:gap-4 gap-10 mt-10">
               {LINKS.map((l) => (
                 <a
                   key={l.label}
                   href={l.href}
                   target={l.href.startsWith("http") ? "_blank" : undefined}
                   rel={l.href.startsWith("http") ? "noopener noreferrer" : undefined}
-                  className="flex items-center gap-3 text-[var(--text)] text-[15px] w-fit border-b border-transparent
-                    transition-all duration-300 hover:border-[var(--text)]"
+                  className="flex justify-center items-center lg:gap-3 gap-2 text-[var(--text)] text-[15px] lg:w-fit border-b border-transparent
+                    transition-all duration-500 hover:border-[var(--text)]"
                 >
                   <span className="text-[18px]">{l.icon}</span>
                   {l.label}
