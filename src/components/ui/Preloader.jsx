@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
-import { EASE, PRELOADER } from "../constants/theme";
+import { PRELOADER } from "../constants/theme";
+
+// A gentler curve than the site's usual expo-out EASE — smooth accel/decel,
+// no sharp snap at the start or end.
+const SOFT_EASE = [0.4, 0, 0.2, 1];
 
 const Preloader = ({ onComplete, duration = PRELOADER.defaultDuration }) => {
   const [visible, setVisible] = useState(true);
@@ -29,18 +33,18 @@ const Preloader = ({ onComplete, duration = PRELOADER.defaultDuration }) => {
     <AnimatePresence onExitComplete={onComplete}>
       {visible && (
         <motion.div
-          initial={{ y: 0 }}
-          exit={{ y: "-100%" }}
-          transition={{ duration: 1.7, ease: EASE }}
+          initial={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: "-3%" }}
+          transition={{ duration: 1.4, ease: SOFT_EASE }}
           className="fixed inset-0 z-[999] bg-[var(--bg)] flex items-center justify-center"
         >
           <div className="flex flex-col items-center text-center max-w-xl px-8">
 
             {/* Eyebrow */}
             <motion.p
-              initial={shouldReduceMotion ? false : { opacity: 0, y: 10 }}
+              initial={shouldReduceMotion ? false : { opacity: 0, y: 6 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: PRELOADER.eyebrowDelay, duration: 0.8 }}
+              transition={{ delay: PRELOADER.eyebrowDelay, duration: 1, ease: SOFT_EASE }}
               className="uppercase tracking-[0.35em] text-[11px] text-[var(--subtle)]"
             >
               Precious Obafemi
@@ -48,14 +52,14 @@ const Preloader = ({ onComplete, duration = PRELOADER.defaultDuration }) => {
 
             {/* Main Heading */}
             <motion.h1
-              initial={shouldReduceMotion ? false : { opacity: 0, y: 20 }}
+              initial={shouldReduceMotion ? false : { opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: PRELOADER.headingDelay, duration: 0.9 }}
+              transition={{ delay: PRELOADER.headingDelay, duration: 1.1, ease: SOFT_EASE }}
               className="mt-6 font-serif italic text-[clamp(2.2rem,5vw,4rem)] leading-tight text-[var(--text)]"
             >
-              Crafted with
+              匠心
               <br />
-              intention.
+              雕琢。
             </motion.h1>
 
             {/* Accent line */}
@@ -64,8 +68,8 @@ const Preloader = ({ onComplete, duration = PRELOADER.defaultDuration }) => {
               animate={{ scaleX: 1 }}
               transition={{
                 delay: PRELOADER.lineDelay,
-                duration: 1,
-                ease: EASE,
+                duration: 1.2,
+                ease: SOFT_EASE,
               }}
               style={{ transformOrigin: "center" }}
               className="mt-8 h-px w-24 bg-[var(--accent)]"
@@ -73,24 +77,24 @@ const Preloader = ({ onComplete, duration = PRELOADER.defaultDuration }) => {
 
             {/* Subtitle */}
             <motion.p
-              initial={shouldReduceMotion ? false : { opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: PRELOADER.subtitleDelay }}
+              initial={shouldReduceMotion ? false : { opacity: 0, y: 4 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: PRELOADER.subtitleDelay, duration: 1, ease: SOFT_EASE }}
               className="mt-8 text-[var(--muted)] text-[15px] leading-relaxed max-w-md"
             >
-              Every interaction thoughtfully designed.
+              每一次互动，皆用心设计。
               <br />
-              Every detail intentionally crafted.
+              每一个细节，皆匠心雕琢。
             </motion.p>
 
             {/* Footer */}
             <motion.p
-              initial={shouldReduceMotion ? false : { opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: PRELOADER.footerDelay }}
+              initial={shouldReduceMotion ? false : { opacity: 0, y: 4 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: PRELOADER.footerDelay, duration: 1, ease: SOFT_EASE }}
               className="mt-12 text-[11px] uppercase tracking-[0.28em] text-[var(--subtle)]"
             >
-              Frontend Developer • Lagos, Nigeria
+              前端开发工程师 · 尼日利亚拉各斯
             </motion.p>
 
           </div>

@@ -11,7 +11,7 @@ function CardContent({ project, index, total }) {
         <img
           src={project.image}
           alt={project.title}
-          loading="lazy"
+          loading="eager"
           decoding="async"
           width={800}
           height={500}

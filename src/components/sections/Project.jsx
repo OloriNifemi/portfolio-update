@@ -39,7 +39,7 @@ const PROJECTS = [
   },
 ];
 
-const VH_PER_CARD = 120;
+const VH_PER_CARD = 65;
 const STICKY_TOP_OFFSET = "6rem";
 
 export default function Projects() {
