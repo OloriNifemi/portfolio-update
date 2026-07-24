@@ -141,7 +141,7 @@ const Contact = () => {
                 href={WHATSAPP_LINK}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="mt-6 lg:inline-flex lg:items-center flex justify-center items-center gap-2 px-6 py-3.5 border border-[var(--border)] text-[var(--text)] text-[13px]
+                className="mt-6 lg:inline-flex lg:items-center flex justify-center items-center gap-2 px-6 py-3.5 bg-transparent border border-[var(--border)] text-[var(--text)] text-[13px]
                   uppercase tracking-[0.1em] rounded-full ease-in-out transition-all duration-500 hover:bg-[var(--text)] hover:text-[var(--bg)] lg:w-fit"
               >
                 <FaWhatsapp size={16} />
