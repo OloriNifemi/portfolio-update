@@ -28,7 +28,7 @@ const APP_ICONS = [
   { label: "Tailwind", icon: SiTailwindcss, bg: "#0EA5E9", fg: "#FFFFFF" },
   { label: "CSS3", icon: SiCss, bg: "#2965F1", fg: "#FFFFFF" },
   { label: "Framer", icon: SiFramer, bg: "#B89C64", fg: "#FFFFFF" },
-  { label: "Figma", icon: SiFigma, bg: "#2C2C2C", fg: "#F24E1E" },
+  { label: "Figma", icon: SiFigma, bg: "#2C2C2C", fg: "#FFFFFF" },
   { label: "Git", icon: SiGit, bg: "#F05033", fg: "#FFFFFF" },
   { label: "GitHub", icon: SiGithub, bg: "#181717", fg: "#FFFFFF" },
   { label: "VS Code", icon: VscVscode, bg: "#007ACC", fg: "#FFFFFF" },
@@ -50,7 +50,7 @@ const Skills = () => {
               <Reveal key={tool.label} delay={i * 0.03} className="flex flex-col items-center gap-2.5">
                 <div
                 
-                  className="w-14 h-14 sm:w-16 sm:h-16 lg:w-20 lg:h-20 rounded-[18px] flex items-center justify-center animate-wiggle"
+                  className="w-14 h-14 sm:w-16 sm:h-16 lg:w-20 lg:h-20 rounded-full flex items-center justify-center animate-wiggle"
                   style={{
                     backgroundColor: tool.bg,
                     color: tool.fg,
