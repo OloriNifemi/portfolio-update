@@ -41,8 +41,6 @@ const RAW_PROJECTS = [
   },
 ];
 
-// Tag each project with a stable index up front so it survives reordering
-// in the stack (used for the "01 / 03" counter inside the card).
 const PROJECTS = RAW_PROJECTS.map((p, i) => ({ ...p, originalIndex: i }));
 
 const VISIBLE_DEPTH = 3; // how many cards deep the stack renders at once
@@ -119,15 +117,11 @@ export default function Projects() {
   }, [triggerTop]);
 
   return (
-    <section id="projects" className="relative border-t border-[var(--border)]">
+    <section id="projects" className="relative border-t border-[var(--border)] overflow-x-hidden overscroll-x-none">
       <Container className="pt-28 md:pt-36 pb-20 md:pb-28">
         <SectionHeading eyebrow="Selected Work" title="Featured projects." />
 
-        {/* Outer wrapper: NOT clipped, so the side nav buttons (which sit in
-            the gutter beside the card) stay visible. Only the inner deck
-            below is clipped, which is what stops a horizontal drag from
-            ever expanding the page's scrollable width. */}
-        <div className="relative mt-16 overscroll-x-contain">
+        <div className="relative mt-16 overflow-hidden overscroll-x-none touch-pan-y">
           <button
             type="button"
             aria-label="Previous project"
@@ -148,7 +142,24 @@ export default function Projects() {
             <HiOutlineChevronRight size={18} />
           </button>
 
-          <div className="relative h-[580px] sm:h-[560px] md:h-[560px] lg:h-[580px] overflow-hidden touch-pan-y">
+          <div className=" relative h-[610px] sm:h-[580px] md:h-[560px] lg:h-[580px] overflow-hidden overscroll-x-none touch-pan-y ">
+            <AnimatePresence>
+              {showHint && (
+                <motion.div
+                  initial={{ opacity: 0, y: prefersReducedMotion ? 0 : 8 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: prefersReducedMotion ? 0 : 8 }}
+                  transition={{ duration: prefersReducedMotion ? 0 : 0.4, ease: EASE }}
+                  className="lg:hidden flex justify-center mt-5"
+                >
+                  <div className="flex items-center gap-2 px-4 py-2 rounded-full border border-[var(--border)] bg-[var(--bg-alt)] text-[var(--muted)]">
+                    <HiOutlineChevronLeft size={13} />
+                    <span className="text-[10px] uppercase tracking-[0.15em]">Swipe left or right</span>
+                    <HiOutlineChevronRight size={13} />
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
             {PROJECTS.map((project) => {
               const pos = (project.originalIndex - currentIndex + total) % total;
               if (pos >= VISIBLE_DEPTH) return null;
@@ -172,25 +183,7 @@ export default function Projects() {
           </div>
         </div>
 
-        <AnimatePresence>
-          {showHint && (
-            <motion.div
-              initial={{ opacity: 0, y: prefersReducedMotion ? 0 : 8 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: prefersReducedMotion ? 0 : 8 }}
-              transition={{ duration: prefersReducedMotion ? 0 : 0.4, ease: EASE }}
-              className="lg:hidden flex justify-center mt-5"
-            >
-              <div className="flex items-center gap-2 px-4 py-2 rounded-full border border-[var(--border)] bg-[var(--bg-alt)] text-[var(--muted)]">
-                <HiOutlineChevronLeft size={13} />
-                <span className="text-[10px] uppercase tracking-[0.15em]">Swipe left or right</span>
-                <HiOutlineChevronRight size={13} />
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
-
-        <div className="flex items-center justify-center gap-2 mt-8">
+        <div className="flex items-center justify-center gap-3 mt-7">
           {PROJECTS.map((project) => {
             const isActive = project.originalIndex === currentIndex;
             return (

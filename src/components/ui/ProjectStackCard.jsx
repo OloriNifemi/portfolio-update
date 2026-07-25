@@ -11,7 +11,7 @@ function CardContent({ project, index, total }) {
 
   return (
     <>
-      <div className="relative h-52 sm:h-60 md:h-64 lg:h-72 shrink-0 overflow-hidden">
+      <div className="relative h-56 sm:h-60 md:h-64 lg:h-72 shrink-0 overflow-hidden">
         <img
           src={project.image}
           alt={project.title}
@@ -19,12 +19,12 @@ function CardContent({ project, index, total }) {
           decoding="async"
           width={800}
           height={500}
-          className="w-full h-full object-cover"
+          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
           draggable={false}
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/25 via-transparent to-transparent" />
       </div>
-      <div className="p-4 sm:p-5 lg:p-6 flex-1 min-h-0 overflow-y-auto">
+      <div className="p-5 sm:p-6 lg:p-6 flex-1 min-h-0 overflow-y-auto">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2.5">
             <div
@@ -47,15 +47,15 @@ function CardContent({ project, index, total }) {
           </span>
         </div>
 
-        <h2 className="mt-3 font-serif text-2xl lg:text-3xl text-[var(--text)] leading-tight">
+        <h2 className="mt-4 font-serif text-[28px] lg:text-3xl leading-tight text-[var(--text)]">
           {project.title}
         </h2>
 
-        <p className="mt-2 text-[14px] leading-6 text-[var(--muted)] max-w-2xl">
+        <p className="mt-3 text-[15px] leading-7 text-[var(--muted)] max-w-2xl">
           {project.desc}
         </p>
 
-        <div className="flex flex-wrap gap-2 mt-4">
+        <div className="flex flex-wrap gap-2.5 mt-5">
           {project.tags.map((tag) => (
             <span
               key={tag}
@@ -70,7 +70,7 @@ function CardContent({ project, index, total }) {
           ))}
         </div>
 
-        <div className="flex flex-wrap items-center gap-6 mt-5 pt-4 border-t border-[var(--border)] relative z-10">
+        <div className="flex flex-wrap items-center gap-6 mt-6 pt-5 border-t border-[var(--border)] relative z-10">
           <a
             href={project.liveHref}
             target="_blank"
@@ -106,13 +106,21 @@ export default function ProjectStackCard({ project, index, total }) {
       whileHover={{ y: -4 }}
       transition={{ duration: 0.15, ease: EASE }}
       className="
+      group
       relative flex flex-col
-      w-full max-w-sm sm:max-w-md md:max-w-xl lg:max-w-2xl
+      w-[94vw]
+      sm:w-full
+      max-w-[420px]
+      sm:max-w-md
+      md:max-w-xl
+      lg:max-w-2xl
       max-h-full
-      rounded-[22px] sm:rounded-[28px] overflow-hidden
-      bg-[var(--surface)] border border-[var(--border)]
-      shadow-[0_30px_60px_rgba(0,0,0,.16)]
-      "
+      rounded-[24px]
+      sm:rounded-[28px]
+      overflow-hidden
+      bg-[var(--surface)]
+      border border-[var(--border)]
+      shadow-[0_10px_30px_rgba(0,0,0,.08),0_24px_60px_rgba(0,0,0,.10)]"
     >
       <CardContent project={project} index={index} total={total} />
     </motion.article>

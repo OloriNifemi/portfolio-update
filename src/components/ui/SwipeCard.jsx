@@ -4,19 +4,11 @@ import { HiOutlineArrowLeft, HiOutlineArrowRight } from "react-icons/hi2";
 import ProjectStackCard from "./ProjectStackCard";
 
 const EXIT_DISTANCE = 560;
-const DRAG_DISTANCE_THRESHOLD = 140;
+const DRAG_DISTANCE_THRESHOLD = 170;
 const DRAG_VELOCITY_THRESHOLD = 650;
-
-// A programmatic trigger (button/keyboard) has no real drag velocity to
-// inherit, so it falls back to this — tuned to feel like a natural flick
-// rather than a slow drift.
 const FALLBACK_EXIT_VELOCITY = 900;
-
-// Near-critical damping for the given stiffness — the card decelerates
-// smoothly into place with no bounce, which is what reads as "natural"
-// rather than mechanical.
-const EXIT_SPRING = { type: "spring", stiffness: 140, damping: 26 };
-const SNAP_BACK_SPRING = { type: "spring", stiffness: 300, damping: 28 };
+const EXIT_SPRING = { type: "spring", stiffness: 115, damping: 20, mass: 0.9, };
+const SNAP_BACK_SPRING = { type: "spring", stiffness: 250, damping: 22, mass: 0.8, };
 
 const SwipeCard = forwardRef(function SwipeCard(
   { project, stackPosition, total, isReduced, onSwiped, onInteractionStart },
@@ -26,8 +18,8 @@ const SwipeCard = forwardRef(function SwipeCard(
 
   // Raw motion value — dragging this never triggers a React re-render.
   const x = useMotionValue(0);
-  const rotate = useTransform(x, [-260, 260], [-10, 10]);
-  const cardOpacity = useTransform(x, [-260, -140, 0, 140, 260], [0, 1, 1, 1, 0]);
+  const rotate = useTransform(x, [-320, 320], [-7, 7] );
+  const cardOpacity = useTransform(x, [-340, -220, 0, 220, 340], [0, 1, 1, 1, 0] );
   const prevHint = useTransform(x, [40, 150], [0, 1]);
   const nextHint = useTransform(x, [-150, -40], [1, 0]);
 
@@ -75,20 +67,23 @@ const SwipeCard = forwardRef(function SwipeCard(
       className={`absolute inset-0 flex items-center justify-center px-4 sm:px-6 ${
         isTop && !isReduced ? "cursor-grab active:cursor-grabbing" : ""
       }`}
-      style={{ zIndex: total - stackPosition, touchAction: "pan-y", ...dragStyle }}
-      animate={{ scale: 1 - stackPosition * 0.045, y: stackPosition * 16 }}
+      style={{ zIndex: total - stackPosition, touchAction: "pan-y", WebkitUserSelect: "none", userSelect: "none", WebkitTouchCallout: "none", ...dragStyle, }}
+      animate={{ scale: 1 - stackPosition * 0.035, y: stackPosition * 12 }}
       transition={
         isReduced
           ? { duration: 0 }
           : isTop
           ? { duration: 0.12, ease: "easeOut" }
           : { type: "spring", stiffness: 220, damping: 28 }
-      }
-      drag={isTop && !isReduced ? "x" : false}
-      dragElastic={0.85}
-      dragMomentum={false}
-      onDragStart={isTop ? () => onInteractionStart?.() : undefined}
-      onDragEnd={isTop ? handleDragEnd : undefined}
+        }
+        drag={isTop && !isReduced ? "x" : false}
+        dragConstraints={{ left: 0, right: 0, }}
+        dragElastic={0.28}
+        dragMomentum={false}
+        dragDirectionLock
+        dragPropagation={false}
+        onDragStart={isTop ? () => onInteractionStart?.() : undefined}
+        onDragEnd={isTop ? handleDragEnd : undefined}
     >
       {isTop && !isReduced && (
         <>
