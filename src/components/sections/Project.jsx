@@ -11,8 +11,6 @@ import Ecommerce from "../../assets/Ecommerce.png";
 import WeddingWeb from "../../assets/WeddingWeb.png";
 import Birthday from "../../assets/Birthday.png";
 
-const HINT_AUTO_DISMISS_MS = 9000;
-
 const RAW_PROJECTS = [
   {
     title: "E-Commerce Storefront",
@@ -55,21 +53,16 @@ export default function Projects() {
 
   // Track visibility on the carousel itself (not the whole section).
   // `once: false` so the hint can re-trigger every time the user
-  // scrolls back into view, not just the first time.
+  // scrolls back into view.
   const carouselRef = useRef(null);
   const isInView = useInView(carouselRef, { once: false, amount: 0.3 });
 
-  const dismissHint = useCallback(() => setShowHint(false), []);
-
+  // Hint visibility is driven ONLY by scroll position — no auto-dismiss
+  // timer, and nothing else (touching cards, clicking nav) hides it.
+  // It stays up the whole time the section is in view, and only clears
+  // once the user scrolls out.
   useEffect(() => {
-    if (isInView) {
-      setShowHint(true);
-      const timer = setTimeout(() => setShowHint(false), HINT_AUTO_DISMISS_MS);
-      return () => clearTimeout(timer);
-    }
-    // Scrolled away — hide it so it's not lingering when they scroll
-    // back into the section (the effect above will show it fresh again).
-    setShowHint(false);
+    setShowHint(isInView);
   }, [isInView]);
 
   const advance = useCallback(
@@ -96,7 +89,6 @@ export default function Projects() {
       const topCard = cardRefs.current.get(topProject.title);
       if (!topCard) return;
 
-      setShowHint(false);
       setIsAnimating(true);
       topCard.trigger(direction);
     },
@@ -106,7 +98,6 @@ export default function Projects() {
   const jumpTo = useCallback(
     (idx) => {
       if (isAnimating || idx === currentIndex) return;
-      setShowHint(false);
       setCurrentIndex(idx);
     },
     [isAnimating, currentIndex]
@@ -168,7 +159,6 @@ export default function Projects() {
                   total={total}
                   isReduced={prefersReducedMotion}
                   onSwiped={onSwiped}
-                  onInteractionStart={dismissHint}
                 />
               );
             })}
@@ -219,9 +209,7 @@ export default function Projects() {
                       shadow-sm
                     "
                   >
-                    {/* <HiOutlineArrowLeft size={12} className="opacity-60" /> */}
                     Swipe to explore!
-                    {/* <HiOutlineArrowRight size={12} className="opacity-60" /> */}
                   </div>
                 </motion.div>
               )}
