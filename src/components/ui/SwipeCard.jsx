@@ -3,14 +3,23 @@ import { motion, useMotionValue, useTransform, animate } from "framer-motion";
 import { HiOutlineArrowLeft, HiOutlineArrowRight } from "react-icons/hi2";
 import ProjectStackCard from "./ProjectStackCard";
 
-const EASE = [0.16, 1, 0.3, 1];
-
 const EXIT_DISTANCE = 560;
-const DRAG_DISTANCE_THRESHOLD = 120;
-const DRAG_VELOCITY_THRESHOLD = 480;
+const DRAG_DISTANCE_THRESHOLD = 140;
+const DRAG_VELOCITY_THRESHOLD = 650;
+
+// A programmatic trigger (button/keyboard) has no real drag velocity to
+// inherit, so it falls back to this — tuned to feel like a natural flick
+// rather than a slow drift.
+const FALLBACK_EXIT_VELOCITY = 900;
+
+// Near-critical damping for the given stiffness — the card decelerates
+// smoothly into place with no bounce, which is what reads as "natural"
+// rather than mechanical.
+const EXIT_SPRING = { type: "spring", stiffness: 140, damping: 26 };
+const SNAP_BACK_SPRING = { type: "spring", stiffness: 300, damping: 28 };
 
 const SwipeCard = forwardRef(function SwipeCard(
-  { project, stackPosition, total, isReduced, onSwiped },
+  { project, stackPosition, total, isReduced, onSwiped, onInteractionStart },
   ref
 ) {
   const isTop = stackPosition === 0;
@@ -22,15 +31,18 @@ const SwipeCard = forwardRef(function SwipeCard(
   const prevHint = useTransform(x, [40, 150], [0, 1]);
   const nextHint = useTransform(x, [-150, -40], [1, 0]);
 
-  const exit = (direction) => {
+  const exit = (direction, rawVelocity) => {
     if (isReduced) {
       onSwiped(direction);
       return;
     }
     const target = direction === "left" ? -EXIT_DISTANCE : EXIT_DISTANCE;
+    const magnitude = Math.max(Math.abs(rawVelocity ?? 0), FALLBACK_EXIT_VELOCITY);
+    const signedVelocity = direction === "left" ? -magnitude : magnitude;
+
     animate(x, target, {
-      duration: 0.38,
-      ease: EASE,
+      ...EXIT_SPRING,
+      velocity: signedVelocity,
       onComplete: () => {
         onSwiped(direction);
         x.set(0);
@@ -50,9 +62,9 @@ const SwipeCard = forwardRef(function SwipeCard(
     const passedDistance = Math.abs(info.offset.x) > DRAG_DISTANCE_THRESHOLD;
     const passedVelocity = Math.abs(info.velocity.x) > DRAG_VELOCITY_THRESHOLD;
     if (passedDistance || passedVelocity) {
-      exit(info.offset.x < 0 ? "left" : "right");
+      exit(info.offset.x < 0 ? "left" : "right", info.velocity.x);
     } else {
-      animate(x, 0, { type: "spring", stiffness: 500, damping: 34 });
+      animate(x, 0, { ...SNAP_BACK_SPRING, velocity: info.velocity.x });
     }
   };
 
@@ -65,10 +77,17 @@ const SwipeCard = forwardRef(function SwipeCard(
       }`}
       style={{ zIndex: total - stackPosition, touchAction: "pan-y", ...dragStyle }}
       animate={{ scale: 1 - stackPosition * 0.045, y: stackPosition * 16 }}
-      transition={isReduced ? { duration: 0 } : { type: "spring", stiffness: 320, damping: 30 }}
+      transition={
+        isReduced
+          ? { duration: 0 }
+          : isTop
+          ? { duration: 0.12, ease: "easeOut" }
+          : { type: "spring", stiffness: 220, damping: 28 }
+      }
       drag={isTop && !isReduced ? "x" : false}
       dragElastic={0.85}
       dragMomentum={false}
+      onDragStart={isTop ? () => onInteractionStart?.() : undefined}
       onDragEnd={isTop ? handleDragEnd : undefined}
     >
       {isTop && !isReduced && (
