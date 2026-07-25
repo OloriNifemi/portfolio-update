@@ -173,7 +173,7 @@ export default function Projects() {
         </div>
       </Container>
 
-      <div className="relative z-10 pt-24 pb-36 flex justify-center">
+      <div className="relative z-10 pt-10 pb-10 flex justify-center">
         <HireMeButton />
       </div>
     </section>

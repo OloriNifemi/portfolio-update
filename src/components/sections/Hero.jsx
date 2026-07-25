@@ -47,14 +47,14 @@ const Hero = () => {
             — Precious Obafemi
           </motion.p>
 
-          <motion.p
+          {/* <motion.p
             {...fadeUp(DELAYS.large, shouldReduceMotion)}
             className="mt-10 max-w-lg text-[var(--muted)] text-[17px] leading-relaxed"
           >
             I build elegant, high-performance digital experiences, interfaces
             that feel considered in every detail, from the first pixel to the
             last transition.
-          </motion.p>
+          </motion.p> */}
 
           <motion.div {...fadeUp(0.38, shouldReduceMotion)} className="mt-12 flex max-sm:flex-col gap-4">
             

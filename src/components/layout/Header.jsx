@@ -45,13 +45,13 @@ const Header = () => {
         <div className="flex items-center justify-center gap-10">
 
           {/* Desktop nav */}
-          <div className="hidden lg:flex justify-between items-center lg:gap-5 ">
+          <div className="hidden lg:flex justify-center items-center lg:gap-5 ">
             <nav className="hidden lg:flex items-center gap-10">
               {NAV_LINKS.map((link) => (
                 <a
                   key={link.id}
                   href={`#${link.id}`}
-                  className={`relative text-[13px] uppercase tracking-[0.12em] pb-1 transition-colors duration-300
+                  className={`relative text-[13px] uppercase tracking-[0.12em]  transition-colors duration-300
                     after:content-[''] after:absolute after:left-0 after:bottom-0 after:h-[1px] after:bg-[var(--text)]
                     after:transition-all after:duration-300
                     ${
@@ -78,7 +78,7 @@ const Header = () => {
         </div>
 
         {/* Mobile toggle */}
-        <div className="flex items-center gap-3 lg:hidden">
+        <div className="flex items-center gap-5 lg:hidden">
           <DarkModeToggle className="lg:hidden" />
           <button
             onClick={() => setIsOpen((v) => !v)}
@@ -86,7 +86,7 @@ const Header = () => {
             aria-expanded={isOpen}
             className="lg:hidden text-[var(--text)]"
           >
-            {isOpen ? <TbX size={22} /> : <TbMenu2 size={22} />}
+            {isOpen ? <TbX size={28} /> : <TbMenu2 size={28} />}
           </button>
         </div>
         

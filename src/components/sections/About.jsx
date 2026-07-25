@@ -240,21 +240,17 @@ const About = () => {
 
             <Reveal delay={0.12}>
               <p className="text-[var(--muted)] leading-8 text-[16px]">
-                I'm a frontend developer passionate about crafting elegant,
-                responsive digital experiences with React, TypeScript and
-                Tailwind CSS. I enjoy transforming thoughtful designs into
-                products that feel polished, intuitive and refined.
+                I build elegant, responsive interfaces with React, TypeScript,
+                and Tailwind CSS, turning thoughtful designs into polished user experiences.
               </p>
             </Reveal>
 
-            <Reveal delay={0.18}>
+            {/* <Reveal delay={0.18}>
               <p className="text-[var(--muted)] leading-8 text-[16px]">
-                Before transitioning fully into development, I worked in
-                customer support and executive assistance—experiences that
-                sharpened my communication, attention to detail and problem
-                solving. Today, those same qualities shape how I build software.
+                Before transitioning into development, I built strong communication, attention to detail, 
+                and problem-solving skills through customer support and executive assistance.
               </p>
-            </Reveal>
+            </Reveal> */}
 
             <Reveal delay={0.25}>
               <div className="grid grid-cols-3 gap-6 sm:gap-10 pt-10 border-t border-[var(--border)]">

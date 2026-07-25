@@ -6,40 +6,26 @@ import Reveal from "../ui/Reveal";
 const EXPERIENCE = [
   {
     id: 1,
-    year: "2025 — Contract Based",
-    role: "Executive Assistant / HR",
-    place: "Private Client",
-    desc: "Managed schedules, priorities, and shifting requirements simultaneously — a habit of staying organized under changing constraints that carries directly into scoping and shipping frontend work.",
+    year: "2024- (8months Intenship)",
+    role: "Web Development",
+    place: "Kode10X",
+    desc: "Building responsive, production-grade interfaces in React and Tailwind CSS for clients across e-commerce, portfolio projects from first component to deployment.",
   },
   {
     id: 2,
     year: "2025 — Contract Based",
-    role: "Executive Assistant / HR",
+    role: "Executive Assistant/HR",
     place: "Private Client",
-    desc: "Managed schedules, priorities, and shifting requirements simultaneously — a habit of staying organized under changing constraints that carries directly into scoping and shipping frontend work.",
+    desc: "Managed schedules, priorities, and shifting requirements simultaneously, and a habit of staying organized under changing constraints that carries directly into scoping and shipping frontend work.",
   },
   {
-    id: 3,
-    year: "2024 — Present",
-    role: "Frontend Developer",
-    place: "Freelance / Contract",
-    desc: "Building responsive, production-grade interfaces in React and Tailwind CSS for clients across e-commerce, SaaS, and portfolio projects — from first component to deployment.",
-    current: true,
-  },
-  {
-  id: 4,
-  year: "2025 — Contract Based",
-  role: "Jewelry Brand Manager",
-  place: "Luxury by Olori Concept",
-  desc: "Managed brand operations, customer communication, product presentation, and digital presence for a growing jewelry business — gaining hands-on experience in e-commerce, branding, and customer-focused solutions.",
+  id: 3,
+  year: "2026 — Contract Based",
+  role: "Customer Service Representative",
+  place: "Tupay",
+  desc: "Managed brand operations, customer communication, product presentation, and customer-focused solutions.",
 },
-{
-  id: 5,
-  year: "2025 — Present",
-  role: "Frontend Developer",
-  place: "Personal Projects",
-  desc: "Designed and developed modern web applications using React, Tailwind CSS, and JavaScript, focusing on responsive layouts, smooth interactions, and clean user experiences.",
-},
+
 ];
 
 const Experience = () => {
