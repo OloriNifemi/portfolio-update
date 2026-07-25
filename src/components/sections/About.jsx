@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { motion, useInView, useReducedMotion } from "framer-motion";
 import {
   SiReact,
@@ -62,7 +62,7 @@ const ORBIT_TECH = [
 ];
 
 const RING_RADIUS = [42, 72, 102, 132, 162]; // px, index matches `ring` above
-const CLUSTER_SIZE = RING_RADIUS[RING_RADIUS.length - 1] * 2 + 44; // room for node + label
+const CLUSTER_SIZE = RING_RADIUS[RING_RADIUS.length - 1] * 2 + 44; // room for node + label, at full (desktop) scale
 
 const OrbitNode = ({ tech, shouldReduceMotion }) => {
   const radius = RING_RADIUS[tech.ring];
@@ -136,16 +136,45 @@ const OrbitNode = ({ tech, shouldReduceMotion }) => {
 
 const OrbitCluster = () => {
   const shouldReduceMotion = useReducedMotion();
+  const wrapperRef = useRef(null);
+  const [scale, setScale] = useState(1);
+
+  // The ring math (radii, translateY offsets, label positions) is all in
+  // fixed px, tuned for CLUSTER_SIZE. Rather than re-deriving every value
+  // per breakpoint, we measure the actual available width and scale the
+  // whole cluster uniformly — so it shrinks to fit narrow screens without
+  // ever losing its circular shape or spilling icons outside the ring.
+  useEffect(() => {
+    const el = wrapperRef.current;
+    if (!el || typeof ResizeObserver === "undefined") return;
+
+    const ro = new ResizeObserver((entries) => {
+      const width = entries[0]?.contentRect?.width;
+      if (width) setScale(Math.min(1, width / CLUSTER_SIZE));
+    });
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, []);
 
   return (
     <div
-      className="relative mx-auto"
-      style={{ width: CLUSTER_SIZE, height: CLUSTER_SIZE, maxWidth: "100%" }}
+      ref={wrapperRef}
+      className="relative mx-auto w-full max-w-[368px] aspect-square"
     >
-      <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-1.5 h-1.5 rounded-full bg-[var(--border)]" />
-      {ORBIT_TECH.map((tech) => (
-        <OrbitNode key={tech.id} tech={tech} shouldReduceMotion={shouldReduceMotion} />
-      ))}
+      <div
+        className="absolute left-1/2 top-1/2"
+        style={{
+          width: CLUSTER_SIZE,
+          height: CLUSTER_SIZE,
+          transform: `translate(-50%, -50%) scale(${scale})`,
+          transformOrigin: "center center",
+        }}
+      >
+        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-1.5 h-1.5 rounded-full bg-[var(--border)]" />
+        {ORBIT_TECH.map((tech) => (
+          <OrbitNode key={tech.id} tech={tech} shouldReduceMotion={shouldReduceMotion} />
+        ))}
+      </div>
       <style>{`
         @keyframes orbit-spin {
           from { transform: rotate(0deg); }
@@ -198,9 +227,9 @@ const About = () => {
           title="Designing interfaces that feel effortless."
         />
 
-        <div className="grid lg:grid-cols-12 gap-20 mt-20">
+        <div className="grid md:grid-cols-12 gap-12 lg:gap-16 mt-20">
           {/* LEFT */}
-          <div className="lg:col-span-7 space-y-8">
+          <div className="md:col-span-7 space-y-8">
             <Reveal delay={0.05}>
               <p className="text-2xl md:text-3xl font-serif italic leading-relaxed text-[var(--text)]">
                 Great interfaces shouldn't compete for attention.
@@ -228,14 +257,14 @@ const About = () => {
             </Reveal>
 
             <Reveal delay={0.25}>
-              <div className="grid grid-cols-3 gap-10 pt-10 border-t border-[var(--border)]">
+              <div className="grid grid-cols-3 gap-6 sm:gap-10 pt-10 border-t border-[var(--border)]">
                 {STATS.map((item) => (
                   <div key={item.label}>
-                    <h3 className="font-serif text-4xl text-[var(--text)]">
+                    <h3 className="font-serif text-3xl sm:text-4xl text-[var(--text)]">
                       {item.number}
                     </h3>
 
-                    <p className="mt-2 text-[11px] uppercase tracking-[0.18em] text-[var(--subtle)] leading-5">
+                    <p className="mt-2 text-[10px] sm:text-[11px] uppercase tracking-[0.18em] text-[var(--subtle)] leading-5">
                       {item.label}
                     </p>
                   </div>
@@ -246,14 +275,17 @@ const About = () => {
           </div>
 
           {/* RIGHT */}
-          <div className="lg:col-span-5">
+          <div className="md:col-span-5">
             <Reveal delay={0.1}>
-              <div className="sticky top-28">
-                <p className="uppercase tracking-[0.25em] text-[11px] text-[var(--subtle)] mb-8 text-center">
-                  Tools in orbit
-                </p>
+              <div className="md:sticky md:top-28">
+                <div className="max-md:flex justify-center items-center flex-col">
 
-                <OrbitCluster />
+                  <p className="uppercase tracking-[0.25em] text-[11px] text-[var(--subtle)] mb-8 text-center">
+                    Tools in orbit
+                  </p>
+
+                  <OrbitCluster />
+                </div>
 
                 {/* Philosophy — pulse trace sits directly opposite the label, inside the box */}
                 <div className="rounded-2xl mt-12 p-8 border border-[var(--border)]">
