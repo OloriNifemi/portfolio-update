@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { AnimatePresence } from "framer-motion";
 
 import Header from "./components/layout/Header";
 import Footer from "./components/layout/Footer";
@@ -14,16 +14,16 @@ import Contact from "./components/sections/Contact";
 
 import Preloader from "./components/ui/Preloader";
 
-const EASE = [0.16, 1, 0.3, 1];
-
 function App() {
   const [loading, setLoading] = useState(true);
 
-  // Lock scrolling while preloader is visible
+  // Lock scrolling while the preloader is visible
   useEffect(() => {
+    document.documentElement.style.overflow = loading ? "hidden" : "";
     document.body.style.overflow = loading ? "hidden" : "";
 
     return () => {
+      document.documentElement.style.overflow = "";
       document.body.style.overflow = "";
     };
   }, [loading]);
@@ -34,64 +34,42 @@ function App() {
       window.history.scrollRestoration = "manual";
     }
 
-    window.scrollTo({
-      top: 0,
-      left: 0,
-      behavior: "instant",
-    });
+    window.scrollTo(0, 0);
   }, []);
 
   const handlePreloaderComplete = () => {
-    window.scrollTo({
-      top: 0,
-      left: 0,
-      behavior: "instant",
-    });
-
+    window.scrollTo(0, 0);
     setLoading(false);
   };
 
   return (
     <>
       <AnimatePresence mode="wait">
-        {loading ? (
+        {loading && (
           <Preloader
             key="preloader"
             onComplete={handlePreloaderComplete}
           />
-        ) : (
-          <motion.div
-            key="app"
-            initial={{
-              opacity: 0,
-              y: 40,
-            }}
-            animate={{
-              opacity: 1,
-              y: 0,
-            }}
-            transition={{
-              duration: 0.8,
-              ease: EASE,
-            }}
-            className="bg-[var(--bg)] text-[var(--text)] antialiased"
-          >
-            <Header />
-
-            <main>
-              <Hero />
-              <About />
-              <Projects />
-              <Skills />
-              <Experience />
-              <Services />
-              <Contact />
-            </main>
-
-            <Footer />
-          </motion.div>
         )}
       </AnimatePresence>
+
+      {!loading && (
+        <div className="bg-[var(--bg)] text-[var(--text)] antialiased">
+          <Header />
+
+          <main>
+            <Hero />
+            <About />
+            <Projects />
+            <Skills />
+            <Experience />
+            <Services />
+            <Contact />
+          </main>
+
+          <Footer />
+        </div>
+      )}
     </>
   );
 }

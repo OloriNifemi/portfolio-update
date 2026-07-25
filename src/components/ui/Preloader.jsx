@@ -36,7 +36,7 @@ const Preloader = ({ onComplete, duration = PRELOADER.defaultDuration }) => {
           initial={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: "-3%" }}
           transition={{ duration: 1.4, ease: SOFT_EASE }}
-          className="fixed inset-0 z-[999] bg-[var(--bg)] flex items-center justify-center"
+          className="fixed inset-0 z-[999] bg-[var(--bg)] flex items-center justify-center overflow-hidden"
         >
           <div className="flex flex-col items-center text-center max-w-xl px-8">
 

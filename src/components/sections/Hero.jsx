@@ -1,105 +1,21 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { PiGithubLogoFill } from "react-icons/pi";
 import { TfiLinkedin } from "react-icons/tfi";
 import { BiLogoGmail } from "react-icons/bi";
 import { HiOutlineArrowDown, HiOutlineArrowDownTray } from "react-icons/hi2";
+
+import Typewriter from "../ui/Typewriter";
 import Container from "../ui/Container";
 import portrait from "../../assets/aboutImg.png";
-import { EASE, COLORS, IMAGE_ANIMATION, DURATIONS, DELAYS } from "../constants/theme";
-import { fadeUp, scaleFadeIn, drawPath } from "../utils/motion";
+import { EASE, COLORS, DELAYS } from "../constants/theme";
+import { fadeUp, scaleFadeIn } from "../utils/motion";
 import { SOCIAL_LINKS } from "../constants/nav";
 
 const GOLD = COLORS.light.accent;
 
-
-const CORNER_PATHS = {
-  tl: "M1,11 L1,1 L11,1",
-  tr: "M13,1 L23,1 L23,11",
-  bl: "M1,13 L1,23 L11,23",
-  br: "M23,13 L23,23 L13,23",
-};
-
-const CORNER_POS = {
-  tl: "-top-3 -left-3",
-  tr: "-top-3 -right-3",
-  bl: "-bottom-3 -left-3",
-  br: "-bottom-3 -right-3",
-};
-
-const CornerBracket = ({ corner, delay, stroke, strokeWidth, shouldReduceMotion }) => (
-  <div className={`absolute ${CORNER_POS[corner]} w-6 h-6 pointer-events-none`}>
-    <svg viewBox="0 0 24 24" className="w-full h-full overflow-visible">
-      <motion.path
-        d={CORNER_PATHS[corner]}
-        fill="none"
-        stroke={stroke}
-        strokeWidth={strokeWidth}
-        strokeLinecap="square"
-        {...drawPath(delay, shouldReduceMotion)}
-      />
-    </svg>
-  </div>
-);
-
 const Hero = () => {
   const shouldReduceMotion = useReducedMotion();
-
-  const title = "She's a Frontend Developer";
-  
-  const [typedText, setTypedText] = useState("");
-
-  useEffect(() => {
-    if (shouldReduceMotion) {
-      setTypedText(title);
-      return;
-    }
-
-    let timeout;
-
-    let index = 0;
-    let deleting = false;
-
-    const animate = () => {
-      if (!deleting) {
-        setTypedText(title.slice(0, index + 1));
-        index++;
-
-        if (index === title.length) {
-          timeout = setTimeout(() => {
-            deleting = true;
-            animate();
-          }, 2000);
-
-          return;
-        }
-
-        timeout = setTimeout(animate, 90);
-      } else {
-        setTypedText(title.slice(0, index - 1));
-        index--;
-
-        if (index === 0) {
-          deleting = false;
-
-          timeout = setTimeout(animate, 600);
-
-          return;
-        }
-
-        timeout = setTimeout(animate, 50);
-      }
-    };
-
-    animate();
-
-    return () => clearTimeout(timeout);
-  }, [shouldReduceMotion]);
-
-  const portraitVariants = {
-    rest: { scale: 1, rotate: 0 },
-    hover:{ scale:1.03, rotate:-0.2, },
-  };
 
   return (
     <section
@@ -110,20 +26,9 @@ const Hero = () => {
         {/* Text */}
         <div>
           <motion.div {...fadeUp(0, shouldReduceMotion)} className="flex flex-col gap-2 mb-10">
-            <p className="text-[13px] tracking-[0.25em] text-[var(--text)] h-4">
-              {typedText}
-              {!shouldReduceMotion && (
-                <motion.span
-                  animate={{ opacity: [1, 0, 1] }}
-                  transition={{
-                    duration: 0.8,
-                    repeat: Infinity,
-                  }}
-                >
-                  |
-                </motion.span>
-              )}
-            </p>
+           <p className="text-[13px] tracking-[0.25em] text-[var(--text)] min-h-[16px]">
+            <Typewriter text="She's a Frontend Developer" />
+          </p>
             <p className="text-xs uppercase tracking-[0.3em] text-[var(--muted)]">
               Lagos, Nigeria · Available Worldwide
             </p>
@@ -176,8 +81,8 @@ const Hero = () => {
             {SOCIAL_LINKS.map((s) => {
               const Icon = s.id === 'github' ? PiGithubLogoFill : s.id === 'linkedin' ? TfiLinkedin : BiLogoGmail;
               return (
-                <a
-                  key={s.id}
+                
+                <a  key={s.id}
                   href={s.href}
                   target={s.href.startsWith("http") ? "_blank" : undefined}
                   rel={s.href.startsWith("http") ? "noopener noreferrer" : undefined}
@@ -194,10 +99,7 @@ const Hero = () => {
         </div>
 
         {/* Portrait */}
-        <motion.div
-          {...scaleFadeIn(shouldReduceMotion)}
-          className="relative group"
-        >
+        <motion.div {...scaleFadeIn(shouldReduceMotion)} className="relative group">
           <div
             aria-hidden="true"
             className="absolute inset-0 translate-x-[6px] translate-y-[6px] bg-black/[0.04] blur-2xl pointer-events-none"
@@ -212,7 +114,7 @@ const Hero = () => {
             initial={shouldReduceMotion ? false : { opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 1, delay: 0.3, ease: EASE }}
-            className="absolute top-6 left-6 right-[-24px] bottom-[-24px] border border-black/15 pointer-events-none "
+            className="absolute top-6 left-6 right-[-24px] bottom-[-24px] border border-black/15 pointer-events-none"
             style={{ inset: "6px -6px -6px 6px" }}
           />
 
@@ -226,43 +128,30 @@ const Hero = () => {
           />
 
           <div className="relative z-10 aspect-[4/5] w-full max-w-sm mx-auto">
-            {/* Image is clipped separately so corner brackets can overshoot the edge */}
-            <div className="absolute inset-0 overflow-hidden"
-              style={{ boxSizing: "border-box", border: "1px solid var(--border)", }} >
-              <motion.div
-                variants={portraitVariants}
-                initial="rest"
-                whileHover="hover"
-                transition={{ duration: 0.9, ease: EASE }}
-                className="relative w-full h-full"
-              >
-                <img
-                  src={portrait}
-                  alt="Portrait of Precious Obafemi"
-                  loading="eager"
-                  fetchPriority="high"
-                  width={400}
-                  height={500}
-                  className="absolute inset-0 w-full h-full object-cover contrast-[1.05]"
-                />
-                <motion.img
-                  src={portrait}
-                  alt=""
-                  aria-hidden="true"
-                  loading="eager"
-                  width={400}
-                  height={500}
-                  variants={{ rest: { opacity: 1 }, hover: { opacity: 0 } }}
-                  transition={{ duration: 0.6, ease: EASE }}
-                  className="absolute inset-0 w-full h-full object-cover grayscale contrast-[1.05]"
-                />
-              </motion.div>
+            <div
+              className="absolute inset-0 overflow-hidden"
+              style={{ boxSizing: "border-box", border: "1px solid var(--border)" }}
+            >
+              {/* Single image, grayscale → color via CSS filter transition on
+                  group-hover — avoids rendering/decoding the same portrait twice
+                  just to crossfade a filter. */}
+              <img
+                src={portrait}
+                alt="Portrait of Precious Obafemi"
+                loading="eager"
+                fetchPriority="high"
+                width={400}
+                height={500}
+                className="absolute inset-0 w-full h-full object-cover contrast-[1.05] grayscale
+                  transition-[filter,transform] duration-[900ms] ease-[cubic-bezier(0.16,1,0.3,1)]
+                  group-hover:grayscale-0 group-hover:scale-[1.03]"
+              />
 
               <motion.div
                 aria-hidden="true"
                 initial={shouldReduceMotion ? false : { scaleX: 0 }}
                 animate={{ scaleX: 1 }}
-                transition={{ duration:1.6, ease:[0.16,1,0.3,1], delay: 0.6,  }}
+                transition={{ duration: 1.6, ease: [0.16, 1, 0.3, 1], delay: 0.6 }}
                 style={{ transformOrigin: "left", backgroundColor: GOLD }}
                 className="absolute z-20 top-0 left-0 w-full h-px"
               />
@@ -270,38 +159,11 @@ const Hero = () => {
                 aria-hidden="true"
                 initial={shouldReduceMotion ? false : { scaleY: 0 }}
                 animate={{ scaleY: 1 }}
-                transition={{ duration:1.6, ease:[0.16,1,0.3,1], delay: 0.6, }}
+                transition={{ duration: 1.6, ease: [0.16, 1, 0.3, 1], delay: 0.6 }}
                 style={{ transformOrigin: "top", backgroundColor: GOLD }}
                 className="absolute z-20 top-0 left-0 w-px h-full"
               />
-
-              {/* {!shouldReduceMotion && (
-                <motion.div
-                  aria-hidden="true"
-                  initial={{ x: "-120%" }}
-                  animate={{ x: "220%" }}
-                  transition={{
-                      duration: IMAGE_ANIMATION.shine.duration,
-                      delay: IMAGE_ANIMATION.shine.delay,
-                      repeat: Infinity,
-                      repeatDelay: IMAGE_ANIMATION.shine.repeatDelay,
-                      ease: IMAGE_ANIMATION.shine.ease,
-                  }}
-                  className="absolute inset-y-0 left-0 z-20 w-1/3 pointer-events-none"
-                  style={{
-                    background:
-                      "linear-gradient(75deg, transparent 0%, rgba(184,156,100,0) 35%, rgba(184,156,100,0.28) 50%, rgba(184,156,100,0) 65%, transparent 100%)",
-                    mixBlendMode: "soft-light",
-                  }}
-                />
-              )} */}
             </div>
-
-            {/* Corner marks, gold on tl/br (accent), faint black on tr/bl (structure) */}
-            {/* <CornerBracket corner="tl" delay={0.9} stroke={GOLD} strokeWidth="1.5" shouldReduceMotion={shouldReduceMotion} />
-            <CornerBracket corner="tr" delay={1.0} stroke="#111111" strokeWidth="1" shouldReduceMotion={shouldReduceMotion} />
-            <CornerBracket corner="bl" delay={1.0} stroke="#111111" strokeWidth="1" shouldReduceMotion={shouldReduceMotion} />
-            <CornerBracket corner="br" delay={1.1} stroke={GOLD} strokeWidth="1.5" shouldReduceMotion={shouldReduceMotion} /> */}
           </div>
         </motion.div>
       </Container>
