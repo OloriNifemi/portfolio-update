@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { HiOutlineChevronLeft, HiOutlineChevronRight } from "react-icons/hi2";
+import { AnimatePresence, motion, useReducedMotion, useInView } from "framer-motion";
 
 import Container from "../ui/Container";
 import SectionHeading from "../ui/Sectionheading";
@@ -11,8 +11,7 @@ import Ecommerce from "../../assets/Ecommerce.png";
 import WeddingWeb from "../../assets/WeddingWeb.png";
 import Birthday from "../../assets/Birthday.png";
 
-const EASE = [0.16, 1, 0.3, 1];
-const HINT_AUTO_DISMISS_MS = 4000;
+const HINT_AUTO_DISMISS_MS = 9000;
 
 const RAW_PROJECTS = [
   {
@@ -51,15 +50,27 @@ export default function Projects() {
 
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
-  const [showHint, setShowHint] = useState(true);
+  const [showHint, setShowHint] = useState(false);
   const cardRefs = useRef(new Map());
+
+  // Track visibility on the carousel itself (not the whole section).
+  // `once: false` so the hint can re-trigger every time the user
+  // scrolls back into view, not just the first time.
+  const carouselRef = useRef(null);
+  const isInView = useInView(carouselRef, { once: false, amount: 0.3 });
 
   const dismissHint = useCallback(() => setShowHint(false), []);
 
   useEffect(() => {
-    const t = setTimeout(() => setShowHint(false), HINT_AUTO_DISMISS_MS);
-    return () => clearTimeout(t);
-  }, []);
+    if (isInView) {
+      setShowHint(true);
+      const timer = setTimeout(() => setShowHint(false), HINT_AUTO_DISMISS_MS);
+      return () => clearTimeout(timer);
+    }
+    // Scrolled away — hide it so it's not lingering when they scroll
+    // back into the section (the effect above will show it fresh again).
+    setShowHint(false);
+  }, [isInView]);
 
   const advance = useCallback(
     (direction) => {
@@ -111,11 +122,11 @@ export default function Projects() {
   }, [triggerTop]);
 
   return (
-    <section id="projects" className="relative border-t border-[var(--border)] overflow-x-hidden overscroll-x-none">
+    <section id="projects" className="relative border-t border-[var(--border)] overflow-x-hidden">
       <Container className="pt-28 md:pt-36 pb-20 md:pb-28">
         <SectionHeading eyebrow="Selected Work" title="Featured projects." />
 
-        <div className="relative mt-16 overflow-hidden overscroll-x-none ">
+        <div className="relative mt-16 overflow-hidden overscroll-x-none">
           <button
             type="button"
             aria-label="Previous project"
@@ -136,7 +147,11 @@ export default function Projects() {
             <HiOutlineChevronRight size={18} />
           </button>
 
-          <div className=" relative h-[610px] sm:h-[580px] md:h-[560px] lg:h-[580px] " style={{ overflow: "clip" }}>
+          <div
+            ref={carouselRef}
+            className="relative h-[610px] sm:h-[580px] md:h-[560px] lg:h-[580px]"
+            style={{ overflow: "clip" }}
+          >
             {PROJECTS.map((project) => {
               const pos = (project.originalIndex - currentIndex + total) % total;
               if (pos >= VISIBLE_DEPTH) return null;
@@ -160,21 +175,53 @@ export default function Projects() {
 
             <AnimatePresence>
               {showHint && (
-              <motion.div
-                initial={{ opacity: 0, y: 12 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: 12 }}
-                transition={{ duration: 0.35 }}
-                className="lg:hidden absolute bottom-5 left-1/2 -translate-x-1/2 z-[999]"
-              >
-                <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-black/80 backdrop-blur-md text-white ">
-                  <HiOutlineChevronLeft size={14} />
-                  <span className="text-[11px] uppercase tracking-[0.15em]">
-                    Swipe
-                  </span>
-                  <HiOutlineChevronRight size={14} />
-                </div>
-              </motion.div>
+                <motion.div
+                  initial={{
+                    opacity: 0,
+                    y: 12,
+                    scale: 0.96,
+                  }}
+                  animate={{
+                    opacity: 1,
+                    y: 0,
+                    scale: [1, 1.03, 1],
+                    boxShadow: [
+                      "0 0 0 rgba(184,156,100,0)",
+                      "0 0 18px rgba(184,156,100,.28)",
+                      "0 0 0 rgba(184,156,100,0)",
+                    ],
+                  }}
+                  exit={{
+                    opacity: 0,
+                    y: 12,
+                    scale: 0.96,
+                  }}
+                  transition={{
+                    opacity: { duration: 0.35 },
+                    y: { duration: 0.35 },
+                    scale: { duration: 1.8, repeat: Infinity, ease: "easeInOut" },
+                    boxShadow: { duration: 1.8, repeat: Infinity, ease: "easeInOut" },
+                  }}
+                  className="fixed bottom-6 left-1/2 -translate-x-1/2 z-[99999] lg:hidden pointer-events-none"
+                >
+                  <div
+                    className="
+                      rounded-full
+                      border
+                      border-[var(--border)]
+                      bg-[var(--bg)]/90
+                      backdrop-blur-md
+                      px-5
+                      py-2.5
+                      text-[11px]
+                      uppercase
+                      tracking-[0.2em]
+                      text-[var(--text)]
+                    "
+                  >
+                    Swipe to explore
+                  </div>
+                </motion.div>
               )}
             </AnimatePresence>
           </div>
