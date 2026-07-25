@@ -1,18 +1,17 @@
-import { useRef, useState } from "react";
-import { useScroll, useMotionValueEvent, useReducedMotion, AnimatePresence, motion } from "framer-motion";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { useReducedMotion } from "framer-motion";
+import { HiOutlineChevronLeft, HiOutlineChevronRight } from "react-icons/hi2";
 
 import Container from "../ui/Container";
 import SectionHeading from "../ui/Sectionheading";
 import HireMeButton from "../ui/HireMeButton";
-import ProjectStackCard from "../ui/ProjectStackCard";
+import SwipeCard from "../ui/SwipeCard";
 
 import Ecommerce from "../../assets/Ecommerce.png";
 import WeddingWeb from "../../assets/WeddingWeb.png";
 import Birthday from "../../assets/Birthday.png";
 
-const EASE = [0.16, 1, 0.3, 1];
-
-const PROJECTS = [
+const RAW_PROJECTS = [
   {
     title: "E-Commerce Storefront",
     image: Ecommerce,
@@ -39,76 +38,145 @@ const PROJECTS = [
   },
 ];
 
-const VH_PER_CARD = 65;
-const STICKY_TOP_OFFSET = "6rem";
+// Tag each project with a stable index up front so it survives reordering
+// in the stack (used for the "01 / 03" counter inside the card).
+const PROJECTS = RAW_PROJECTS.map((p, i) => ({ ...p, originalIndex: i }));
+
+const VISIBLE_DEPTH = 3; // how many cards deep the stack renders at once
+const ANIMATION_LOCK_MS = 380; // matches SwipeCard's exit duration
 
 export default function Projects() {
-  const sectionRef = useRef(null);
   const prefersReducedMotion = useReducedMotion();
-  const [activeIndex, setActiveIndex] = useState(0);
+  const total = PROJECTS.length;
 
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ["start start", "end end"],
-  });
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [isAnimating, setIsAnimating] = useState(false);
+  const cardRefs = useRef(new Map());
+  const lockTimer = useRef(null);
 
-  // Only recompute + re-render when the active project actually changes —
-  // not on every scroll pixel. This replaces the old continuous per-frame
-  // transform interpolation across 3 permanently-mounted, overlapping cards.
-  useMotionValueEvent(scrollYProgress, "change", (v) => {
-    const idx = Math.min(PROJECTS.length - 1, Math.floor(v * PROJECTS.length));
-    setActiveIndex((prev) => (prev === idx ? prev : idx));
-  });
+  // "left" = current card exits left, deck advances forward.
+  // "right" = current card exits right, deck steps back.
+  const advance = useCallback(
+    (direction) => {
+      setCurrentIndex((prev) =>
+        direction === "left" ? (prev + 1) % total : (prev - 1 + total) % total
+      );
+    },
+    [total]
+  );
+
+  const onSwiped = useCallback((direction) => advance(direction), [advance]);
+
+  // Fires the real drag-exit animation programmatically, so buttons and
+  // keyboard shortcuts feel identical to an actual swipe.
+  const triggerTop = useCallback(
+    (direction) => {
+      if (isAnimating) return;
+      const topProject = PROJECTS[currentIndex];
+      const topCard = cardRefs.current.get(topProject.title);
+      if (!topCard) return;
+
+      setIsAnimating(true);
+      topCard.trigger(direction);
+
+      clearTimeout(lockTimer.current);
+      lockTimer.current = setTimeout(
+        () => setIsAnimating(false),
+        prefersReducedMotion ? 0 : ANIMATION_LOCK_MS
+      );
+    },
+    [currentIndex, isAnimating, prefersReducedMotion]
+  );
+
+  const jumpTo = useCallback(
+    (idx) => {
+      if (isAnimating || idx === currentIndex) return;
+      setCurrentIndex(idx);
+    },
+    [isAnimating, currentIndex]
+  );
+
+  useEffect(() => {
+    const onKeyDown = (e) => {
+      if (e.key === "ArrowLeft") triggerTop("right");
+      if (e.key === "ArrowRight") triggerTop("left");
+    };
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, [triggerTop]);
+
+  useEffect(() => () => clearTimeout(lockTimer.current), []);
 
   return (
-    <section
-      id="projects"
-      ref={sectionRef}
-      className="relative border-t border-[var(--border)]"
-    >
-      <Container className="pt-28 md:pt-36">
+    <section id="projects" className="relative border-t border-[var(--border)]">
+      <Container className="pt-28 md:pt-36 pb-20 md:pb-28">
         <SectionHeading eyebrow="Selected Work" title="Featured projects." />
-      </Container>
 
-      {prefersReducedMotion ? (
-        <div className="mt-20 flex flex-col gap-10 px-4">
-          {PROJECTS.map((project, index) => (
-            <ProjectStackCard
-              key={project.title}
-              project={project}
-              index={index}
-              total={PROJECTS.length}
-            />
-          ))}
+        <div className="relative mt-16 h-[560px] sm:h-[600px] md:h-[640px] lg:h-[680px]">
+          {PROJECTS.map((project) => {
+            const pos = (project.originalIndex - currentIndex + total) % total;
+            if (pos >= VISIBLE_DEPTH) return null;
+
+            return (
+              <SwipeCard
+                key={project.title}
+                ref={(el) => {
+                  if (el) cardRefs.current.set(project.title, el);
+                  else cardRefs.current.delete(project.title);
+                }}
+                project={project}
+                stackPosition={pos}
+                total={total}
+                isReduced={prefersReducedMotion}
+                onSwiped={onSwiped}
+              />
+            );
+          })}
         </div>
-      ) : (
-        <div
-          className="relative mt-20"
-          style={{ height: `${PROJECTS.length * VH_PER_CARD}vh` }}
-        >
-          <div
-            className="sticky top-24 flex items-center justify-center px-4 sm:px-6"
-            style={{ height: `calc(100vh - ${STICKY_TOP_OFFSET})` }}
+
+        <div className="flex items-center justify-center gap-5 sm:gap-6 mt-10">
+          <button
+            type="button"
+            aria-label="Previous project"
+            onClick={() => triggerTop("right")}
+            disabled={isAnimating}
+            className="w-10 h-10 rounded-full border border-[var(--border)] flex items-center justify-center text-[var(--text)] hover:border-[var(--text)] transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
           >
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={activeIndex}
-                initial={{ opacity: 0, y: 28, scale: 0.97 }}
-                animate={{ opacity: 1, y: 0, scale: 1 }}
-                exit={{ opacity: 0, y: -28, scale: 0.97 }}
-                transition={{ duration: 0.4, ease: EASE }}
-                className="w-full flex items-center justify-center"
-              >
-                <ProjectStackCard
-                  project={PROJECTS[activeIndex]}
-                  index={activeIndex}
-                  total={PROJECTS.length}
+            <HiOutlineChevronLeft size={18} />
+          </button>
+
+          <div className="flex items-center gap-2">
+            {PROJECTS.map((project) => {
+              const isActive = project.originalIndex === currentIndex;
+              return (
+                <button
+                  key={project.title}
+                  type="button"
+                  aria-label={`Go to ${project.title}`}
+                  aria-current={isActive}
+                  onClick={() => jumpTo(project.originalIndex)}
+                  disabled={isAnimating}
+                  className="h-[3px] rounded-full transition-all duration-300 disabled:cursor-not-allowed"
+                  style={{
+                    width: isActive ? "28px" : "12px",
+                    backgroundColor: isActive ? "var(--text)" : "var(--border)",
+                  }}
                 />
-              </motion.div>
-            </AnimatePresence>
+              );
+            })}
           </div>
+
+          <button
+            type="button"
+            aria-label="Next project"
+            onClick={() => triggerTop("left")}
+            disabled={isAnimating}
+            className="w-10 h-10 rounded-full border border-[var(--border)] flex items-center justify-center text-[var(--text)] hover:border-[var(--text)] transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+          >
+            <HiOutlineChevronRight size={18} />
+          </button>
         </div>
-      )}
+      </Container>
 
       <div className="relative z-10 pt-24 pb-36 flex justify-center">
         <HireMeButton />

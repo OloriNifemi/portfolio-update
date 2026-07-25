@@ -5,17 +5,24 @@ import { TbBrandGithub } from "react-icons/tb";
 const EASE = [0.16, 1, 0.3, 1];
 
 function CardContent({ project, index, total }) {
+  const hasLiveDemo = Boolean(project.liveHref) && project.liveHref !== "#";
+
+  // Stops a tap/drag started on a link from being captured by the parent's
+  // drag gesture, so the link's normal click still fires.
+  const stopDragCapture = (e) => e.stopPropagation();
+
   return (
     <>
       <div className="relative h-36 sm:h-44 md:h-52 lg:h-56 shrink-0 overflow-hidden">
         <img
           src={project.image}
           alt={project.title}
-          loading="eager"
+          loading={index === 0 ? "eager" : "lazy"}
           decoding="async"
           width={800}
           height={500}
           className="w-full h-full object-cover"
+          draggable={false}
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/25 via-transparent to-transparent" />
       </div>
@@ -66,20 +73,24 @@ function CardContent({ project, index, total }) {
         </div>
 
         <div className="flex flex-wrap items-center gap-6 mt-6 pt-5 border-t border-[var(--border)] relative z-10">
-          <a
-            href={project.liveHref}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group/live flex items-center gap-2 text-[14px] font-medium text-[var(--text)] hover:text-[var(--accent)] transition-colors cursor-pointer"
-          >
-            Live Demo
-            <HiOutlineArrowUpRight size={16} className="transition-transform duration-300 group-hover/live:translate-x-0.5 group-hover/live:-translate-y-0.5" />
-          </a>
+          {hasLiveDemo && (
+            <a
+              href={project.liveHref}
+              target="_blank"
+              rel="noopener noreferrer"
+              onPointerDown={stopDragCapture}
+              className="group/live flex items-center gap-2 text-[14px] font-medium text-[var(--text)] hover:text-[var(--accent)] transition-colors cursor-pointer"
+            >
+              Live Demo
+              <HiOutlineArrowUpRight size={16} className="transition-transform duration-300 group-hover/live:translate-x-0.5 group-hover/live:-translate-y-0.5" />
+            </a>
+          )}
 
           <a
             href={project.codeHref}
             target="_blank"
             rel="noopener noreferrer"
+            onPointerDown={stopDragCapture}
             className="flex items-center gap-2 text-[14px] font-medium text-[var(--text)] hover:text-[var(--accent)] transition-colors cursor-pointer"
           >
             <TbBrandGithub size={16} />
@@ -91,21 +102,20 @@ function CardContent({ project, index, total }) {
   );
 }
 
-// Plain card — no scroll-linked transforms. Whichever card is "active" gets
-// mounted by the parent's AnimatePresence; this component just renders it.
+// Presentational only — no drag logic here. SwipeCard (the parent) owns all
+// gesture handling; this component just renders whichever project it's given.
 export default function ProjectStackCard({ project, index, total }) {
   return (
     <motion.article
-      whileHover={{ scale: 1.015, y: -6 }}
+      whileHover={{ y: -4 }}
       transition={{ duration: 0.15, ease: EASE }}
       className="
       relative flex flex-col
       w-full max-w-sm sm:max-w-md md:max-w-xl lg:max-w-2xl
-      max-h-[92vh] sm:max-h-[88vh]
+      h-full
       rounded-[22px] sm:rounded-[28px] overflow-hidden
       bg-[var(--surface)] border border-[var(--border)]
       shadow-[0_30px_60px_rgba(0,0,0,.16)]
-      cursor-pointer
       "
     >
       <CardContent project={project} index={index} total={total} />
