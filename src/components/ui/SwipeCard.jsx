@@ -42,8 +42,6 @@ const SwipeCard = forwardRef(function SwipeCard(
     });
   };
 
-  // Exposes an imperative trigger so external buttons / keyboard shortcuts
-  // can fire the exact same exit animation as a real drag would.
   useImperativeHandle(ref, () => ({
     trigger: (direction) => {
       if (isTop) exit(direction);
@@ -64,11 +62,11 @@ const SwipeCard = forwardRef(function SwipeCard(
 
   return (
     <motion.div
-      className={`absolute inset-0 flex items-center justify-center px-4 sm:px-6 ${
+      className={`absolute inset-0 flex items-center justify-center ${
         isTop && !isReduced ? "cursor-grab active:cursor-grabbing" : ""
       }`}
-      style={{ zIndex: total - stackPosition, touchAction: "pan-y", WebkitUserSelect: "none", userSelect: "none", WebkitTouchCallout: "none", ...dragStyle, }}
-      animate={{ scale: 1 - stackPosition * 0.035, y: stackPosition * 12 }}
+      style={{ zIndex: total - stackPosition, touchAction: "none", WebkitUserSelect: "none", userSelect: "none", WebkitTouchCallout: "none", ...dragStyle, }}
+      animate={{ scale: 1 - stackPosition * 0.03, y: stackPosition * 10 }}
       transition={
         isReduced
           ? { duration: 0 }
@@ -82,6 +80,8 @@ const SwipeCard = forwardRef(function SwipeCard(
         dragMomentum={false}
         dragDirectionLock
         dragPropagation={false}
+        dragSnapToOrigin
+        onPointerDown={(e) => e.stopPropagation()}
         onDragStart={isTop ? () => onInteractionStart?.() : undefined}
         onDragEnd={isTop ? handleDragEnd : undefined}
     >

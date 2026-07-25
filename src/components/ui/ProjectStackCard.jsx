@@ -5,8 +5,6 @@ import { TbBrandGithub } from "react-icons/tb";
 const EASE = [0.16, 1, 0.3, 1];
 
 function CardContent({ project, index, total }) {
-  // Stops a tap/drag started on a link from being captured by the parent's
-  // drag gesture, so the link's normal click still fires.
   const stopDragCapture = (e) => e.stopPropagation();
 
   return (
@@ -98,8 +96,6 @@ function CardContent({ project, index, total }) {
   );
 }
 
-// Presentational only — no drag logic here. SwipeCard (the parent) owns all
-// gesture handling; this component just renders whichever project it's given.
 export default function ProjectStackCard({ project, index, total }) {
   return (
     <motion.article
@@ -108,19 +104,13 @@ export default function ProjectStackCard({ project, index, total }) {
       className="
       group
       relative flex flex-col
-      w-[94vw]
-      sm:w-full
-      max-w-[420px]
-      sm:max-w-md
-      md:max-w-xl
-      lg:max-w-2xl
+      w-full
       max-h-full
       rounded-[24px]
       sm:rounded-[28px]
       overflow-hidden
       bg-[var(--surface)]
-      border border-[var(--border)]
-      shadow-[0_10px_30px_rgba(0,0,0,.08),0_24px_60px_rgba(0,0,0,.10)]"
+      border border-[var(--border)]"
     >
       <CardContent project={project} index={index} total={total} />
     </motion.article>

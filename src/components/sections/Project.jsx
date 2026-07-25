@@ -61,8 +61,6 @@ export default function Projects() {
     return () => clearTimeout(t);
   }, []);
 
-  // "left" = current card exits left, deck advances forward.
-  // "right" = current card exits right, deck steps back.
   const advance = useCallback(
     (direction) => {
       setCurrentIndex((prev) =>
@@ -72,8 +70,6 @@ export default function Projects() {
     [total]
   );
 
-  // Fires once a swipe (real or programmatic) has actually finished, so the
-  // input lock is tied to what really happened rather than a guessed delay.
   const onSwiped = useCallback(
     (direction) => {
       advance(direction);
@@ -82,8 +78,6 @@ export default function Projects() {
     [advance]
   );
 
-  // Fires the real drag-exit animation programmatically, so buttons and
-  // keyboard shortcuts feel identical to an actual swipe.
   const triggerTop = useCallback(
     (direction) => {
       if (isAnimating) return;
@@ -121,7 +115,7 @@ export default function Projects() {
       <Container className="pt-28 md:pt-36 pb-20 md:pb-28">
         <SectionHeading eyebrow="Selected Work" title="Featured projects." />
 
-        <div className="relative mt-16 overflow-hidden overscroll-x-none touch-pan-y">
+        <div className="relative mt-16 overflow-hidden overscroll-x-none ">
           <button
             type="button"
             aria-label="Previous project"
@@ -143,23 +137,6 @@ export default function Projects() {
           </button>
 
           <div className=" relative h-[610px] sm:h-[580px] md:h-[560px] lg:h-[580px] overflow-hidden overscroll-x-none touch-pan-y ">
-            <AnimatePresence>
-              {showHint && (
-                <motion.div
-                  initial={{ opacity: 0, y: prefersReducedMotion ? 0 : 8 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: prefersReducedMotion ? 0 : 8 }}
-                  transition={{ duration: prefersReducedMotion ? 0 : 0.4, ease: EASE }}
-                  className="lg:hidden flex justify-center mt-5"
-                >
-                  <div className="flex items-center gap-2 px-4 py-2 rounded-full border border-[var(--border)] bg-[var(--bg-alt)] text-[var(--muted)]">
-                    <HiOutlineChevronLeft size={13} />
-                    <span className="text-[10px] uppercase tracking-[0.15em]">Swipe left or right</span>
-                    <HiOutlineChevronRight size={13} />
-                  </div>
-                </motion.div>
-              )}
-            </AnimatePresence>
             {PROJECTS.map((project) => {
               const pos = (project.originalIndex - currentIndex + total) % total;
               if (pos >= VISIBLE_DEPTH) return null;
@@ -180,6 +157,26 @@ export default function Projects() {
                 />
               );
             })}
+
+            <AnimatePresence>
+              {showHint && (
+              <motion.div
+                initial={{ opacity: 0, y: 12 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: 12 }}
+                transition={{ duration: 0.35 }}
+                className="lg:hidden absolute bottom-5 left-1/2 -translate-x-1/2 z-[999]"
+              >
+                <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-black/80 backdrop-blur-md text-white ">
+                  <HiOutlineChevronLeft size={14} />
+                  <span className="text-[11px] uppercase tracking-[0.15em]">
+                    Swipe
+                  </span>
+                  <HiOutlineChevronRight size={14} />
+                </div>
+              </motion.div>
+              )}
+            </AnimatePresence>
           </div>
         </div>
 

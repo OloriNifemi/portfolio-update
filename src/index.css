@@ -125,6 +125,13 @@ html {
   font-family: "Inter", sans-serif;
 }
 
+html,
+body,
+#root {
+    overflow-x: hidden;
+    overscroll-behavior-x: none;
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
