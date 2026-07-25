@@ -62,7 +62,7 @@ export default function ProjectSlider({
         {projects.map((project) => (
           <div
             key={project.title}
-            className="w-full h-full shrink-0 flex items-center justify-center px-4 sm:px-6"
+            className="w-full h-full shrink-0"
           >
             <ProjectStackCard project={project} index={project.originalIndex} total={total} />
           </div>

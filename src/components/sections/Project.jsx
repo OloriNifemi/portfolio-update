@@ -114,8 +114,8 @@ export default function Projects() {
   }, [handlePrev, handleNext]);
 
   return (
-    <section id="projects" className="relative border-t border-[var(--border)] overflow-x-hidden">
-      <Container className="pt-28 md:pt-36 pb-20 md:pb-28">
+    <section id="projects" className=" relative border-t border-[var(--border)] overflow-x-hidden">
+      <Container className=" pt-28 md:pt-36 pb-20 md:pb-28">
         <SectionHeading eyebrow="Selected Work" title="Featured projects." />
 
         <div
