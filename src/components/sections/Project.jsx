@@ -202,7 +202,7 @@ export default function Projects() {
                     scale: { duration: 1.8, repeat: Infinity, ease: "easeInOut" },
                     boxShadow: { duration: 1.8, repeat: Infinity, ease: "easeInOut" },
                   }}
-                  className="fixed bottom-6 left-1/2 -translate-x-1/2 z-[99999] lg:hidden pointer-events-none"
+                  className="fixed bottom-6 left-1/2 -translate-x-1/2 z-[99999] lg:hidden pointer-events-none rounded-full"
                 >
                   <div
                     className="
