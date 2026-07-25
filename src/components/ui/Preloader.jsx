@@ -57,9 +57,9 @@ const Preloader = ({ onComplete, duration = PRELOADER.defaultDuration }) => {
               transition={{ delay: PRELOADER.headingDelay, duration: 1.1, ease: SOFT_EASE }}
               className="mt-6 font-serif italic text-[clamp(2.2rem,5vw,4rem)] leading-tight text-[var(--text)]"
             >
-              匠心
+              Crafted with
               <br />
-              雕琢。
+              intention.
             </motion.h1>
 
             {/* Accent line */}
@@ -82,9 +82,9 @@ const Preloader = ({ onComplete, duration = PRELOADER.defaultDuration }) => {
               transition={{ delay: PRELOADER.subtitleDelay, duration: 1, ease: SOFT_EASE }}
               className="mt-8 text-[var(--muted)] text-[15px] leading-relaxed max-w-md"
             >
-              每一次互动，皆用心设计。
+              Every interaction, thoughtfully designed.
               <br />
-              每一个细节，皆匠心雕琢。
+              Every detail, carefully considered.
             </motion.p>
 
             {/* Footer */}
@@ -94,7 +94,7 @@ const Preloader = ({ onComplete, duration = PRELOADER.defaultDuration }) => {
               transition={{ delay: PRELOADER.footerDelay, duration: 1, ease: SOFT_EASE }}
               className="mt-12 text-[11px] uppercase tracking-[0.28em] text-[var(--subtle)]"
             >
-              前端开发工程师 · 尼日利亚拉各斯
+              Frontend Developer · Lagos, Nigeria
             </motion.p>
 
           </div>

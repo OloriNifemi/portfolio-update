@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 
 const TYPE_SPEED_MS = 65;
@@ -6,70 +6,95 @@ const DELETE_SPEED_MS = 35;
 const PAUSE_AFTER_TYPE_MS = 2500;
 const PAUSE_AFTER_DELETE_MS = 600;
 
-function Typewriter({ text }) {
+function Typewriter({ text = "" }) {
   const shouldReduceMotion = useReducedMotion();
+  const reduceMotion = shouldReduceMotion ?? false;
+
   const [typedText, setTypedText] = useState("");
+  const timeoutRef = useRef(null);
+  const cancelledRef = useRef(false);
 
   useEffect(() => {
-    if (shouldReduceMotion) {
+    cancelledRef.current = false;
+
+    if (reduceMotion) {
       setTypedText(text);
       return;
     }
 
-    let timeout;
     let index = 0;
     let deleting = false;
 
-    const animate = () => {
+    const step = () => {
+      if (cancelledRef.current) return;
+
       if (!deleting) {
-        setTypedText(text.slice(0, index + 1));
         index++;
+        setTypedText(text.slice(0, index));
 
-        if (index === text.length) {
-          timeout = setTimeout(() => {
+        if (index >= text.length) {
+          timeoutRef.current = setTimeout(() => {
             deleting = true;
-            animate();
+            step();
           }, PAUSE_AFTER_TYPE_MS);
+
           return;
         }
 
-        timeout = setTimeout(animate, TYPE_SPEED_MS);
+        timeoutRef.current = setTimeout(step, TYPE_SPEED_MS);
       } else {
-        setTypedText(text.slice(0, index - 1));
         index--;
+        setTypedText(text.slice(0, index));
 
-        if (index === 0) {
+        if (index <= 0) {
           deleting = false;
-          timeout = setTimeout(animate, PAUSE_AFTER_DELETE_MS);
+
+          timeoutRef.current = setTimeout(
+            step,
+            PAUSE_AFTER_DELETE_MS
+          );
+
           return;
         }
 
-        timeout = setTimeout(animate, DELETE_SPEED_MS);
+        timeoutRef.current = setTimeout(step, DELETE_SPEED_MS);
       }
     };
 
-    animate();
+    timeoutRef.current = setTimeout(step, 0);
 
-    return () => clearTimeout(timeout);
-  }, [text, shouldReduceMotion]);
+    return () => {
+      cancelledRef.current = true;
+
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+      }
+    };
+  }, [text, reduceMotion]);
 
   return (
     <>
       <span aria-hidden="true">
         {typedText}
-
-        {!shouldReduceMotion && (
-          <motion.span
-            animate={{ opacity: [1, 0, 1] }}
-            transition={{ duration: 0.8, repeat: Infinity }}
-          >
-            |
-          </motion.span>
-        )}
+        <motion.span
+          animate={
+            reduceMotion
+              ? { opacity: 0 }
+              : { opacity: [1, 0, 1] }
+          }
+          transition={
+            reduceMotion
+              ? { duration: 0 }
+              : { duration: 0.8, repeat: Infinity }
+          }
+        >
+          |
+        </motion.span>
       </span>
 
       <span className="sr-only">{text}</span>
     </>
   );
 }
+
 export default React.memo(Typewriter);

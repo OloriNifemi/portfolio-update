@@ -4,20 +4,22 @@ import SectionHeading from "../ui/Sectionheading";
 import Reveal from "../ui/Reveal";
 
 const EXPERIENCE = [
-    {
+  {
+    id: 1,
     year: "2025 — Contract Based",
     role: "Executive Assistant / HR",
     place: "Private Client",
     desc: "Managed schedules, priorities, and shifting requirements simultaneously — a habit of staying organized under changing constraints that carries directly into scoping and shipping frontend work.",
   },
   {
+    id: 2,
     year: "2025 — Contract Based",
     role: "Executive Assistant / HR",
     place: "Private Client",
     desc: "Managed schedules, priorities, and shifting requirements simultaneously — a habit of staying organized under changing constraints that carries directly into scoping and shipping frontend work.",
   },
   {
-    
+    id: 3,
     year: "2024 — Present",
     role: "Frontend Developer",
     place: "Freelance / Contract",
@@ -25,18 +27,19 @@ const EXPERIENCE = [
     current: true,
   },
   {
-    year: "2026 — Contract Based ",
-    role: "Customer Support Representative",
-    place: "TuPay",
-    desc: "Resolved technical issues for customers in real time, translating confusing problems into clear, calm explanations — the same instinct I now bring to writing interfaces that don't confuse anyone.",
-  },
-  {
-    year: "2025 — Contract Based",
-    role: "Executive Assistant / HR",
-    place: "Private Client",
-    desc: "Managed schedules, priorities, and shifting requirements simultaneously — a habit of staying organized under changing constraints that carries directly into scoping and shipping frontend work.",
-  },
-
+  id: 4,
+  year: "2025 — Contract Based",
+  role: "Jewelry Brand Manager",
+  place: "Luxury by Olori Concept",
+  desc: "Managed brand operations, customer communication, product presentation, and digital presence for a growing jewelry business — gaining hands-on experience in e-commerce, branding, and customer-focused solutions.",
+},
+{
+  id: 5,
+  year: "2025 — Present",
+  role: "Frontend Developer",
+  place: "Personal Projects",
+  desc: "Designed and developed modern web applications using React, Tailwind CSS, and JavaScript, focusing on responsive layouts, smooth interactions, and clean user experiences.",
+},
 ];
 
 const Experience = () => {
@@ -50,7 +53,7 @@ const Experience = () => {
 
           <div className="flex flex-col gap-16">
             {EXPERIENCE.map((exp, i) => (
-              <Reveal key={exp.role} delay={i * 0.1} className="relative">
+              <Reveal key={exp.id} delay={i * 0.1} className="relative">
                 <span
                   className={`absolute -left-8 md:-left-10 top-1.5 w-2.5 h-2.5 rounded-full border ${
                     exp.current ? "bg-[var(--text)] border-[var(--text)]" : "bg-[var(--bg)] border-[var(--text)]"

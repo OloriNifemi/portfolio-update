@@ -1,5 +1,23 @@
 import React, { useRef } from "react";
 import { motion, useInView, useReducedMotion } from "framer-motion";
+import {
+  SiReact,
+  SiTypescript,
+  SiJavascript,
+  SiTailwindcss,
+  SiFramer,
+  SiVite,
+  SiGit,
+  SiFigma,
+  SiHtml5,
+  SiCss,
+  SiRedux,
+  SiNodedotjs,
+  SiSass,
+  SiNpm,
+  SiGraphql,
+} from "react-icons/si";
+import { VscVscode } from "react-icons/vsc";
 import Container from "../ui/Container";
 import SectionHeading from "../ui/Sectionheading";
 import Reveal from "../ui/Reveal";
@@ -20,16 +38,123 @@ const STATS = [
   },
 ];
 
-const TECH = [
-  "React",
-  "TypeScript",
-  "JavaScript",
-  "Tailwind CSS",
-  "Framer Motion",
-  "Vite",
-  "Git & GitHub",
-  "Figma",
+const ORBIT_TECH = [
+  { id: "react", label: "React", Icon: SiReact, color: "#61DAFB", ring: 0, duration: 16, direction: "normal", angle: 0 },
+  { id: "ts", label: "TypeScript", Icon: SiTypescript, color: "#3178C6", ring: 0, duration: 16, direction: "normal", angle: 120 },
+  { id: "js", label: "JavaScript", Icon: SiJavascript, color: "#E8C547", ring: 0, duration: 16, direction: "normal", angle: 240 },
+
+  { id: "tailwind", label: "Tailwind CSS", Icon: SiTailwindcss, color: "#06B6D4", ring: 1, duration: 20, direction: "reverse", angle: 30 },
+  { id: "css3", label: "CSS3", Icon: SiCss, color: "#1572B6", ring: 1, duration: 20, direction: "reverse", angle: 150 },
+  { id: "html5", label: "HTML5", Icon: SiHtml5, color: "#E34F26", ring: 1, duration: 20, direction: "reverse", angle: 270 },
+
+  { id: "framer", label: "Framer Motion", Icon: SiFramer, color: "#B8A0FF", ring: 2, duration: 26, direction: "normal", angle: 0 },
+  { id: "redux", label: "Redux", Icon: SiRedux, color: "#764ABC", ring: 2, duration: 26, direction: "normal", angle: 90 },
+  { id: "sass", label: "Sass", Icon: SiSass, color: "#CC6699", ring: 2, duration: 26, direction: "normal", angle: 180 },
+  { id: "vite", label: "Vite", Icon: SiVite, color: "#A78BFA", ring: 2, duration: 26, direction: "normal", angle: 270 },
+
+  { id: "git", label: "Git & GitHub", Icon: SiGit, color: "#F05033", ring: 3, duration: 32, direction: "reverse", angle: 45 },
+  { id: "node", label: "Node.js", Icon: SiNodedotjs, color: "#339933", ring: 3, duration: 32, direction: "reverse", angle: 165 },
+  { id: "npm", label: "npm", Icon: SiNpm, color: "#CB3837", ring: 3, duration: 32, direction: "reverse", angle: 285 },
+
+  { id: "figma", label: "Figma", Icon: SiFigma, color: "#F24E1E", ring: 4, duration: 38, direction: "normal", angle: 0 },
+  { id: "vscode", label: "VS Code", Icon: VscVscode, color: "#007ACC", ring: 4, duration: 38, direction: "normal", angle: 120 },
+  { id: "graphql", label: "GraphQL", Icon: SiGraphql, color: "#E10098", ring: 4, duration: 38, direction: "normal", angle: 240 },
 ];
+
+const RING_RADIUS = [42, 72, 102, 132, 162]; // px, index matches `ring` above
+const CLUSTER_SIZE = RING_RADIUS[RING_RADIUS.length - 1] * 2 + 44; // room for node + label
+
+const OrbitNode = ({ tech, shouldReduceMotion }) => {
+  const radius = RING_RADIUS[tech.ring];
+  const ringRef = useRef(null);
+  const innerRef = useRef(null);
+
+  const pause = () => {
+    if (shouldReduceMotion) return;
+    if (ringRef.current) ringRef.current.style.animationPlayState = "paused";
+    if (innerRef.current) innerRef.current.style.animationPlayState = "paused";
+  };
+
+  const resume = () => {
+    if (shouldReduceMotion) return;
+    if (ringRef.current) ringRef.current.style.animationPlayState = "running";
+    if (innerRef.current) innerRef.current.style.animationPlayState = "running";
+  };
+
+  return (
+    <div
+      ref={ringRef}
+      className="absolute inset-0"
+      style={
+        shouldReduceMotion
+          ? { transform: `rotate(${tech.angle}deg)` }
+          : {
+              animation: `orbit-spin ${tech.duration}s linear infinite ${tech.direction}`,
+              transform: `rotate(${tech.angle}deg)`,
+            }
+      }
+    >
+      <div
+        className="absolute left-1/2 top-1/2"
+        style={{ transform: `translate(-50%, -50%) translateY(-${radius}px)` }}
+      >
+        <div
+          ref={innerRef}
+          style={
+            shouldReduceMotion
+              ? undefined
+              : {
+                  animation: `orbit-spin ${tech.duration}s linear infinite ${
+                    tech.direction === "reverse" ? "normal" : "reverse"
+                  }`,
+                }
+          }
+        >
+          <div
+            role="group"
+            aria-label={tech.label}
+            tabIndex={0}
+            onMouseEnter={pause}
+            onMouseLeave={resume}
+            onFocus={pause}
+            onBlur={resume}
+            className="group relative flex items-center justify-center w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-[var(--bg)] transition-transform duration-300 hover:scale-110 focus:scale-110 outline-none"
+            style={{ border: `1px solid ${tech.color}55` }}
+          >
+            <tech.Icon size={16} style={{ color: tech.color }} aria-hidden="true" />
+            <span
+              className="pointer-events-none absolute top-[42px] left-1/2 -translate-x-1/2 whitespace-nowrap text-[11px] uppercase tracking-[0.12em] text-[var(--text)] opacity-0 transition-opacity duration-200 group-hover:opacity-100 group-focus:opacity-100"
+            >
+              {tech.label}
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+const OrbitCluster = () => {
+  const shouldReduceMotion = useReducedMotion();
+
+  return (
+    <div
+      className="relative mx-auto"
+      style={{ width: CLUSTER_SIZE, height: CLUSTER_SIZE, maxWidth: "100%" }}
+    >
+      <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-1.5 h-1.5 rounded-full bg-[var(--border)]" />
+      {ORBIT_TECH.map((tech) => (
+        <OrbitNode key={tech.id} tech={tech} shouldReduceMotion={shouldReduceMotion} />
+      ))}
+      <style>{`
+        @keyframes orbit-spin {
+          from { transform: rotate(0deg); }
+          to { transform: rotate(360deg); }
+        }
+      `}</style>
+    </div>
+  );
+};
 
 const HeartbeatLine = () => {
   const ref = useRef(null);
@@ -124,33 +249,18 @@ const About = () => {
           <div className="lg:col-span-5">
             <Reveal delay={0.1}>
               <div className="sticky top-28">
-                <p className="uppercase tracking-[0.25em] text-[11px] text-[var(--subtle)] mb-8">
-                  Toolbox
+                <p className="uppercase tracking-[0.25em] text-[11px] text-[var(--subtle)] mb-8 text-center">
+                  Tools in orbit
                 </p>
 
-                <div className="border-y border-[var(--border)] divide-y divide-[var(--border)]">
-                  {TECH.map((tech, index) => (
-                    <div
-                      key={tech}
-                      className="flex items-center justify-between py-5 group"
-                    >
-                      <span className="text-[var(--text)] text-[16px] transition-all duration-300 group-hover:translate-x-2">
-                        {tech}
-                      </span>
-
-                      <span className="text-[var(--subtle)] font-mono text-xs">
-                        {String(index + 1).padStart(2, "0")}
-                      </span>
-                    </div>
-                  ))}
-                </div>
+                <OrbitCluster />
 
                 {/* Philosophy — pulse trace sits directly opposite the label, inside the box */}
                 <div className="rounded-2xl mt-12 p-8 border border-[var(--border)]">
                   <div className="flex items-center gap-4 mb-5">
                     <HeartbeatLine />
                     <p className="uppercase tracking-[0.2em] text-[11px] text-[var(--subtle)] whitespace-nowrap">
-                      Philosophy
+                      My Philosophy
                     </p>
                   </div>
 
