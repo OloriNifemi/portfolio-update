@@ -178,48 +178,50 @@ export default function Projects() {
                 <motion.div
                   initial={{
                     opacity: 0,
-                    y: 12,
-                    scale: 0.96,
+                    x: -10,
+                    scale: 0.9,
                   }}
                   animate={{
                     opacity: 1,
-                    y: 0,
-                    scale: [1, 1.03, 1],
+                    x: 0,
+                    scale: [1, 1.04, 1],
                     boxShadow: [
                       "0 0 0 rgba(184,156,100,0)",
-                      "0 0 18px rgba(184,156,100,.28)",
+                      "0 0 16px rgba(184,156,100,.3)",
                       "0 0 0 rgba(184,156,100,0)",
                     ],
                   }}
                   exit={{
                     opacity: 0,
-                    y: 12,
-                    scale: 0.96,
+                    x: -10,
+                    scale: 0.9,
                   }}
                   transition={{
-                    opacity: { duration: 0.35 },
-                    y: { duration: 0.35 },
+                    opacity: { duration: 0.3 },
+                    x: { duration: 0.3 },
                     scale: { duration: 1.8, repeat: Infinity, ease: "easeInOut" },
                     boxShadow: { duration: 1.8, repeat: Infinity, ease: "easeInOut" },
                   }}
-                  className="fixed bottom-6 left-1/2 -translate-x-1/2 z-[99999] lg:hidden pointer-events-none rounded-full"
+                  className="rounded-full absolute top-4 left-4 sm:top-5 sm:left-5 z-50 lg:hidden pointer-events-none"
                 >
                   <div
                     className="
+                      flex items-center gap-1.5
                       rounded-full
-                      border
-                      border-[var(--border)]
-                      bg-[var(--bg)]/90
+                      bg-white/90
                       backdrop-blur-md
-                      px-5
-                      py-2.5
-                      text-[11px]
+                      px-3.5
+                      py-1.5
+                      text-[10px]
                       uppercase
-                      tracking-[0.2em]
-                      text-[var(--text)]
+                      tracking-[0.15em]
+                      text-black
+                      shadow-sm
                     "
                   >
-                    Swipe to explore
+                    {/* <HiOutlineArrowLeft size={12} className="opacity-60" /> */}
+                    Swipe to explore!
+                    {/* <HiOutlineArrowRight size={12} className="opacity-60" /> */}
                   </div>
                 </motion.div>
               )}
