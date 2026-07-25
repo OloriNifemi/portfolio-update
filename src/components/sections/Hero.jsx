@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { PiGithubLogoFill } from "react-icons/pi";
 import { TfiLinkedin } from "react-icons/tfi";
@@ -45,6 +45,57 @@ const CornerBracket = ({ corner, delay, stroke, strokeWidth, shouldReduceMotion 
 const Hero = () => {
   const shouldReduceMotion = useReducedMotion();
 
+  const title = "She's a Frontend Developer";
+  
+  const [typedText, setTypedText] = useState("");
+
+  useEffect(() => {
+    if (shouldReduceMotion) {
+      setTypedText(title);
+      return;
+    }
+
+    let timeout;
+
+    let index = 0;
+    let deleting = false;
+
+    const animate = () => {
+      if (!deleting) {
+        setTypedText(title.slice(0, index + 1));
+        index++;
+
+        if (index === title.length) {
+          timeout = setTimeout(() => {
+            deleting = true;
+            animate();
+          }, 2000);
+
+          return;
+        }
+
+        timeout = setTimeout(animate, 90);
+      } else {
+        setTypedText(title.slice(0, index - 1));
+        index--;
+
+        if (index === 0) {
+          deleting = false;
+
+          timeout = setTimeout(animate, 600);
+
+          return;
+        }
+
+        timeout = setTimeout(animate, 50);
+      }
+    };
+
+    animate();
+
+    return () => clearTimeout(timeout);
+  }, [shouldReduceMotion]);
+
   const portraitVariants = {
     rest: { scale: 1, rotate: 0 },
     hover:{ scale:1.03, rotate:-0.2, },
@@ -59,8 +110,19 @@ const Hero = () => {
         {/* Text */}
         <div>
           <motion.div {...fadeUp(0, shouldReduceMotion)} className="flex flex-col gap-2 mb-10">
-            <p className="text-[13px] uppercase tracking-[0.25em] text-[var(--text)]">
-              Frontend Developer
+            <p className="text-[13px] tracking-[0.25em] text-[var(--text)] h-4">
+              {typedText}
+              {!shouldReduceMotion && (
+                <motion.span
+                  animate={{ opacity: [1, 0, 1] }}
+                  transition={{
+                    duration: 0.8,
+                    repeat: Infinity,
+                  }}
+                >
+                  |
+                </motion.span>
+              )}
             </p>
             <p className="text-xs uppercase tracking-[0.3em] text-[var(--muted)]">
               Lagos, Nigeria · Available Worldwide
