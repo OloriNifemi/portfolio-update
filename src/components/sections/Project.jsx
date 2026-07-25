@@ -5,7 +5,7 @@ import { useReducedMotion } from "framer-motion";
 import Container from "../ui/Container";
 import SectionHeading from "../ui/Sectionheading";
 import HireMeButton from "../ui/HireMeButton";
-import ProjectSlider from "../ui/ProjectSlider";
+import ProjectSlider from "../ui/Projectslider";
 
 import Ecommerce from "../../assets/Ecommerce.png";
 import WeddingWeb from "../../assets/WeddingWeb.png";
@@ -41,7 +41,7 @@ const RAW_PROJECTS = [
 const PROJECTS = RAW_PROJECTS.map((p, i) => ({ ...p, originalIndex: i }));
 
 const AUTOPLAY_INTERVAL_MS = 1000;
-const INTERACTION_PAUSE_MS = 6000; // how long a manual action holds off autoplay
+const INTERACTION_PAUSE_MS = 6000; // howsss long a manual action holds off autoplay
 
 export default function Projects() {
   const prefersReducedMotion = useReducedMotion();
