@@ -136,7 +136,7 @@ export default function Projects() {
             <HiOutlineChevronRight size={18} />
           </button>
 
-          <div className=" relative h-[610px] sm:h-[580px] md:h-[560px] lg:h-[580px] overflow-hidden overscroll-x-none touch-pan-y ">
+          <div className=" relative h-[610px] sm:h-[580px] md:h-[560px] lg:h-[580px] " style={{ overflow: "clip" }}>
             {PROJECTS.map((project) => {
               const pos = (project.originalIndex - currentIndex + total) % total;
               if (pos >= VISIBLE_DEPTH) return null;

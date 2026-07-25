@@ -22,7 +22,7 @@ function CardContent({ project, index, total }) {
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/25 via-transparent to-transparent" />
       </div>
-      <div className="p-5 sm:p-6 lg:p-6 flex-1 min-h-0 overflow-y-auto">
+      <div className="p-5 sm:p-6 lg:p-6 flex-1">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2.5">
             <div

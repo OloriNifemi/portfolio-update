@@ -138,7 +138,7 @@ const Hero = () => {
         >
           <div
             aria-hidden="true"
-            className="absolute inset-0 translate-x-4 translate-y-4 bg-black/[0.04] blur-2xl pointer-events-none"
+            className="absolute inset-0 translate-x-[6px] translate-y-[6px] bg-black/[0.04] blur-2xl pointer-events-none"
           />
           <div
             aria-hidden="true"
@@ -150,7 +150,8 @@ const Hero = () => {
             initial={shouldReduceMotion ? false : { opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 1, delay: 0.3, ease: EASE }}
-            className="absolute -bottom-6 -left-6 md:-bottom-8 md:-left-8 w-full h-full border border-black/15 pointer-events-none"
+            className="absolute top-6 left-6 right-[-24px] bottom-[-24px] border border-black/15 pointer-events-none "
+            style={{ inset: "6px -6px -6px 6px" }}
           />
 
           <motion.div
@@ -159,12 +160,13 @@ const Hero = () => {
             animate={{ opacity: 1 }}
             transition={{ duration: 1, delay: 0.45, ease: EASE }}
             style={{ borderColor: GOLD }}
-            className="absolute -bottom-3 -left-3 w-[75%] h-[75%] border pointer-events-none"
+            className="absolute bottom-0 left-0 translate-x-3 translate-y-3 w-[75%] h-[75%] border pointer-events-none"
           />
 
           <div className="relative z-10 aspect-[4/5] w-full max-w-sm mx-auto">
             {/* Image is clipped separately so corner brackets can overshoot the edge */}
-            <div className="absolute inset-0 overflow-hidden border border-[var(--border)]">
+            <div className="absolute inset-0 overflow-hidden"
+              style={{ boxSizing: "border-box", border: "1px solid var(--border)", }} >
               <motion.div
                 variants={portraitVariants}
                 initial="rest"
@@ -211,7 +213,7 @@ const Hero = () => {
                 className="absolute z-20 top-0 left-0 w-px h-full"
               />
 
-              {!shouldReduceMotion && (
+              {/* {!shouldReduceMotion && (
                 <motion.div
                   aria-hidden="true"
                   initial={{ x: "-120%" }}
@@ -230,14 +232,14 @@ const Hero = () => {
                     mixBlendMode: "soft-light",
                   }}
                 />
-              )}
+              )} */}
             </div>
 
             {/* Corner marks, gold on tl/br (accent), faint black on tr/bl (structure) */}
-            <CornerBracket corner="tl" delay={0.9} stroke={GOLD} strokeWidth="1.5" shouldReduceMotion={shouldReduceMotion} />
+            {/* <CornerBracket corner="tl" delay={0.9} stroke={GOLD} strokeWidth="1.5" shouldReduceMotion={shouldReduceMotion} />
             <CornerBracket corner="tr" delay={1.0} stroke="#111111" strokeWidth="1" shouldReduceMotion={shouldReduceMotion} />
             <CornerBracket corner="bl" delay={1.0} stroke="#111111" strokeWidth="1" shouldReduceMotion={shouldReduceMotion} />
-            <CornerBracket corner="br" delay={1.1} stroke={GOLD} strokeWidth="1.5" shouldReduceMotion={shouldReduceMotion} />
+            <CornerBracket corner="br" delay={1.1} stroke={GOLD} strokeWidth="1.5" shouldReduceMotion={shouldReduceMotion} /> */}
           </div>
         </motion.div>
       </Container>

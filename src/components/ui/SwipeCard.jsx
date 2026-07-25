@@ -65,7 +65,7 @@ const SwipeCard = forwardRef(function SwipeCard(
       className={`absolute inset-0 flex items-center justify-center ${
         isTop && !isReduced ? "cursor-grab active:cursor-grabbing" : ""
       }`}
-      style={{ zIndex: total - stackPosition, touchAction: "none", WebkitUserSelect: "none", userSelect: "none", WebkitTouchCallout: "none", ...dragStyle, }}
+      style={{   zIndex: total - stackPosition, touchAction: "none", WebkitUserSelect: "none", userSelect: "none", WebkitTouchCallout: "none", ...dragStyle, }}
       animate={{ scale: 1 - stackPosition * 0.03, y: stackPosition * 10 }}
       transition={
         isReduced
