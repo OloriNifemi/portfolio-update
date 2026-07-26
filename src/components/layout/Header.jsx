@@ -132,8 +132,9 @@ const Header = () => {
           <motion.nav
             initial={{
               opacity: 0,
-              y: -10,
+              y: -20,
             }}
+
             animate={{
               opacity: 1,
               y: 0,
@@ -141,11 +142,11 @@ const Header = () => {
 
             exit={{
               opacity: 0,
-              y: -10,
+              y: -20,
             }}
             transition={{
-              duration: 0.65,
-              ease: [0.16, 1, 0.3, 1],
+              duration: 0.4,
+              ease: [0.22, 1, 0.36, 1],
             }}
             className="lg:hidden overflow-hidden bg-[var(--bg)] border-b border-[var(--border)]"
           >
