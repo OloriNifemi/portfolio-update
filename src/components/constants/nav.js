@@ -19,7 +19,7 @@ export const SOCIAL_LINKS = [
   },
   {
     id: 'email',
-    href: 'mailto:ayomipoobafemi@gmail.com',
-    label: 'Email',
+    href: 'https://www.tiktok.com/@ayomipoobafemi',
+    label: 'Tiktok',
   },
 ];

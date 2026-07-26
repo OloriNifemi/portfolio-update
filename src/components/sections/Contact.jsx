@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { PiGithubLogoFill } from "react-icons/pi";
 import { TfiLinkedin } from "react-icons/tfi";
-import { BiLogoGmail } from "react-icons/bi";
+import { BiLogoGmail, BiLogoTiktok } from "react-icons/bi";
 import { FaWhatsapp } from "react-icons/fa";
 import emailjs from "@emailjs/browser";
 import Container from "../ui/Container";
@@ -23,7 +23,7 @@ const WHATSAPP_LINK = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponen
 const LINKS = [
   { icon: <PiGithubLogoFill />, href: "https://github.com/OloriNifemi", label: "GitHub" },
   { icon: <TfiLinkedin />, href: "https://www.linkedin.com/in/obafemi-ayomipo", label: "LinkedIn" },
-  { icon: <BiLogoGmail />, href: "mailto:ayomipoobafemi@gmail.com", label: "Email" },
+  { icon: <BiLogoTiktok />, href: "https://www.tiktok.com/@ayomipoobafemi", label: "Tiktok" },
 ];
 
 const Contact = () => {

@@ -2,7 +2,7 @@ import React from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { PiGithubLogoFill } from "react-icons/pi";
 import { TfiLinkedin } from "react-icons/tfi";
-import { BiLogoGmail } from "react-icons/bi";
+import { BiLogoTiktok } from "react-icons/bi";
 import { HiOutlineArrowDown, HiOutlineArrowDownTray } from "react-icons/hi2";
 
 import Typewriter from "../ui/Typewriter";
@@ -77,7 +77,7 @@ const Hero = () => {
 
           <motion.div {...fadeUp(DELAYS.large, shouldReduceMotion)} className="mt-14 flex gap-3">
             {SOCIAL_LINKS.map((s) => {
-              const Icon = s.id === 'github' ? PiGithubLogoFill : s.id === 'linkedin' ? TfiLinkedin : BiLogoGmail;
+              const Icon = s.id === 'github' ? PiGithubLogoFill : s.id === 'linkedin' ? TfiLinkedin : BiLogoTiktok;
               return (
                 
                 <a  key={s.id}
