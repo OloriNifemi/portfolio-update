@@ -6,26 +6,26 @@ import Reveal from "../ui/Reveal";
 const EXPERIENCE = [
   {
     id: 1,
-    year: "2024- (8months Intenship)",
-    role: "Web Development",
+    year: "2024 — 8-Month Internship",
+    role: "Frontend Developer Intern",
     place: "Kode10X",
-    desc: "Building responsive, production-grade interfaces in React and Tailwind CSS for clients across e-commerce, portfolio projects from first component to deployment.",
+    desc: "Built responsive, production-ready web applications with React, Tailwind CSS, and JavaScript while collaborating on client projects from component development through deployment.",
   },
   {
     id: 2,
-    year: "2025 — Contract Based",
-    role: "Executive Assistant/HR",
+    year: "2025 — Contract",
+    role: "Executive Assistant / HR",
     place: "Private Client",
-    desc: "Managed schedules, priorities, and shifting requirements simultaneously, and a habit of staying organized under changing constraints that carries directly into scoping and shipping frontend work.",
+    desc: "Managed operations, scheduling, and cross-functional communication in a fast-paced environment while continuing to build and refine personal frontend projects using React and modern web technologies.",
+    current: true,
   },
   {
-  id: 3,
-  year: "2026 — Contract Based",
-  role: "Customer Service Representative",
-  place: "Tupay",
-  desc: "Managed brand operations, customer communication, product presentation, and customer-focused solutions.",
-},
-
+    id: 3,
+    year: "2026 — Contract",
+    role: "Customer Service Representative",
+    place: "Tupay",
+    desc: "Deliver customer support, resolve payment inquiries, and collaborate with internal teams while actively developing frontend applications, exploring UI/UX improvements, and expanding my expertise in React and TypeScript.",
+  },
 ];
 
 const Experience = () => {
