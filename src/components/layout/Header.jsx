@@ -6,7 +6,7 @@ import useActiveSection from "../hooks/useActiveSection";
 
 import DarkModeToggle from "../ui/DarkmodeTogggle";
 import { NAV_LINKS } from "../constants/nav";
-import { scrollToSection } from "../utils/scroll";
+import { scrollToSection } from "../utils/Scroll";
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);

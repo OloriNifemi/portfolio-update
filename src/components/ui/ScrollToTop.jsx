@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { HiOutlineArrowUp } from "react-icons/hi2";
-import { scrollToTopSmooth } from "../utils/scroll";
+import { scrollToTopSmooth } from "../utils/Scroll";
 
 const EASE = [0.16, 1, 0.3, 1];
 
