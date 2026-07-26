@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { HiOutlineArrowUp } from "react-icons/hi2";
+import { scrollToTopSmooth } from "../utils/scroll";
 
 const EASE = [0.16, 1, 0.3, 1];
 
@@ -20,10 +21,7 @@ export default function ScrollToTop() {
   }, []);
 
   const scrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
+    scrollToTopSmooth({ duration: 700 });
   };
 
   return (

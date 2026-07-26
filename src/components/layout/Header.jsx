@@ -6,9 +6,7 @@ import useActiveSection from "../hooks/useActiveSection";
 
 import DarkModeToggle from "../ui/DarkmodeTogggle";
 import { NAV_LINKS } from "../constants/nav";
-import { DURATIONS } from "../constants/theme";
-
-
+import { scrollToSection } from "../utils/scroll";
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -32,7 +30,7 @@ const Header = () => {
     window.addEventListener("keydown", handleEscape);
     return () => window.removeEventListener("keydown", handleEscape);
   }, [isOpen]);
-    
+
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (
@@ -53,26 +51,46 @@ const Header = () => {
     };
   }, [isOpen]);
 
+  // Lock body scroll while the mobile menu is open
+  useEffect(() => {
+    document.body.style.overflow = isOpen ? "hidden" : "";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [isOpen]);
+
+  const handleNavClick = (e, id) => {
+    e.preventDefault();
+    scrollToSection(id, { offset: 80, duration: 700 });
+    setIsOpen(false);
+  };
+
   return (
-    <header ref={headerRef}
-      className={`fixed top-0 left-0 w-full z-50 transition-colors duration-300 bg-[var(--bg)]/90 backdrop-blur-none
+    <header
+      ref={headerRef}
+      className={`fixed top-0 left-0 w-full z-50 transition-colors duration-300 bg-[var(--bg)]/90 backdrop-blur-md
         ${scrolled ? "border-b border-[var(--border)]" : "border-b border-transparent"}`}
     >
       <Container className="flex items-center justify-between h-20">
-        <a href="#hero" className="font-serif italic text-[30px] text-[var(--text)] tracking-tight">
+        
+        <a  href="#hero"
+          onClick={(e) => handleNavClick(e, "hero")}
+          className="font-serif italic text-[30px] text-[var(--text)] tracking-tight"
+        >
           Precious<span className="text-[var(--muted)]">.</span>
         </a>
 
         <div className="flex items-center justify-center gap-10">
-
           {/* Desktop nav */}
-          <div className="hidden lg:flex justify-center items-center lg:gap-5 ">
+          <div className="hidden lg:flex justify-center items-center lg:gap-5">
             <nav className="hidden lg:flex items-center gap-10">
               {NAV_LINKS.map((link) => (
-                <a
-                  key={link.id}
+                
+                <a  key={link.id}
                   href={`#${link.id}`}
-                  className={`relative text-[13px] uppercase tracking-[0.12em]  transition-colors duration-300
+                  onClick={(e) => handleNavClick(e, link.id)}
+                  aria-current={activeId === link.id ? "true" : undefined}
+                  className={`relative text-[13px] uppercase tracking-[0.12em] transition-colors duration-300
                     after:content-[''] after:absolute after:left-0 after:bottom-0 after:h-[1px] after:bg-[var(--text)]
                     after:transition-all after:duration-300
                     ${
@@ -86,15 +104,15 @@ const Header = () => {
               ))}
             </nav>
             <DarkModeToggle className="hidden lg:flex" />
-
           </div>
 
-          <a
-            href="#contact"
-            className="  hidden lg:inline-flex items-center px-6 py-2.5 border border-[var(--text)] text-[var(--text)] text-[13px]
+          
+          <a  href="#contact"
+            onClick={(e) => handleNavClick(e, "contact")}
+            className="hidden lg:inline-flex items-center px-6 py-2.5 border border-[var(--text)] text-[var(--text)] text-[13px]
               uppercase tracking-[0.1em] rounded-full ease-in-out transition-all duration-500 hover:bg-[var(--text)] hover:text-[var(--bg)]"
           >
-            Hire Me! 
+            Hire Me!
           </a>
         </div>
 
@@ -110,8 +128,8 @@ const Header = () => {
             {isOpen ? <TbX size={28} /> : <TbMenu2 size={28} />}
           </button>
         </div>
-        
       </Container>
+
       {/* Mobile menu */}
       <AnimatePresence>
         {isOpen && (
@@ -128,19 +146,11 @@ const Header = () => {
             <nav className="lg:hidden bg-[var(--bg)] border-b border-[var(--border)]">
               <Container className="flex flex-col gap-5 py-8">
                 {NAV_LINKS.map((link) => (
-                  <a
-                    key={link.id}
+                  
+                  <a  key={link.id}
                     href={`#${link.id}`}
-                    onClick={(e) => {
-                      e.preventDefault();
-
-                      document.getElementById(link.id)?.scrollIntoView({
-                        behavior: "smooth",
-                        block: "start",
-                      });
-
-                      setIsOpen(false);
-                    }}
+                    onClick={(e) => handleNavClick(e, link.id)}
+                    aria-current={activeId === link.id ? "true" : undefined}
                     className={`font-serif italic text-[22px] ${
                       activeId === link.id
                         ? "text-[var(--text)]"
@@ -151,17 +161,9 @@ const Header = () => {
                   </a>
                 ))}
 
-                <a
-                onClick={(e) => {
-                  e.preventDefault();
-
-                  document.getElementById("contact")?.scrollIntoView({
-                    behavior: "smooth",
-                    block: "start",
-                  });
-
-                  setIsOpen(false);
-                }}
+                
+                <a  href="#contact"
+                  onClick={(e) => handleNavClick(e, "contact")}
                   className="mt-2 px-6 py-2.5 border border-[var(--text)] text-[var(--text)] text-[13px] uppercase tracking-[0.1em] rounded-lg ease-in-out transition-all duration-500 text-center"
                 >
                   Hire Me!
