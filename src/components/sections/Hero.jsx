@@ -71,7 +71,7 @@ const Hero = () => {
               download
               className="rounded-full px-6 py-3.5 lg:max-w-[200px] text-center border border-[var(--border)] text-[var(--text)] text-[13px] uppercase tracking-[0.1em] flex items-center gap-2 justify-center
                 transition-[transform,border-color] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]
-                hover:bg-[var(--text)] hover:border-[var(--text)] hover:text-[var(--bg)] hover:-translate-y-0.5"
+                md:hover:bg-[var(--text)] md:hover:border-[var(--text)] md:hover:text-[var(--bg)] md:hover:-translate-y-0.5 active:scale-95"
             >
               <HiOutlineArrowDownTray size={15} /> Resume
             </a>
