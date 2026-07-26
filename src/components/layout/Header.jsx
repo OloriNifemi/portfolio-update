@@ -33,6 +33,26 @@ const Header = () => {
     window.addEventListener("keydown", handleEscape);
     return () => window.removeEventListener("keydown", handleEscape);
   }, [isOpen]);
+    
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (
+        isOpen &&
+        headerRef.current &&
+        !headerRef.current.contains(event.target)
+      ) {
+        setIsOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener("touchstart", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("touchstart", handleClickOutside);
+    };
+  }, [isOpen]);
 
   return (
     <header ref={headerRef}
@@ -110,11 +130,21 @@ const Header = () => {
       >
         {isOpen && (
           <motion.nav
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: "auto", opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
+            initial={{
+              opacity: 0,
+              y: -10,
+            }}
+            animate={{
+              opacity: 1,
+              y: 0,
+            }}
+
+            exit={{
+              opacity: 0,
+              y: -10,
+            }}
             transition={{
-              duration: DURATIONS.fast,
+              duration: 0.8,
               ease: [0.16, 1, 0.3, 1],
             }}
             className="lg:hidden overflow-hidden bg-[var(--bg)] border-b border-[var(--border)]"
