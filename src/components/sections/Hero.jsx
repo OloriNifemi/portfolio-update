@@ -25,7 +25,7 @@ const Hero = () => {
         <div>
           <motion.div {...fadeUp(DELAYS.none, shouldReduceMotion)} className="flex flex-col gap-2 mb-10">
            <p className="text-[13px] tracking-[0.25em] text-[var(--text)] min-h-[16px]">
-            <Typewriter text="She's a Frontend Developer" />
+            <Typewriter text="She's a Frontend Engineer" />
           </p>
             <p className="text-xs uppercase tracking-[0.3em] text-[var(--muted)]">
               Lagos, Nigeria · Available Worldwide
