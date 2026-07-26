@@ -14,7 +14,6 @@ const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const activeId = useActiveSection(NAV_LINKS.map((l) => l.id));
-  const [pendingScroll, setPendingScroll] = useState(null);
 
   const headerRef = useRef(null);
 
@@ -56,7 +55,7 @@ const Header = () => {
 
   return (
     <header ref={headerRef}
-      className={`fixed top-0 left-0 w-full z-50 transition-all duration-500 bg-[var(--bg)]/90 backdrop-blur-none
+      className={`fixed top-0 left-0 w-full z-50 transition-colors duration-300 bg-[var(--bg)]/90 backdrop-blur-none
         ${scrolled ? "border-b border-[var(--border)]" : "border-b border-transparent"}`}
     >
       <Container className="flex items-center justify-between h-20">
@@ -114,75 +113,62 @@ const Header = () => {
         
       </Container>
       {/* Mobile menu */}
-      <AnimatePresence
-        onExitComplete={() => {
-          if (pendingScroll) {
-            document
-              .getElementById(pendingScroll)
-              ?.scrollIntoView({
-                behavior: "smooth",
-                block: "start",
-              });
-
-            setPendingScroll(null);
-          }
-        }}
-      >
+      <AnimatePresence>
         {isOpen && (
-          <motion.nav
-            initial={{
-              opacity: 0,
-              y: -20,
-            }}
-
-            animate={{
-              opacity: 1,
-              y: 0,
-            }}
-
-            exit={{
-              opacity: 0,
-              y: -20,
-            }}
+          <motion.div
+            className="will-change-transform"
+            initial={{ opacity: 0, y: -16 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -16 }}
             transition={{
-              duration: 0.4,
+              duration: 0.22,
               ease: [0.22, 1, 0.36, 1],
             }}
-            className="lg:hidden overflow-hidden bg-[var(--bg)] border-b border-[var(--border)]"
           >
-            <Container className="flex flex-col gap-5 py-8">
-              {NAV_LINKS.map((link) => (
-                <a
-                  key={link.id}
-                  href={`#${link.id}`}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    setPendingScroll(link.id);
-                    setIsOpen(false);
-                  }}
-                  className={`font-serif italic text-[22px] ${
-                    activeId === link.id
-                      ? "text-[var(--text)]"
-                      : "text-[var(--muted)]"
-                  }`}
-                >
-                  {link.label}
-                </a>
-              ))}
+            <nav className="lg:hidden bg-[var(--bg)] border-b border-[var(--border)]">
+              <Container className="flex flex-col gap-5 py-8">
+                {NAV_LINKS.map((link) => (
+                  <a
+                    key={link.id}
+                    href={`#${link.id}`}
+                    onClick={(e) => {
+                      e.preventDefault();
 
-              <a
-                href="#contact"
+                      document.getElementById(link.id)?.scrollIntoView({
+                        behavior: "smooth",
+                        block: "start",
+                      });
+
+                      setIsOpen(false);
+                    }}
+                    className={`font-serif italic text-[22px] ${
+                      activeId === link.id
+                        ? "text-[var(--text)]"
+                        : "text-[var(--muted)]"
+                    }`}
+                  >
+                    {link.label}
+                  </a>
+                ))}
+
+                <a
                 onClick={(e) => {
                   e.preventDefault();
-                  setPendingScroll("contact");
+
+                  document.getElementById("contact")?.scrollIntoView({
+                    behavior: "smooth",
+                    block: "start",
+                  });
+
                   setIsOpen(false);
                 }}
-                className="mt-2 px-6 py-2.5 border border-[var(--text)] text-[var(--text)] text-[13px] uppercase tracking-[0.1em] rounded-lg ease-in-out transition-all duration-500 text-center"
-              >
-                Hire Me!
-              </a>
-            </Container>
-          </motion.nav>
+                  className="mt-2 px-6 py-2.5 border border-[var(--text)] text-[var(--text)] text-[13px] uppercase tracking-[0.1em] rounded-lg ease-in-out transition-all duration-500 text-center"
+                >
+                  Hire Me!
+                </a>
+              </Container>
+            </nav>
+          </motion.div>
         )}
       </AnimatePresence>
     </header>
