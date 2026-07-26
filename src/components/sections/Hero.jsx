@@ -35,7 +35,7 @@ const Hero = () => {
           </motion.div>
 
           <motion.h1
-            {...fadeUp(DELAYS.small, shouldReduceMotion)}
+            {...fadeUp(0.08, shouldReduceMotion)}
             className="font-serif text-[var(--text)] leading-[1.15] text-[clamp(2.25rem,6vw,4.25rem)]"
           >
             Creating thoughtful
@@ -43,7 +43,7 @@ const Hero = () => {
             digital experiences
           </motion.h1>
 
-          <motion.p {...fadeUp(DELAYS.normal, shouldReduceMotion)} className="mt-5 text-2xl font-serif italic text-[var(--muted)]">
+          <motion.p {...fadeUp(0.14, shouldReduceMotion)} className="mt-5 text-2xl font-serif italic text-[var(--muted)]">
             — Precious Obafemi
           </motion.p>
 
