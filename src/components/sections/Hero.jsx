@@ -56,7 +56,7 @@ const Hero = () => {
             last transition.
           </motion.p> */}
 
-          <motion.div {...fadeUp(0.38, shouldReduceMotion)} className="mt-12 flex max-sm:flex-col gap-4">
+          <motion.div {...fadeUp(0.22, shouldReduceMotion)} className="mt-12 flex max-sm:flex-col gap-4">
             
             <a  href="#projects"
               className="rounded-full px-6 py-3.5 lg:max-w-[200px] text-center bg-[var(--text)] text-[var(--bg)] text-[13px] uppercase tracking-[0.1em]
@@ -77,7 +77,7 @@ const Hero = () => {
             </a>
           </motion.div>
 
-          <motion.div {...fadeUp(0.46, shouldReduceMotion)} className="mt-14 flex gap-3">
+          <motion.div {...fadeUp(0.30, shouldReduceMotion)} className="mt-14 flex gap-3">
             {SOCIAL_LINKS.map((s) => {
               const Icon = s.id === 'github' ? PiGithubLogoFill : s.id === 'linkedin' ? TfiLinkedin : BiLogoGmail;
               return (
@@ -113,7 +113,7 @@ const Hero = () => {
             aria-hidden="true"
             initial={shouldReduceMotion ? false : { opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 1, delay: 0.3, ease: EASE }}
+            transition={{ duration: 0.7, delay: 0.12, ease: EASE }}
             className="absolute top-6 left-6 right-[-24px] bottom-[-24px] border border-black/15 pointer-events-none"
             style={{ inset: "6px -6px -6px 6px" }}
           />
@@ -122,7 +122,7 @@ const Hero = () => {
             aria-hidden="true"
             initial={shouldReduceMotion ? false : { opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 1, delay: 0.45, ease: EASE }}
+            transition={{ duration: 0.7, delay: 0.2, ease: EASE }}
             style={{ borderColor: GOLD }}
             className="absolute bottom-0 left-0 translate-x-3 translate-y-3 w-[75%] h-[75%] border pointer-events-none"
           />
@@ -143,7 +143,7 @@ const Hero = () => {
                 width={400}
                 height={500}
                 className="absolute inset-0 w-full h-full object-cover contrast-[1.05] grayscale
-                  transition-[filter,transform] duration-[900ms] ease-[cubic-bezier(0.16,1,0.3,1)]
+                  transition-[filter,transform] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]
                   group-hover:grayscale-0 group-hover:scale-[1.03]"
               />
 
@@ -151,7 +151,7 @@ const Hero = () => {
                 aria-hidden="true"
                 initial={shouldReduceMotion ? false : { scaleX: 0 }}
                 animate={{ scaleX: 1 }}
-                transition={{ duration: 1.6, ease: [0.16, 1, 0.3, 1], delay: 0.6 }}
+                transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1], delay: 0.2, }}
                 style={{ transformOrigin: "left", backgroundColor: GOLD }}
                 className="absolute z-20 top-0 left-0 w-full h-px"
               />
@@ -159,7 +159,7 @@ const Hero = () => {
                 aria-hidden="true"
                 initial={shouldReduceMotion ? false : { scaleY: 0 }}
                 animate={{ scaleY: 1 }}
-                transition={{ duration: 1.6, ease: [0.16, 1, 0.3, 1], delay: 0.6 }}
+                transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1], delay: 0.2, }}
                 style={{ transformOrigin: "top", backgroundColor: GOLD }}
                 className="absolute z-20 top-0 left-0 w-px h-full"
               />
