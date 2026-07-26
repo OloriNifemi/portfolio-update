@@ -56,7 +56,7 @@ const Header = () => {
 
   return (
     <header ref={headerRef}
-      className={`fixed top-0 left-0 w-full z-50 transition-all duration-500 bg-[var(--bg)]/90 backdrop-blur-md
+      className={`fixed top-0 left-0 w-full z-50 transition-all duration-500 bg-[var(--bg)]/90 backdrop-blur-none
         ${scrolled ? "border-b border-[var(--border)]" : "border-b border-transparent"}`}
     >
       <Container className="flex items-center justify-between h-20">
@@ -144,7 +144,7 @@ const Header = () => {
               y: -10,
             }}
             transition={{
-              duration: 0.8,
+              duration: 0.65,
               ease: [0.16, 1, 0.3, 1],
             }}
             className="lg:hidden overflow-hidden bg-[var(--bg)] border-b border-[var(--border)]"
