@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { TbMenu2, TbX } from "react-icons/tb";
 import Container from "../ui/Container";
@@ -15,6 +15,8 @@ const Header = () => {
   const [scrolled, setScrolled] = useState(false);
   const activeId = useActiveSection(NAV_LINKS.map((l) => l.id));
   const [pendingScroll, setPendingScroll] = useState(null);
+
+  const headerRef = useRef(null);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
@@ -33,7 +35,7 @@ const Header = () => {
   }, [isOpen]);
 
   return (
-    <header
+    <header ref={headerRef}
       className={`fixed top-0 left-0 w-full z-50 transition-all duration-500 bg-[var(--bg)]/90 backdrop-blur-md
         ${scrolled ? "border-b border-[var(--border)]" : "border-b border-transparent"}`}
     >

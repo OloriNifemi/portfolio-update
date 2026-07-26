@@ -8,11 +8,9 @@ import { HiOutlineArrowDown, HiOutlineArrowDownTray } from "react-icons/hi2";
 import Typewriter from "../ui/Typewriter";
 import Container from "../ui/Container";
 import portrait from "../../assets/aboutImg.png";
-import { EASE, COLORS, DELAYS } from "../constants/theme";
+import { EASE, DELAYS } from "../constants/theme";
 import { fadeUp, scaleFadeIn } from "../utils/motion";
 import { SOCIAL_LINKS } from "../constants/nav";
-
-const GOLD = COLORS.light.accent;
 
 const Hero = () => {
   const shouldReduceMotion = useReducedMotion();
@@ -25,7 +23,7 @@ const Hero = () => {
       <Container className="grid lg:grid-cols-[1.1fr_0.9fr] gap-16 lg:gap-24 xl:gap-32 items-center">
         {/* Text */}
         <div>
-          <motion.div {...fadeUp(0, shouldReduceMotion)} className="flex flex-col gap-2 mb-10">
+          <motion.div {...fadeUp(DELAYS.none, shouldReduceMotion)} className="flex flex-col gap-2 mb-10">
            <p className="text-[13px] tracking-[0.25em] text-[var(--text)] min-h-[16px]">
             <Typewriter text="She's a Frontend Developer" />
           </p>
@@ -35,7 +33,7 @@ const Hero = () => {
           </motion.div>
 
           <motion.h1
-            {...fadeUp(0.08, shouldReduceMotion)}
+            {...fadeUp(DELAYS.small, shouldReduceMotion)}
             className="font-serif text-[var(--text)] leading-[1.15] text-[clamp(2.25rem,6vw,4.25rem)]"
           >
             Creating thoughtful
@@ -43,7 +41,7 @@ const Hero = () => {
             digital experiences
           </motion.h1>
 
-          <motion.p {...fadeUp(0.14, shouldReduceMotion)} className="mt-5 text-2xl font-serif italic text-[var(--muted)]">
+          <motion.p {...fadeUp(DELAYS.normal, shouldReduceMotion)} className="mt-5 text-2xl font-serif italic text-[var(--muted)]">
             — Precious Obafemi
           </motion.p>
 
@@ -56,7 +54,7 @@ const Hero = () => {
             last transition.
           </motion.p> */}
 
-          <motion.div {...fadeUp(0.22, shouldReduceMotion)} className="mt-12 flex max-sm:flex-col gap-4">
+          <motion.div {...fadeUp(DELAYS.medium, shouldReduceMotion)} className="mt-12 flex max-sm:flex-col gap-4">
             
             <a  href="#projects"
               className="rounded-full px-6 py-3.5 lg:max-w-[200px] text-center bg-[var(--text)] text-[var(--bg)] text-[13px] uppercase tracking-[0.1em]
@@ -77,7 +75,7 @@ const Hero = () => {
             </a>
           </motion.div>
 
-          <motion.div {...fadeUp(0.30, shouldReduceMotion)} className="mt-14 flex gap-3">
+          <motion.div {...fadeUp(DELAYS.large, shouldReduceMotion)} className="mt-14 flex gap-3">
             {SOCIAL_LINKS.map((s) => {
               const Icon = s.id === 'github' ? PiGithubLogoFill : s.id === 'linkedin' ? TfiLinkedin : BiLogoGmail;
               return (
@@ -123,7 +121,7 @@ const Hero = () => {
             initial={shouldReduceMotion ? false : { opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.7, delay: 0.2, ease: EASE }}
-            style={{ borderColor: GOLD }}
+            style={{ borderColor: "var(--accent)" }}
             className="absolute bottom-0 left-0 translate-x-3 translate-y-3 w-[75%] h-[75%] border pointer-events-none"
           />
 
@@ -152,7 +150,7 @@ const Hero = () => {
                 initial={shouldReduceMotion ? false : { scaleX: 0 }}
                 animate={{ scaleX: 1 }}
                 transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1], delay: 0.2, }}
-                style={{ transformOrigin: "left", backgroundColor: GOLD }}
+                style={{ transformOrigin: "left", backgroundColor: "var(--accent)" }}
                 className="absolute z-20 top-0 left-0 w-full h-px"
               />
               <motion.div
@@ -160,7 +158,7 @@ const Hero = () => {
                 initial={shouldReduceMotion ? false : { scaleY: 0 }}
                 animate={{ scaleY: 1 }}
                 transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1], delay: 0.2, }}
-                style={{ transformOrigin: "top", backgroundColor: GOLD }}
+                style={{ transformOrigin: "top", backgroundColor: "var(--accent)" }}
                 className="absolute z-20 top-0 left-0 w-px h-full"
               />
             </div>
