@@ -13,6 +13,7 @@ import Services from "./components/sections/Services";
 import Contact from "./components/sections/Contact";
 
 import Preloader from "./components/ui/Preloader";
+import ScrollToTop from "./components/ui/ScrollToTop";
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -68,6 +69,7 @@ function App() {
           </main>
 
           <Footer />
+          <ScrollToTop />
         </div>
       )}
     </>
