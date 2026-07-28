@@ -7,7 +7,7 @@ import { HiOutlineArrowDown, HiOutlineArrowDownTray } from "react-icons/hi2";
 
 import Typewriter from "../ui/Typewriter";
 import Container from "../ui/Container";
-import portrait from "../../assets/aboutImg.png";
+import portrait from "../../assets/aboutImg.jpeg";
 import { EASE, DELAYS } from "../constants/theme";
 import { fadeUp, scaleFadeIn } from "../utils/motion";
 import { SOCIAL_LINKS } from "../constants/nav";
@@ -140,9 +140,14 @@ const Hero = () => {
                 fetchPriority="high"
                 width={400}
                 height={500}
-                className="absolute inset-0 w-full h-full object-cover contrast-[1.05] grayscale
-                  transition-[filter,transform] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]
-                  group-hover:grayscale-0 group-hover:scale-[1.03]"
+                className="
+                absolute inset-0 w-full h-full object-cover
+                contrast-[1.05] brightness-[0.98] saturate-110
+                transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]
+                group-hover:scale-[1.03]
+                group-hover:brightness-100
+                group-hover:saturate-125
+                "
               />
 
               <motion.div
