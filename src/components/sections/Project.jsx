@@ -17,7 +17,7 @@ const RAW_PROJECTS = [
     image: Ecommerce,
     desc: "A responsive storefront with cart, checkout flow, and product filtering.",
     tags: ["React", "Vite", "Tailwind CSS", "Framer Motion", "Sanity.io"],
-    liveHref: "https://loc-jewelry-store-olori.vercel.app/",
+    liveHref: "https://loc-jewelry-store-olori.vercel.app",
     codeHref: "https://github.com/OloriNifemi/Loc-Jewelry-store.git",
   },
   {
